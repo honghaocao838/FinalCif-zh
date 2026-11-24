@@ -49,7 +49,7 @@ if (-not (Test-Path $checkdef)) {
 
 Write-Host "==> patching fastmolwidget labels"
 & (Join-Path $build 'python.exe') -I (Join-Path $PSScriptRoot 'patch_fastmolwidget.py') `
-    (Join-Path $build 'Lib\site-packages') (Join-Path $repo 'localization\translations\70-viewer.json')
+    (Join-Path $build 'Lib\site-packages') (Join-Path $PSScriptRoot 'fastmolwidget_labels.json')
 
 Write-Host "==> trimming unused components"
 & (Join-Path $build 'python.exe') -I (Join-Path $PSScriptRoot 'trim_runtime.py') $build

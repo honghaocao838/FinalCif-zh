@@ -170,9 +170,15 @@ def find_matching_fcf_file(cif_file: Path,
 
 def _post_form(form: HtmlForm, base_url: str, files: dict | None = None) -> str:
     response = requests.post(form.url(base_url), data=form.payload, files=files, headers=REQUEST_HEADERS,
-                             timeout=900)
+                             timeout=(5, 900))
     response.raise_for_status()
     return response.text
+
+
+def classify_request_exception(exc: Exception) -> str:
+    """Return a short, user-facing Chinese reason for a failed HTTP request."""
+    from finalcif.tools.connectivity import classify_exception
+    return classify_exception(exc)
 
 
 def upload_structure_factors(response_html: str, fcf_file: Path, url: str,
@@ -221,6 +227,7 @@ def submit_without_structure_factors(response_html: str, url: str,
 class CheckCif(QThread):
     progress = Signal(str)
     failed = Signal(str)
+    state = Signal(str)
 
     def __init__(self, parent, cif: CifContainer, outfile: Path, hkl_upload: bool = True,
                  pdf: bool = False, url: str = '', full_iucr: bool = False, check_duplicates: bool = True,
@@ -235,6 +242,11 @@ class CheckCif(QThread):
         self.full_iucr = full_iucr
         self.check_duplicates = check_duplicates
         self.explain_c = explain_c
+        self._cancelled = False
+
+    def cancel(self) -> None:
+        """Stop waiting for the result and discard any late response."""
+        self._cancelled = True
 
     def _html_check(self) -> None:
         if self.hkl_upload:
@@ -253,6 +265,10 @@ class CheckCif(QThread):
         """
         Requests a checkcif run from IUCr servers.
         """
+        self.state.emit('preparing')
+        if self._cancelled:
+            self.state.emit('cancelled')
+            return
         self._html_check()
         temp_cif = bytes(self.cif.cif_as_string(), encoding='ascii')
         validation_type = 'checkcif_only'
@@ -273,21 +289,33 @@ class CheckCif(QThread):
             "duplic"    : "duplicyes" if self.check_duplicates else "duplicno",
         }
         t1 = time.perf_counter()
-        self.progress.emit('Report request sent. Please wait...')
+        self.progress.emit('已提交，等待服务器返回…')
+        self.state.emit('submitted')
         req = self._do_the_server_request(headers, temp_cif)
+        if self._cancelled:
+            self.state.emit('cancelled')
+            return
         if req is not None:
             self.progress.emit('request finished')
             if req.status_code != 200:
-                self.failed.emit(server_error_message(req))
+                self.failed.emit(f'服务器返回 HTTP {req.status_code} {req.reason}')
             else:
                 t2 = time.perf_counter()
                 time.sleep(0.1)
                 self.progress.emit(f'Report took {round(t2 - t1, 2)!s}s.')
+                if self._cancelled:
+                    self.state.emit('cancelled')
+                    return
                 try:
                     self.html_out_file.write_bytes(fix_iucr_urls(req.content.decode()).encode())
                 except PermissionError:
                     print('html checkcif result could not be written.')
+                    self.failed.emit('无法写入 CheckCIF 结果文件，请检查文件是否被占用。')
                     return
+                except (OSError, UnicodeDecodeError) as exc:
+                    self.failed.emit(f'CheckCIF 结果处理失败：{exc}')
+                    return
+                self.state.emit('success')
         with suppress(Exception):
             Path('finalcif_checkcif_tmp.cif').unlink(missing_ok=True)
 
@@ -295,19 +323,11 @@ class CheckCif(QThread):
         req = None
         try:
             req = requests.post(self.checkcif_url, files={'file': temp_cif}, data=headers,
-                                headers=REQUEST_HEADERS, timeout=900)
-        except requests.exceptions.ReadTimeout:
-            message = r"Checkcif server took too long. Try it at 'https://checkcif.iucr.org' directly."
-            self.failed.emit(message)
-        except requests.exceptions.MissingSchema:
-            message = "URL for checkcif missing in options."
-            self.failed.emit(message)
-        except requests.exceptions.ConnectionError:
-            message = "The checkcif server is not reachable. Is your network connection working?<br>" \
-                      "The server URL might also have changed..."
-            self.failed.emit(message)
-        except requests.exceptions.RequestException as e:
-            self.failed.emit(f'CheckCIF request failed: {escape(str(e))}')
+                                headers=REQUEST_HEADERS, timeout=(5, 900))
+        except Exception as exc:
+            if self._cancelled:
+                return None
+            self.failed.emit(f'失败：{classify_request_exception(exc)}')
         return req
 
     def _open_pdf_result(self) -> None:

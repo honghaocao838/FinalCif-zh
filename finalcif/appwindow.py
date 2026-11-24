@@ -17,6 +17,7 @@ import warnings
 from collections.abc import Callable
 from contextlib import suppress
 from datetime import datetime
+from hashlib import sha256
 from math import sin, radians
 from pathlib import Path, WindowsPath
 from typing import cast, TYPE_CHECKING
@@ -43,8 +44,8 @@ if hasattr(gemmi, 'set_leak_warnings'):
 import requests
 from qtpy import QtCore, QtGui, QtWidgets, compat
 from qtpy.QtCore import Qt, QEvent
-from qtpy.QtWidgets import (QMainWindow, QCheckBox, QApplication,
-                            QPlainTextEdit, QMessageBox, QScrollBar)
+from qtpy.QtWidgets import (QMainWindow, QCheckBox, QApplication, QPushButton, QLabel,
+                            QPlainTextEdit, QMessageBox, QScrollBar, QToolButton)
 from gemmi import cif
 
 from finalcif import VERSION
@@ -69,6 +70,11 @@ from finalcif.gui.finalcif_gui_ui import Ui_FinalCifWindow
 from finalcif.gui.import_selector import ImportSelector
 from finalcif.gui.squeeze_dialog import SqueezeSolventDialog, SqueezeMode, has_smtbx_masks_loop, has_squeeze_loop
 from finalcif.gui.plaintextedit import MyQPlainTextEdit
+from finalcif.gui.table_filter_bar import (TableFilterBar, FILTER_ALL, FILTER_MISSING, FILTER_DATA,
+                                           FILTER_INVALID, FILTER_TEMPLATE, FILTER_REQUIRED_MISSING,
+                                           FILTER_REQUIRED_ALL, FILTER_CHECKCIF)
+from finalcif.cif.key_metadata import (load_key_aliases, load_key_required, alias_index,
+                                       user_config_path)
 from finalcif.gui.validators import calculated_z_validator
 from finalcif.gui.checkcif_browser import CheckCifBrowser
 from finalcif.gui.text_value_editor import MyTextTemplateEdit, TextEditItem
@@ -95,6 +101,10 @@ from finalcif.tools.sumformula import (formula_str_to_dict, formula_to_html, sum
                                        with_solvent_marker)
 
 DEBUG = False
+# Marker row that separates missing from already-present CIF values.  The
+# producer lives in CifContainer.key_value_pairs(); both sides must use the
+# same literal or the separator row is rendered as a normal key.
+SEPARATOR_KEY = 'These below are already in:'
 app = QApplication.instance()
 if app is None:
     app = QApplication([])
@@ -235,6 +245,9 @@ class AppWindow(QMainWindow):
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(0)
         self.ui.TemplatesStackedWidget.setCurrentIndex(0)
         self.ui.MainStackedWidget.got_to_main_page()
+        self._init_table_filter_ui()
+        self._init_checkcif_ui()
+        self._init_layout_ui()
         self.set_initial_button_states()
         self.video = VZSImageViewer(self)
         self.ui.picturesTabWidget.setCurrentIndex(0)
@@ -285,6 +298,512 @@ class AppWindow(QMainWindow):
             self.ui.textSizeSpinBox.setValue(fontsize)
         else:
             self.ui.textSizeSpinBox.setValue(0)
+
+    # ------------------------------------------------------------------
+    # Main table filter / validation summary
+    # ------------------------------------------------------------------
+
+    def _init_table_filter_ui(self) -> None:
+        self.filter_bar = TableFilterBar(self.ui.page_MainTable)
+        layout = self.ui.verticalLayout
+        layout.insertWidget(1, self.filter_bar)
+
+        self.validation_summary_button = QPushButton('格式校验通过', self.ui.page_MainTable)
+        self.validation_summary_button.setObjectName('validationSummaryButton')
+        self.validation_summary_button.setFlat(True)
+        self.validation_summary_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        self.validation_summary_button.setStyleSheet('text-align:left; border:none; padding:2px;')
+        self.validation_summary_button.clicked.connect(self._jump_to_first_invalid)
+        layout.insertWidget(layout.indexOf(self.ui.cif_main_table) + 1,
+                           self.validation_summary_button)
+
+        self._filter_timer = QtCore.QTimer(self)
+        self._filter_timer.setSingleShot(True)
+        self._filter_timer.setInterval(150)
+        self._filter_timer.timeout.connect(self.apply_table_filter)
+        self._table_refresh_timer = QtCore.QTimer(self)
+        self._table_refresh_timer.setSingleShot(True)
+        self._table_refresh_timer.setInterval(200)
+        self._table_refresh_timer.timeout.connect(self._refresh_table_indicators)
+
+        self.key_aliases = load_key_aliases(
+            user_path=user_config_path('key_aliases.json'))
+        self.key_alias_index = alias_index(self.key_aliases)
+        self.required_entries, self.required_meta = load_key_required(
+            user_path=user_config_path('key_required.json'))
+        self.mentioned_keys: set[str] = set()
+        self._first_invalid_row = -1
+        self._first_required_missing_row = -1
+        self._filter_syncing = False
+
+        self.filter_bar.set_required_options_visible(bool(self.required_entries))
+        self.filter_bar.set_checkcif_option_available(False)
+        self.filter_bar.filterChanged.connect(self.apply_table_filter)
+        self.filter_bar.searchChanged.connect(self._on_filter_search_changed)
+        self.filter_bar.requiredCountClicked.connect(self._jump_to_first_required_missing)
+
+    def _on_filter_search_changed(self, text: str) -> None:
+        if self._filter_syncing:
+            return
+        self._filter_syncing = True
+        try:
+            blocked = self.ui.searchMainTableLineEdit.blockSignals(True)
+            self.ui.searchMainTableLineEdit.setText(text)
+            self.ui.searchMainTableLineEdit.blockSignals(blocked)
+        finally:
+            self._filter_syncing = False
+        self._filter_timer.start()
+
+    def _on_legacy_search_changed(self, text: str) -> None:
+        if self._filter_syncing:
+            return
+        self._filter_syncing = True
+        try:
+            self.filter_bar.set_search_text(text)
+        finally:
+            self._filter_syncing = False
+        self._filter_timer.start()
+
+    @staticmethod
+    def _is_blank(value: str) -> bool:
+        return value.strip() in {'', '?', '.'}
+
+    def _row_is_invalid(self, row: int) -> bool:
+        widget = self.ui.cif_main_table.cellWidget(row, Column.EDIT)
+        return bool(widget is not None and hasattr(widget, 'getBackgroundColor')
+                    and widget.getBackgroundColor() == light_red)
+
+    def apply_table_filter(self) -> None:
+        """Hide non-matching rows without rebuilding the model or cell widgets."""
+        table = self.ui.cif_main_table
+        if table.rows_count == 0:
+            self.filter_bar.set_counts(0, 0)
+            return
+        status = self.filter_bar.status
+        query = self.filter_bar.search_text.strip().casefold()
+        dotted_query = query.replace('.', '_')
+        template_keys = set(self.settings.list_saved_items('text_templates') or [])
+        shown = total = required_missing = 0
+        first_alias_row = -1
+        first_required_row = -1
+        search_active = bool(query)
+        for row in range(table.rows_count):
+            row_data = table.row_data(row)
+            if row_data is None or row_data.is_separator:
+                table.setRowHidden(row, search_active or status != FILTER_ALL)
+                continue
+            key = row_data.key
+            if not key or key.startswith('_vrf_'):
+                table.setRowHidden(row, search_active or status != FILTER_ALL)
+                continue
+            total += 1
+            edit_widget = table.cellWidget(row, Column.EDIT)
+            if edit_widget is not None and hasattr(edit_widget, 'toPlainText'):
+                edit_text = edit_widget.toPlainText()
+            else:
+                edit_text = row_data.edit_value
+            values = [row_data.cif_value, row_data.data_value, edit_text]
+            missing = all(self._is_blank(value) for value in values)
+            data_filled = not self._is_blank(values[Column.DATA])
+            invalid = bool(edit_widget is not None and hasattr(edit_widget, 'getBackgroundColor')
+                           and edit_widget.getBackgroundColor() == light_red)
+            has_template = key in template_keys
+            required = self.required_entries.get(key)
+            if required and missing:
+                required_missing += 1
+                if first_required_row < 0:
+                    first_required_row = row
+
+            if status == FILTER_ALL:
+                status_match = True
+            elif status == FILTER_MISSING:
+                status_match = missing
+            elif status == FILTER_DATA:
+                status_match = data_filled
+            elif status == FILTER_INVALID:
+                status_match = invalid
+            elif status == FILTER_TEMPLATE:
+                status_match = has_template
+            elif status == FILTER_REQUIRED_MISSING:
+                status_match = bool(required and missing)
+            elif status == FILTER_REQUIRED_ALL:
+                status_match = bool(required)
+            elif status == FILTER_CHECKCIF:
+                status_match = key in self.mentioned_keys
+            else:
+                status_match = True
+
+            search_match = True
+            if search_active:
+                aliases = self.key_aliases.get(key, [])
+                haystack = ' '.join([key, *aliases, *values]).casefold()
+                search_match = query in haystack or dotted_query in haystack
+                if search_match and aliases and first_alias_row < 0:
+                    if any(query in alias.casefold() or dotted_query in alias.casefold()
+                           for alias in aliases):
+                        first_alias_row = row
+
+            visible = status_match and search_match
+            table.setRowHidden(row, not visible)
+            if visible:
+                shown += 1
+
+        self.filter_bar.set_counts(shown, total)
+        if self.required_entries:
+            self.filter_bar.set_required_missing(required_missing)
+        self._first_required_missing_row = first_required_row
+        if first_alias_row >= 0:
+            table.selectRow(first_alias_row)
+            table.scrollTo(table.model().index(first_alias_row, Column.EDIT))
+
+    def _refresh_table_indicators(self) -> None:
+        self.update_validation_summary()
+        self.apply_table_filter()
+        self._check_result_staleness()
+
+    def _schedule_table_refresh(self) -> None:
+        self._table_refresh_timer.start()
+
+    def update_validation_summary(self) -> None:
+        table = self.ui.cif_main_table
+        count = 0
+        first = -1
+        for row in range(table.rows_count):
+            row_data = table.row_data(row)
+            if row_data is None or row_data.is_separator or row_data.key.startswith('_vrf_'):
+                continue
+            if self._row_is_invalid(row):
+                count += 1
+                if first < 0:
+                    first = row
+        self._first_invalid_row = first
+        if count:
+            self.validation_summary_button.setText(f'{count} 项格式不合法')
+            self.validation_summary_button.setEnabled(True)
+            self.validation_summary_button.setStyleSheet(
+                'text-align:left; border:none; padding:2px; color:#b00020;')
+        else:
+            self.validation_summary_button.setText('格式校验通过')
+            self.validation_summary_button.setEnabled(False)
+            self.validation_summary_button.setStyleSheet(
+                'text-align:left; border:none; padding:2px; color:#2e7d32;')
+
+    def _validate_edit_cells(self) -> None:
+        table = self.ui.cif_main_table
+        for row in range(table.rows_count):
+            widget = table.cellWidget(row, Column.EDIT)
+            if widget is None or not hasattr(widget, 'validate_text'):
+                continue
+            text = widget.toPlainText() if hasattr(widget, 'toPlainText') else ''
+            if text.strip():
+                widget.validate_text(text)
+
+    def _jump_to_first_invalid(self) -> None:
+        if self._first_invalid_row >= 0:
+            row = self._first_invalid_row
+            self.ui.cif_main_table.setCurrentCell(row, Column.EDIT)
+            self.ui.cif_main_table.scrollTo(self.ui.cif_main_table.model().index(row, Column.EDIT))
+
+    def _jump_to_first_required_missing(self) -> None:
+        if self._first_required_missing_row >= 0:
+            row = self._first_required_missing_row
+            self.ui.cif_main_table.setCurrentCell(row, Column.EDIT)
+            self.ui.cif_main_table.scrollTo(self.ui.cif_main_table.model().index(row, Column.EDIT))
+        else:
+            self.filter_bar.jump_to_required_option()
+
+    def _connect_edit_widget(self, row: int) -> None:
+        widget = self.ui.cif_main_table.cellWidget(row, Column.EDIT)
+        if widget is None or getattr(widget, '_filter_signals_connected', False):
+            return
+        if hasattr(widget, 'textChanged'):
+            widget.textChanged.connect(self._schedule_table_refresh)
+            widget._filter_signals_connected = True
+        elif hasattr(widget, 'currentTextChanged'):
+            widget.currentTextChanged.connect(self._schedule_table_refresh)
+            widget._filter_signals_connected = True
+
+    def _connect_edit_widgets(self) -> None:
+        for row in range(self.ui.cif_main_table.rows_count):
+            self._connect_edit_widget(row)
+
+    # ------------------------------------------------------------------
+    # CheckCIF result summary, online state and connectivity
+    # ------------------------------------------------------------------
+
+    def _init_checkcif_ui(self) -> None:
+        from finalcif.gui.checkcif_summary import CheckCifSummaryBar
+        self.checkcif_summary_online = CheckCifSummaryBar(self.ui.html_page)
+        self.ui.htmlCHeckCifGridLayout.addWidget(self.checkcif_summary_online, 0, 0)
+        self.ui.htmlCHeckCifGridLayout.setRowStretch(0, 0)
+        self.ui.htmlCHeckCifGridLayout.setRowStretch(1, 1)
+        self.ui.htmlCHeckCifGridLayout.setColumnStretch(0, 1)
+
+        self.checkcif_summary_offline = CheckCifSummaryBar(self.ui.platon_page)
+        self.ui.verticalLayout_11.insertWidget(0, self.checkcif_summary_offline)
+
+        self.checkcif_status_label = QLabel('未运行', self.ui.ButtonFrame)
+        self.checkcif_status_label.setObjectName('checkcifStatusLabel')
+        self.checkcif_log_status_label = QLabel('未运行', self.ui.groupBox_7)
+        self.checkcif_log_status_label.setObjectName('checkcifLogStatusLabel')
+        self.ui.verticalLayout_10.insertWidget(0, self.checkcif_log_status_label)
+        self.connectivity_label = QLabel('', self.ui.ButtonFrame)
+        self.connectivity_label.setObjectName('connectivityLabel')
+        self.connectivity_button = QPushButton('测试连接', self.ui.ButtonFrame)
+        self.connectivity_button.setObjectName('connectivityButton')
+        self.connectivity_button.setToolTip('检查 CheckCIF 服务器是否可访问')
+        self.connectivity_button.clicked.connect(self.test_checkcif_connection)
+        self.ui.horizontalLayout_3.addWidget(self.checkcif_status_label, 1)
+        self.ui.horizontalLayout_3.addWidget(self.connectivity_label)
+        self.ui.horizontalLayout_3.addWidget(self.connectivity_button)
+
+        self._online_button_text = self.ui.CheckcifHTMLOnlineButton.text()
+        self._checkcif_running = False
+        self._checkcif_cancelled = False
+        self._checkcif_failed_flag = False
+        self._checkcif_start_time = 0.0
+        self._checkcif_busy_hint_shown = False
+        self._checkcif_result_hash = ''
+        self._checkcif_result_time: datetime | None = None
+        self._checkcif_timer = QtCore.QTimer(self)
+        self._checkcif_timer.setInterval(500)
+        self._checkcif_timer.timeout.connect(self._tick_checkcif)
+        self._connectivity_thread = None
+
+    def _set_checkcif_state(self, state: str, detail: str = '', elapsed: float | None = None) -> None:
+        if state == 'idle':
+            text = '未运行'
+        elif state == 'preparing':
+            text = '正在准备 CIF'
+        elif state == 'submitted':
+            text = '已提交，等待服务器返回（已等待 0 s）'
+        elif state == 'success':
+            text = f'完成，用时 {elapsed:.1f} s' if elapsed is not None else '完成'
+        elif state == 'failed':
+            text = f'失败：{detail}' if detail else '失败'
+        elif state == 'cancelled':
+            text = '已取消'
+        else:
+            text = detail or state
+        self.checkcif_status_label.setText(text)
+        self.checkcif_log_status_label.setText(text)
+        for bar in (self.checkcif_summary_online, self.checkcif_summary_offline):
+            with suppress(Exception):
+                bar.set_status(text)
+
+    def _tick_checkcif(self) -> None:
+        elapsed = time.perf_counter() - self._checkcif_start_time
+        text = f'已提交，等待服务器返回（已等待 {elapsed:.0f} s）'
+        if elapsed > 60 and not self._checkcif_busy_hint_shown:
+            self._checkcif_busy_hint_shown = True
+            hint = '服务器较忙，通常需要 10 至 60 s，可继续等待或取消。'
+            self._log_checkcif(hint)
+            text += '；' + hint
+        self.checkcif_status_label.setText(text)
+        self.checkcif_log_status_label.setText(text)
+        for bar in (self.checkcif_summary_online, self.checkcif_summary_offline):
+            with suppress(Exception):
+                bar.set_status(text)
+
+    def _begin_checkcif_run(self) -> None:
+        self._checkcif_running = True
+        self._checkcif_cancelled = False
+        self._checkcif_failed_flag = False
+        self._checkcif_busy_hint_shown = False
+        self.ui.CheckcifHTMLOnlineButton.setText('取消')
+        self.ui.CheckcifHTMLOnlineButton.setEnabled(True)
+        self.ui.CheckcifPDFOnlineButton.setDisabled(True)
+        self._set_checkcif_state('preparing')
+
+    def _stop_checkcif_timer(self) -> float:
+        self._checkcif_timer.stop()
+        if not self._checkcif_start_time:
+            return 0.0
+        elapsed = time.perf_counter() - self._checkcif_start_time
+        self._checkcif_start_time = 0.0
+        return elapsed
+
+    def _end_checkcif_run(self) -> float:
+        elapsed = self._stop_checkcif_timer()
+        self._checkcif_running = False
+        self.ui.CheckcifHTMLOnlineButton.setText(self._online_button_text)
+        self.ui.CheckcifHTMLOnlineButton.setEnabled(True)
+        self.ui.CheckcifPDFOnlineButton.setEnabled(True)
+        return elapsed
+
+    def _cancel_checkcif(self) -> None:
+        if not self._checkcif_running:
+            return
+        self._checkcif_cancelled = True
+        if self.ckf is not None:
+            with suppress(Exception):
+                self.ckf.cancel()
+        self._end_checkcif_run()
+        self._set_checkcif_state('cancelled')
+        self._log_checkcif('已取消。HTTP 请求无法中断，后台线程会自行结束，结果将被丢弃。')
+
+    def _on_checkcif_state(self, state: str) -> None:
+        if self.sender() is not None and self.sender() is not self.ckf:
+            return
+        if self._checkcif_cancelled and state != 'cancelled':
+            return
+        if state == 'submitted':
+            self._checkcif_start_time = time.perf_counter()
+            self._checkcif_timer.start()
+            self._set_checkcif_state('submitted')
+            self._log_checkcif('已提交，等待服务器返回…')
+        elif state == 'cancelled':
+            self._end_checkcif_run()
+            self._set_checkcif_state('cancelled')
+        elif state == 'preparing':
+            self._set_checkcif_state('preparing')
+
+    def _record_checkcif_result(self) -> None:
+        with suppress(Exception):
+            text = self.cif.cif_as_string()
+            self._checkcif_result_hash = sha256(text.encode('ascii', 'ignore')).hexdigest()
+            self._checkcif_result_time = datetime.now()
+        self._check_result_staleness()
+
+    def _check_result_staleness(self) -> None:
+        if not self._checkcif_result_hash or self.cif is None:
+            return
+        with suppress(Exception):
+            current = sha256(self.cif.cif_as_string().encode('ascii', 'ignore')).hexdigest()
+            stale = current != self._checkcif_result_hash
+            self.checkcif_summary_online.set_stale(stale)
+            self.checkcif_summary_offline.set_stale(stale)
+
+    def test_checkcif_connection(self) -> None:
+        from finalcif.tools.connectivity import ConnectivityTest
+        if self._connectivity_thread is not None:
+            return
+        self.connectivity_button.setEnabled(False)
+        self.connectivity_label.setText('测试中…')
+        self._connectivity_thread = ConnectivityTest(self.options.checkcif_url)
+        self._connectivity_thread.result.connect(self._on_connectivity_result)
+        self._connectivity_thread.finished.connect(self._on_connectivity_finished)
+        self._connectivity_thread.start()
+
+    def _on_connectivity_result(self, ok: bool, message: str, status: int,
+                                elapsed_ms: float) -> None:
+        self.connectivity_label.setText(message)
+        self._log_checkcif(message)
+        if not ok:
+            from finalcif.tools.connectivity import connectivity_advice
+            self._log_checkcif(connectivity_advice())
+
+    def _on_connectivity_finished(self) -> None:
+        self._connectivity_thread = None
+        QtCore.QTimer.singleShot(3000, lambda: self.connectivity_button.setEnabled(True))
+
+    # ------------------------------------------------------------------
+    # Left panel collapse and layout persistence
+    # ------------------------------------------------------------------
+
+    def _init_layout_ui(self) -> None:
+        self._collapsible_sections: dict[str, tuple[QToolButton, list]] = {}
+        self.layout_reset_button = QPushButton('恢复默认布局', self.ui.LeftFrame)
+        self.layout_reset_button.setObjectName('resetLayoutButton')
+        self.layout_reset_button.clicked.connect(self.reset_layout)
+        self.ui.verticalLayout_5.addWidget(self.layout_reset_button)
+
+        self._setup_collapsible_section(
+            self.ui.EquipmentGroupBox, 'layout_left_equipment_collapsed',
+            keep_widgets=(self.ui.groupBox_5,))
+        self._setup_collapsible_section(
+            self.ui.groupBox_6, 'layout_left_report_collapsed')
+
+        self._layout_save_timer = QtCore.QTimer(self)
+        self._layout_save_timer.setSingleShot(True)
+        self._layout_save_timer.setInterval(400)
+        self._layout_save_timer.timeout.connect(self._save_layout_state)
+        self.ui.splitter.splitterMoved.connect(lambda *_: self._layout_save_timer.start())
+        header = self.ui.cif_main_table.horizontalHeader()
+        header.sectionResized.connect(lambda *_: self._layout_save_timer.start())
+        self._restore_layout_state()
+
+    def _iter_layout_widgets(self, layout):
+        for i in range(layout.count()):
+            item = layout.itemAt(i)
+            widget = item.widget()
+            if widget is not None:
+                yield widget
+            child_layout = item.layout()
+            if child_layout is not None:
+                yield from self._iter_layout_widgets(child_layout)
+
+    def _setup_collapsible_section(self, group_box, setting_key: str,
+                                   keep_widgets: tuple = ()) -> None:
+        layout = group_box.layout()
+        if layout is None:
+            return
+        toggle = QToolButton(group_box)
+        toggle.setAutoRaise(True)
+        toggle.setArrowType(Qt.ArrowType.DownArrow)
+        toggle.setToolTip('展开/收起')
+        layout.insertWidget(0, toggle)
+
+        content = []
+        for widget in self._iter_layout_widgets(layout):
+            if widget is toggle:
+                continue
+            if any(widget is keep or keep.isAncestorOf(widget) for keep in keep_widgets):
+                continue
+            content.append(widget)
+        self._collapsible_sections[setting_key] = (toggle, content)
+        toggle.clicked.connect(lambda _=False, key=setting_key: self._toggle_section(key))
+        saved = self.settings.load_value_of_key(setting_key)
+        collapsed = True if saved is None else bool(saved)
+        self._apply_section_collapsed(setting_key, collapsed, save=False)
+
+    def _toggle_section(self, setting_key: str) -> None:
+        toggle, content = self._collapsible_sections[setting_key]
+        collapsed = any(widget.isVisible() for widget in content)
+        self._apply_section_collapsed(setting_key, collapsed, save=True)
+
+    def _apply_section_collapsed(self, setting_key: str, collapsed: bool,
+                                 save: bool = True) -> None:
+        toggle, content = self._collapsible_sections[setting_key]
+        toggle.setArrowType(Qt.ArrowType.RightArrow if collapsed else Qt.ArrowType.DownArrow)
+        toggle.setToolTip('展开' if collapsed else '收起')
+        for widget in content:
+            widget.setVisible(not collapsed)
+        if save:
+            self.settings.save_key_value(setting_key, collapsed)
+
+    def _restore_layout_state(self) -> None:
+        state = self.settings.load_value_of_key('layout_splitter_state')
+        if isinstance(state, str) and state:
+            with suppress(Exception):
+                self.ui.splitter.restoreState(QtCore.QByteArray.fromBase64(state.encode('ascii')))
+        widths = self.settings.load_value_of_key('layout_table_columns')
+        if isinstance(widths, list):
+            with suppress(Exception):
+                self.ui.cif_main_table.set_column_widths([int(w) for w in widths])
+
+    def _save_layout_state(self) -> None:
+        with suppress(Exception):
+            state = bytes(self.ui.splitter.saveState().toBase64()).decode('ascii')
+            self.settings.save_key_value('layout_splitter_state', state)
+            self.settings.save_key_value('layout_table_columns',
+                                         self.ui.cif_main_table.column_widths())
+
+    def reset_layout(self) -> None:
+        for key in ('layout_splitter_state', 'layout_table_columns',
+                    'layout_left_equipment_collapsed', 'layout_left_report_collapsed'):
+            self.settings.save_key_value(key, None)
+        for key in self._collapsible_sections:
+            self._apply_section_collapsed(key, True, save=False)
+        total = self.ui.splitter.width() or 1200
+        self.ui.splitter.setSizes([int(total * 0.28), int(total * 0.72)])
+        width = max(120, self.ui.cif_main_table.viewport().width() // 3)
+        self.ui.cif_main_table.set_column_widths([width, width, width])
+        self.filter_bar.reset()
+        blocked = self.ui.searchMainTableLineEdit.blockSignals(True)
+        self.ui.searchMainTableLineEdit.clear()
+        self.ui.searchMainTableLineEdit.blockSignals(blocked)
+        self.apply_table_filter()
 
     @property
     def running_inside_unit_test(self):
@@ -548,7 +1067,8 @@ class AppWindow(QMainWindow):
         self.ui.drawImagePushButton.clicked.connect(self.draw_image)
         self.ui.ExportAllTemplatesPushButton.clicked.connect(self.export_all_templates)
         self.ui.ImportAllTemplatesPushButton.clicked.connect(self.import_all_templates)
-        self.ui.searchMainTableLineEdit.textChanged.connect(self.ui.cif_main_table.search)
+        self.ui.searchMainTableLineEdit.textChanged.connect(self._on_legacy_search_changed)
+        self.ui.cif_main_table.gotoDataSource.connect(self._goto_data_source)
         self.ui.textSizeSpinBox.valueChanged.connect(self.set_global_font)
         # video:
         self.ui.SelectVideo_PushButton.clicked.connect(lambda x: self._select_crystal_video())
@@ -893,6 +1413,8 @@ class AppWindow(QMainWindow):
         """Persist settings before the window is destroyed."""
         with suppress(Exception):
             self._savesize()
+        with suppress(Exception):
+            self._save_layout_state()
         self.settings.flush()
         self._stop_background_threads()
         super().closeEvent(event)
@@ -928,6 +1450,7 @@ class AppWindow(QMainWindow):
         Opens the checkcif stackwidget page and therein the html report page
         """
         self.ui.MainStackedWidget.go_to_checkcif_page()
+        self._check_result_staleness()
 
     def open_squeeze_dialog(self, mode: SqueezeMode | None = None) -> bool:
         """
@@ -1095,6 +1618,22 @@ class AppWindow(QMainWindow):
         table.resizeColumnToContents(2)
         self.ui.MainStackedWidget.go_to_data_sources_page()
 
+    def _goto_data_source(self, key: str) -> None:
+        """Open the data-sources page and select the entry for *key*."""
+        if not self.sources:
+            self.status_bar.show_message(f'当前没有可用的数据来源（{key}）', 5)
+            return
+        self.show_sources()
+        table = self.ui.SourcesTableWidget
+        for row in range(table.rowCount()):
+            item = table.item(row, 1)
+            if item is not None and item.text() == key:
+                table.selectRow(row)
+                table.scrollToItem(item)
+                self.status_bar.show_message(f'数据来源：{key}', 5)
+                return
+        self.status_bar.show_message(f'数据来源中没有 {key}', 5)
+
     def get_checkdef_for_response_forms(self) -> None:
         """
         Sends a get request to the platon server in order to get the current check.def file.
@@ -1188,6 +1727,11 @@ class AppWindow(QMainWindow):
         self.ui.deleteLoopButton.show()
 
     def _checkcif_failed(self, txt: str) -> None:
+        if self.sender() is not None and self.sender() is not self.ckf:
+            return
+        self._checkcif_failed_flag = True
+        self._end_checkcif_run()
+        self._set_checkcif_state('failed', txt)
         self.ui.CheckCifLogPlainTextEdit.appendHtml(f'<b>{txt}</b>')
 
     def _log_checkcif_not_finished(self) -> None:
@@ -1247,8 +1791,14 @@ class AppWindow(QMainWindow):
         Loads the html checkcif results and displays them in a checkcif_browser window.
         """
         from finalcif.cif.checkcif.checkcif import MyHTMLParser, AlertHelp
-        self.ui.CheckcifHTMLOnlineButton.setEnabled(True)
-        self.ui.CheckcifPDFOnlineButton.setEnabled(True)
+        if self.sender() is not None and self.sender() is not self.ckf:
+            return
+        elapsed = self._end_checkcif_run()
+        if self._checkcif_cancelled or self._checkcif_failed_flag:
+            return
+        if self.htmlfile is None:
+            self._log_checkcif_not_finished()
+            return
 
         self._resolve_structure_factor_upload(self.htmlfile)
 
@@ -1260,7 +1810,7 @@ class AppWindow(QMainWindow):
             return
 
         self.checkcif_browser = CheckCifBrowser(parent=self, checkdef=self.checkdef)
-        self.ui.htmlCHeckCifGridLayout.addWidget(self.checkcif_browser)
+        self.ui.htmlCHeckCifGridLayout.addWidget(self.checkcif_browser, 1, 0)
         self.ui.MainStackedWidget.go_to_checkcif_page()
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(1)  # Index 1 is html page
 
@@ -1269,6 +1819,7 @@ class AppWindow(QMainWindow):
         gif_file = self.cif.finalcif_file.with_suffix('.gif')
         parser.save_image(gif_file)
 
+        html = ''
         try:
             html = self.htmlfile.resolve().read_text('utf-8', 'ignore')
             local_images = {parser.imageurl: gif_file} if parser.imageurl else {}
@@ -1276,8 +1827,23 @@ class AppWindow(QMainWindow):
         except FileNotFoundError:
             print(f'{self.htmlfile} 未找到')
 
+        if html:
+            from finalcif.cif.checkcif.summary import parse_html
+            summary = parse_html(html)
+            if summary.counts or summary.items:
+                stamp = datetime.now().strftime('%H:%M:%S')
+                self.checkcif_summary_online.set_summary(
+                    summary, timestamp=stamp, checkdef=self.checkdef)
+            else:
+                self.checkcif_summary_online.clear()
+            self.mentioned_keys = summary.mentioned_keys
+            self.filter_bar.set_checkcif_option_available(
+                bool(self.mentioned_keys), '最近一次 CheckCIF 结果未提到 CIF 键')
+            self._record_checkcif_result()
+
         self._display_structure_factor_report(parser)
         self.ui.CheckCifLogPlainTextEdit.appendPlainText("CheckCIF 报告完成。")
+        self._set_checkcif_state('success', elapsed=elapsed)
 
         html_entries = parser.response_forms
         # Merge HTML-parsed entries into the main table:
@@ -1347,9 +1913,14 @@ class AppWindow(QMainWindow):
         Performs an online checkcif via checkcif.iucr.org.
         """
         from finalcif.cif.checkcif.checkcif import CheckCif
+        if self._checkcif_running:
+            self._cancel_checkcif()
+            return
         current_block = self.ui.datanameComboBox.currentIndex()
         self._get_check_def()
         self.ui.CheckCifLogPlainTextEdit.clear()
+        self.checkcif_summary_online.clear()
+        self.checkcif_summary_online.show()
         try:
             self.checkcif_browser.close()
             self.ui.htmlCHeckCifGridLayout.removeWidget(self.checkcif_browser)
@@ -1378,9 +1949,10 @@ class AppWindow(QMainWindow):
                             explain_c=self.ui.explainCAlertsCheckBox.isChecked())
         self.ckf.progress.connect(self._ckf_progress)
         self.ckf.failed.connect(self._checkcif_failed)
+        with suppress(Exception):
+            self.ckf.state.connect(self._on_checkcif_state)
         self.ckf.finished.connect(self._checkcif_finished)
-        self.ui.CheckcifHTMLOnlineButton.setDisabled(True)
-        self.ui.CheckcifPDFOnlineButton.setDisabled(True)
+        self._begin_checkcif_run()
         self.ckf.start()
 
     def _get_check_def(self) -> None:
@@ -1413,8 +1985,11 @@ class AppWindow(QMainWindow):
         return n
 
     def _pdf_checkcif_finished(self) -> None:
-        self.ui.CheckcifPDFOnlineButton.setEnabled(True)
-        self.ui.CheckcifHTMLOnlineButton.setEnabled(True)
+        if self.sender() is not None and self.sender() is not self.ckf:
+            return
+        elapsed = self._end_checkcif_run()
+        if self._checkcif_cancelled or self._checkcif_failed_flag:
+            return
         if self.pdf_htmlfile is None:
             return
         self._resolve_structure_factor_upload(self.pdf_htmlfile)
@@ -1424,6 +1999,7 @@ class AppWindow(QMainWindow):
             return
         self.ckf.show_pdf_report()
         self.ui.CheckCifLogPlainTextEdit.appendPlainText("PDF CheckCIF 报告完成。")
+        self._set_checkcif_state('success', elapsed=elapsed)
         with suppress(OSError):
             self.pdf_htmlfile.unlink(missing_ok=True)
         self.pdf_htmlfile = None
@@ -1471,6 +2047,9 @@ class AppWindow(QMainWindow):
         Performs an online checkcif and shows the result as pdf.
         """
         from finalcif.cif.checkcif.checkcif import CheckCif
+        if self._checkcif_running:
+            self._cancel_checkcif()
+            return
         current_block = self.ui.datanameComboBox.currentIndex()
         self.ui.CheckCifLogPlainTextEdit.clear()
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(2)
@@ -1491,11 +2070,12 @@ class AppWindow(QMainWindow):
                             full_iucr=self.ui.fullIucrCheckBox.isChecked(),
                             check_duplicates=self.ui.checkDuplicatesCheckBox.isChecked())
         self.ckf.failed.connect(self._checkcif_failed)
+        with suppress(Exception):
+            self.ckf.state.connect(self._on_checkcif_state)
         # noinspection PyUnresolvedReferences
         self.ckf.finished.connect(self._pdf_checkcif_finished)
         self.ckf.progress.connect(self._ckf_progress)
-        self.ui.CheckcifPDFOnlineButton.setDisabled(True)
-        self.ui.CheckcifHTMLOnlineButton.setDisabled(True)
+        self._begin_checkcif_run()
         self.ckf.start()
 
     def do_offline_checkcif(self) -> None:
@@ -1505,6 +2085,7 @@ class AppWindow(QMainWindow):
         self.ui.MainStackedWidget.go_to_checkcif_page()
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(0)
         self.ui.CheckcifPlaintextEdit.clear()
+        self.checkcif_summary_offline.clear()
         self.ui.CheckCifLogPlainTextEdit.appendPlainText("正在本地运行 CheckCIF，请稍候…\n")
         self.ui.cif_main_table.clearSelection()
         if not self.save_current_cif_file():
@@ -1523,9 +2104,29 @@ class AppWindow(QMainWindow):
             self.ui.CheckcifButton.setEnabled(True)
             return None
         runner.tick.connect(self.append_to_ciflog_without_newline)
-        runner.finished.connect(lambda: self.ui.CheckcifButton.setEnabled(True))
+        runner.finished.connect(lambda _: self._offline_checkcif_finished())
         runner.run_process()
         return None
+
+    def _offline_checkcif_finished(self) -> None:
+        self.ui.CheckcifButton.setEnabled(True)
+        from finalcif.cif.checkcif.summary import parse_chk
+        text = ''
+        with suppress(Exception):
+            text = self.cif.fileobj.with_suffix('.chk').read_text('latin1', errors='ignore')
+        summary = parse_chk(text)
+        if summary.counts or summary.items:
+            stamp = datetime.now().strftime('%H:%M:%S')
+            self.checkcif_summary_offline.set_summary(
+                summary, timestamp=stamp, checkdef=self.checkdef)
+            self.checkcif_summary_offline.set_status('离线 CheckCIF 完成')
+        else:
+            self.checkcif_summary_offline.clear()
+        if summary.mentioned_keys:
+            self.mentioned_keys = summary.mentioned_keys
+            self.filter_bar.set_checkcif_option_available(
+                True, '')
+        self._record_checkcif_result()
 
     def add_moiety_furmula(self, formula_moiety: str) -> None:
         moiety = self.ui.cif_main_table.getTextFromKey(key='_chemical_formula_moiety', col=Column.CIF)
@@ -1795,6 +2396,7 @@ class AppWindow(QMainWindow):
         try:
             self.cif.save()
             self.status_bar.show_message(f'  文件已保存：  {self.cif.finalcif_file}', 10)
+            self._check_result_staleness()
             if DEBUG:
                 print("文件已保存…")
             return True
@@ -2734,7 +3336,7 @@ class AppWindow(QMainWindow):
                 self.missing_data.add(key)
                 raw_value = '?'
 
-            is_sep = (key == "以下内容已存在：")
+            is_sep = (key == SEPARATOR_KEY)
             if raw_value is None or raw_value == '?':
                 strval = '?'
             else:
@@ -2752,6 +3354,7 @@ class AppWindow(QMainWindow):
                 key=key,
                 is_separator=is_sep,
                 edit_color=color,
+                required_note=self.required_entries.get(key, {}).get('note', ''),
                 raw_value=raw_value,
                 strval=strval,
             )
@@ -2815,6 +3418,9 @@ class AppWindow(QMainWindow):
             table.setUpdatesEnabled(True)
         table.resizeRowsToContents()
         table.clearSelection()
+        self._connect_edit_widgets()
+        self._validate_edit_cells()
+        self._refresh_table_indicators()
 
     def check_cecksums(self):
         if self.running_inside_unit_test:
@@ -2852,7 +3458,7 @@ class AppWindow(QMainWindow):
         if not key:
             strval = ''
         # All regular linedit fields:
-        if key == "以下内容已存在：":
+        if key == SEPARATOR_KEY:
             self.ui.cif_main_table.add_separation_line(row_num)
             self.complete_data_row = row_num
         else:
@@ -2866,6 +3472,11 @@ class AppWindow(QMainWindow):
             self.ui.cif_main_table.setText(row=row_num, key=key, column=Column.DATA, txt='')
             self.ui.cif_main_table.setText(row=row_num, key=key, column=Column.EDIT, color=color,
                                            txt=strval if at_start else '')
+            row_data = self.ui.cif_main_table.row_data(row_num)
+            if row_data is not None:
+                row_data.required_note = self.required_entries.get(key, {}).get('note', '')
+            self._connect_edit_widget(row_num)
+            self._table_refresh_timer.start()
         if not key.startswith('_'):
             return
         if key not in self.cif.order:

@@ -78,13 +78,33 @@ class MyQPlainTextEdit(QPlainTextEdit):
         action_template = menu.addAction("文本模板")
         new_key = menu.addAction("添加新的 CIF 键")
         menu.addSeparator()
+        copy_value = menu.addAction("复制当前值")
+        help_action = menu.addAction("查看该键帮助")
+        source_action = menu.addAction("跳到数据来源页对应项")
+        menu.addSeparator()
         open_in_editor = menu.addAction("在编辑器中打开")
         action_copy_vhead.triggered.connect(self.copy_vhead_item)
         action_template.triggered.connect(self._on_create_template)
         deleterow.triggered.connect(self._delete_row)
         new_key.triggered.connect(self._add_cif_keys)
+        copy_value.triggered.connect(self._copy_current_value)
+        help_action.triggered.connect(self._show_key_help)
+        source_action.triggered.connect(self._goto_data_source)
         open_in_editor.triggered.connect(self.openInEditor.emit)
         menu.exec(event.globalPos())
+
+    def _copy_current_value(self) -> None:
+        from qtpy import QtWidgets
+        if hasattr(self.parent, 'effective_value'):
+            QtWidgets.QApplication.clipboard().setText(self.parent.effective_value(self.row))
+
+    def _show_key_help(self) -> None:
+        if self.cif_key and hasattr(self.parent, 'show_help_for_key'):
+            self.parent.show_help_for_key(self.cif_key)
+
+    def _goto_data_source(self) -> None:
+        if self.cif_key and hasattr(self.parent, 'gotoDataSource'):
+            self.parent.gotoDataSource.emit(self.cif_key)
 
     def _add_cif_keys(self) -> None:
         new_key = NewKey(self)

@@ -6,7 +6,7 @@ from qtpy import QtCore, QtGui
 from qtpy.QtCore import QEvent, QObject, Qt
 from qtpy.QtGui import QColor, QKeySequence, QBrush
 from qtpy.QtWidgets import (
-    QAbstractScrollArea, QTableView, QWidget, QApplication,
+    QAbstractScrollArea, QTableView, QWidget, QApplication, QMenu,
     QHeaderView, QStyledItemDelegate, QStyleOptionViewItem,
 )
 
@@ -68,6 +68,7 @@ class CifTableView(QTableView):
     textTemplate = QtCore.Signal(int)
     new_key = QtCore.Signal(str)
     openInEditor = QtCore.Signal()
+    gotoDataSource = QtCore.Signal(str)
 
     def __init__(self, parent: QWidget = None, *args, **kwargs):
         super().__init__(parent=parent)
@@ -97,6 +98,11 @@ class CifTableView(QTableView):
         vheader = self.verticalHeader()
         vheader.setSectionsClickable(True)
         vheader.sectionClicked.connect(self._vheader_section_click)
+
+        # Row context menu (right click on the table or a cell widget)
+        self._columns_initialized = False
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self._show_context_menu)
 
     # ------------------------------------------------------------------
     # Row / column counts
@@ -152,6 +158,10 @@ class CifTableView(QTableView):
 
     def row_from_key(self, key: str) -> int:
         return self._model.row_from_key(key)
+
+    def row_data(self, row: int) -> CifRowData | None:
+        """Return the model row data for *row* (or None)."""
+        return self._model.get_row_data(row)
 
     def add_separation_line(self, row_num: int) -> None:
         """Mark *row_num* as the blue diagonal-cross separator."""
@@ -269,6 +279,14 @@ class CifTableView(QTableView):
         h = self._model.headerData(row, Qt.Orientation.Vertical)
         return str(h) if h else ''
 
+    def effective_value(self, row: int) -> str:
+        """Return the value that would be used on save (EDIT > DATA > CIF)."""
+        for column in (Column.EDIT, Column.DATA, Column.CIF):
+            value = self.text(row, column).strip()
+            if value and value not in {'?', '.'}:
+                return value
+        return ''
+
     # ------------------------------------------------------------------
     # Combobox helper
     # ------------------------------------------------------------------
@@ -329,25 +347,65 @@ class CifTableView(QTableView):
         if 0 <= row < len(keys):
             QApplication.clipboard().setText(keys[row])
 
+    def copy_current_value(self) -> None:
+        row = self.currentIndex().row()
+        if row >= 0:
+            QApplication.clipboard().setText(self.effective_value(row))
+
+    # ------------------------------------------------------------------
+    # Row context menu
+    # ------------------------------------------------------------------
+
+    def _show_context_menu(self, pos: QtCore.QPoint) -> None:
+        index = self.indexAt(pos)
+        if not index.isValid():
+            return
+        row = index.row()
+        key = self.vheader_text(row)
+        row_data = self._model.get_row_data(row)
+        if not key or key.startswith('_vrf_') or (row_data and row_data.is_separator):
+            return
+
+        menu = QMenu(self)
+        copy_key_action = menu.addAction('复制键名')
+        copy_value_action = menu.addAction('复制当前值')
+        menu.addSeparator()
+        help_action = menu.addAction('查看该键帮助')
+        source_action = menu.addAction('跳到数据来源页对应项')
+
+        copy_key_action.triggered.connect(lambda: QApplication.clipboard().setText(key))
+        copy_value_action.triggered.connect(
+            lambda: QApplication.clipboard().setText(self.effective_value(row)))
+        help_action.triggered.connect(lambda: self.show_help_for_key(key))
+        source_action.triggered.connect(lambda: self.gotoDataSource.emit(key))
+        menu.exec(self.viewport().mapToGlobal(pos))
+
     # ------------------------------------------------------------------
     # Vertical header help
     # ------------------------------------------------------------------
 
-    def _vheader_section_click(self, section: int) -> None:
+    def show_help_for_key(self, itemtext: str) -> None:
         from finalcif.cif.all_cif_dicts import cif_all_dict
-        keys = self._model.vheaderitems
-        if section >= len(keys):
-            return
-        itemtext = keys[section]
+        try:
+            from finalcif.cif.all_cif_dicts import keyword_help_title
+        except ImportError:  # pragma: no cover - older dictionary module
+            def keyword_help_title(key: str) -> str:
+                return key
         keyword_help = cif_all_dict.get(itemtext)
         if keyword_help:
             keyword_help = retranslate_delimiter(keyword_help, no_html_unescape=True)
-            show_keyword_help(self._parent, keyword_help, itemtext)
+            show_keyword_help(self._parent, keyword_help, keyword_help_title(itemtext))
         elif itemtext.startswith('_vrf_'):
             helptxt = ("<pre><h2>验证响应表 (VRF)</h2>\ncheckCIF 报告会针对触发警报的问题提供验证响应表 (VRF)，供作者填写回应。回应在审稿过程中清晰可见。\n通常只有 A 级或 B 级警报需要填写 VRF。")
             show_keyword_help(self._parent, helptxt, itemtext)
         else:
             show_keyword_help(self._parent, "此键没有可用的帮助。", '')
+
+    def _vheader_section_click(self, section: int) -> None:
+        keys = self._model.vheaderitems
+        if section >= len(keys):
+            return
+        self.show_help_for_key(keys[section])
 
     # ------------------------------------------------------------------
     # Column layout
@@ -356,9 +414,36 @@ class CifTableView(QTableView):
     def distribute_cif_main_table_columns_evenly(self) -> None:
         hh = self.horizontalHeader()
         for col in (Column.CIF, Column.DATA, Column.EDIT):
-            hh.setSectionResizeMode(col, QHeaderView.ResizeMode.Stretch)
+            hh.setSectionResizeMode(col, QHeaderView.ResizeMode.Interactive)
         hh.setAlternatingRowColors(True)
         self.verticalHeader().setAlternatingRowColors(True)
+        self._columns_initialized = False
+
+    def column_widths(self) -> list[int]:
+        hh = self.horizontalHeader()
+        return [hh.sectionSize(col) for col in (Column.CIF, Column.DATA, Column.EDIT)]
+
+    def set_column_widths(self, widths: list[int]) -> bool:
+        if len(widths) != 3 or any(not isinstance(w, int) or w < 40 for w in widths):
+            return False
+        hh = self.horizontalHeader()
+        for col, width in zip((Column.CIF, Column.DATA, Column.EDIT), widths):
+            hh.setSectionResizeMode(col, QHeaderView.ResizeMode.Interactive)
+            hh.resizeSection(col, width)
+        self._columns_initialized = True
+        return True
+
+    def _init_columns_if_needed(self) -> None:
+        if self._columns_initialized:
+            return
+        width = self.viewport().width()
+        if width < 300:
+            return
+        section = max(120, width // 3)
+        hh = self.horizontalHeader()
+        for col in (Column.CIF, Column.DATA, Column.EDIT):
+            hh.resizeSection(col, section)
+        self._columns_initialized = True
 
     # ------------------------------------------------------------------
     # Event handling
@@ -377,6 +462,7 @@ class CifTableView(QTableView):
         return QObject.eventFilter(self, widget, event)
 
     def resizeEvent(self, e: QtGui.QResizeEvent) -> None:
+        self._init_columns_if_needed()
         single_shot(self, 0, self.resizeRowsToContents)
         super().resizeEvent(e)
 
