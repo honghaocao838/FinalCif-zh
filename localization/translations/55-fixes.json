@@ -1,0 +1,12 @@
+{
+ "gui/import_selector_ui.pyc": {
+  "keys": "键",
+  "loops": "循环"
+ },
+ "ciforder/order_ui.pyc": {
+  "Form": "CIF 键顺序"
+ },
+ "report/gui/mainwindow.pyc": {
+  "Mutitable": "多文件报告"
+ }
+}

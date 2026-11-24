@@ -12,6 +12,7 @@ import sys
 import time
 import traceback
 from pathlib import Path
+from qtpy.QtCore import QLibraryInfo, QTranslator
 from qtpy.QtGui import QIcon
 from finalcif import VERSION
 from finalcif.app_path import application_path
@@ -71,6 +72,15 @@ def my_exception_hook(exctype: type[BaseException], value: BaseException, error_
         sys.exit(1)
 
 
+def _install_zh_translator() -> None:
+    """Load Qt's own Chinese texts (OK/Cancel/Yes/No, standard dialogs)."""
+    translator = QTranslator(app)
+    path = QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath)
+    if translator.load('qtbase_zh_CN', path):
+        app.installTranslator(translator)
+        app._zh_cn_translator = translator
+
+
 def main():
     if not DEBUG:
         sys.excepthook = my_exception_hook
@@ -83,13 +93,14 @@ def main():
         file = Path(sys.argv[1])
         if not file.is_file():
             show_general_warning(parent=None,
-                                 warn_text=f'The file {file.resolve().absolute()} \nyou tried to open does not exist.',
-                                 window_title='File not found')
+                                 warn_text=f'文件 {file.resolve().absolute()} \n不存在（无法打开）。',
+                                 window_title='未找到文件')
             file = None
+    _install_zh_translator()
     app.setQuitOnLastWindowClosed(True)
     w = AppWindow(file=file)
     app.setWindowIcon(QIcon(str(application_path / r'icon/finalcif2.png')))
-    w.setWindowTitle(f'FinalCif v{VERSION}')
+    w.setWindowTitle(f'FinalCif 中文版 v{VERSION}')
     # w.showMaximized()  # For full screen view
     w.setBaseSize(1200, 780)
     sys.exit(app.exec())

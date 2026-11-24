@@ -925,6 +925,9 @@
          <layout class="QVBoxLayout" name="verticalLayout_14">
           <item>
            <widget class="QPushButton" name="HelpPushButton">
+              <property name="toolTip">
+               <string>查看所选 CIF 键的官方字典解释。H.C 汉化，问题联系 honghaocao838@gmail.com</string>
+              </property>
             <property name="text">
              <string>Help</string>
             </property>
@@ -932,6 +935,9 @@
           </item>
           <item>
            <widget class="QLabel" name="zEstimateLabel">
+              <property name="toolTip">
+               <string>Z、Z′ 估算值。✓ 可信；~ 大致可信；? 不确定。</string>
+              </property>
             <property name="text">
              <string>Z = ?</string>
             </property>
@@ -1086,6 +1092,19 @@
              <number>0</number>
             </property>
             <item>
+             <widget class="QLabel" name="mainTableHintLabel">
+              <property name="text">
+               <string>列说明：左栏为 CIF 键（以 _ 开头）；「CIF 值」为文件原值；「来自数据源」为从 .res、.hkl 等文件提取的参考值（绿色：已采用；黄色：未找到）；「自定义数据」保存时写入 CIF，优先于前两列（浅蓝：已存响应模板；红底：格式不合法）。选中行后点「帮助」查看该键的官方解释。</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#555555; font-size:11px; padding:3px 6px;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="CifTableView" name="cif_main_table">
               <property name="sizeAdjustPolicy">
                <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
@@ -1235,6 +1254,9 @@
                  </item>
                  <item row="0" column="0">
                   <widget class="QPushButton" name="CheckcifStartButton">
+              <property name="toolTip">
+               <string>使用本机 PLATON 离线验证，无需联网。结果显示在「PLATON CheckCIF 结果」页；点击 PLAT 警报可查看解释，常用条目附中文。</string>
+              </property>
                    <property name="text">
                     <string>CheckCIF</string>
                    </property>
@@ -3001,6 +3023,9 @@ The data source will be ignored until next program restart.</string>
             </item>
             <item row="1" column="0" colspan="8">
              <widget class="QTabWidget" name="CheckCIFResultsTabWidget">
+              <property name="toolTip">
+               <string>离线结果见「PLATON CheckCIF 结果」页；在线结果见「HTML / PDF CheckCIF 结果」页。点击报告中的 PLAT 警报查看解释。</string>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -3234,6 +3259,9 @@ The data source will be ignored until next program restart.</string>
                </item>
                <item row="1" column="1">
                 <widget class="QPushButton" name="CheckcifHTMLOnlineButton">
+              <property name="toolTip">
+               <string>上传当前 CIF 至 checkcif.iucr.org 在线验证（需联网），结果显示在「HTML CheckCIF 结果」页。</string>
+              </property>
                  <property name="text">
                   <string>Checkcif Online HTML</string>
                  </property>
@@ -3241,6 +3269,9 @@ The data source will be ignored until next program restart.</string>
                </item>
                <item row="1" column="2">
                 <widget class="QPushButton" name="CheckcifPDFOnlineButton">
+              <property name="toolTip">
+               <string>上传当前 CIF 至 checkcif.iucr.org 生成 PDF 报告（需联网）。</string>
+              </property>
                  <property name="text">
                   <string>Checkcif Online PDF</string>
                  </property>

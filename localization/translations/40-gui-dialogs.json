@@ -1,0 +1,147 @@
+{
+ "gui/text_templates_ui.pyc": {
+  "Apply Text": "应用文本",
+  "CIF key:": "CIF 键：",
+  "Cancel": "取消",
+  "Combined text": "合并文本",
+  "Delete Template": "删除模板",
+  "Export to CIF": "导出到 CIF",
+  "Import Template": "导入模板",
+  "Save as Template": "保存为模板",
+  "Select template(s)": "选择模板",
+  "The text of the selected templates is added here in the order of selection.": "所选模板的文本将按选择顺序添加到这里。"
+ },
+ "gui/import_selector_ui.pyc": {
+  "Import Selected": "导入所选",
+  "Save current Selection": "保存当前选择",
+  "Select Only New Data": "仅选择新数据",
+  "Select import items": "选择导入项目",
+  "Select only keys and loops that are not yet present in the current CIF. Keys without a value are not selected.": "仅选择当前 CIF 中尚不存在的键和循环。没有值的键不会被选中。"
+ },
+ "gui/import_selector.pyc": {
+  "Importing\n": "正在导入\n",
+  "\n\nThe CIF to import contains ": "\n\n要导入的 CIF 包含 ",
+  " keys and ": " 个键和 ",
+  " loops from which ": " 个循环，其中 ",
+  " are selected for import.": " 已选中用于导入。"
+ },
+ "gui/loop_creator_ui.pyc": {
+  "<html><head/><body><p><span style=\" font-size:18pt;\">Available CIF keywords</span></p></body></html>": "<html><head/><body><p><span style=\" font-size:18pt;\">可用 CIF 关键字</span></p></body></html>",
+  "<html><head/><body><p><span style=\" font-size:18pt;\">New Loop Header</span></p></body></html>": "<html><head/><body><p><span style=\" font-size:18pt;\">新循环表头</span></p></body></html>",
+  "Add CIF keys in order to create a new loop": "添加 CIF 关键字以创建新循环",
+  "Save new Loop": "保存新循环",
+  "Search a Key": "搜索键"
+ },
+ "gui/checkcif_browser.pyc": {
+  "No help text found for ": "未找到帮助文本：",
+  "checkCIF help: ": "checkCIF 帮助："
+ },
+ "gui/vrf_classes.pyc": {
+  "Delete": "删除",
+  "Help": "帮助",
+  "From CheckCIF": "来自 CheckCIF",
+  "Saved in CIF": "已保存到 CIF",
+  "General A  Alert": "一般 A 级警报",
+  "Problem:   ": "问题：   ",
+  "Response: ": "响应：",
+  "  Alert": " 级警报",
+  "Templates": "模板"
+ },
+ "gui/squeeze_dialog.pyc": {
+  "Auto-generated when you enter formulae above. You may edit freely.": "在上方输入分子式后自动生成，可自由编辑。",
+  "Auto-regenerate the details text, but only while the user hasn't modified it.": "仅在用户未修改时自动重新生成详情文本。",
+  "Choose .sqf file…": "选择 .sqf 文件…",
+  "Copy the formula from the first void to all other voids.": "将第一个空腔的分子式复制到所有其他空腔。",
+  "Copy the formula from void 1 (row 0) to all subsequent rows.": "将空腔 1（第 0 行）的分子式复制到后续所有行。",
+  "Could not read ": "无法读取 ",
+  "Electrons\n(Masks)": "电子数\n(掩蔽)",
+  "Electrons\n(PLATON)": "电子数\n(PLATON)",
+  "Electrons\n(calc.)": "电子数\n(计算)",
+  "Fill down from void 1": "从空腔 1 向下填充",
+  "Fill the void table from the current CIF's mode-appropriate void loop.": "从当前 CIF 中对应的空腔循环填充表格。",
+  "Import failed": "导入失败",
+  "Masks details (<i>_smtbx_masks_special_details</i>):": "掩蔽详情 (<i>_smtbx_masks_special_details</i>)：",
+  "No SQUEEZE data found in the current CIF.\n\nPlease locate the corresponding .sqf file produced by PLATON or Olex2.": "当前 CIF 中没有 SQUEEZE 数据。\n\n请找到 PLATON 或 Olex2 生成的对应 .sqf 文件。",
+  "No SQUEEZE loop data found in ": "未找到 SQUEEZE 循环数据：",
+  "Olex2/SMTBX Masks – Assign Solvent Content": "Olex2/SMTBX 掩蔽 – 指定溶剂含量",
+  "Olex2/SMTBX solvent masks were used. Assign the solvent formula per void <b>per unit cell</b>, e.g. <tt>2(H2O)</tt>.\nCommon solvent names like <tt>2 thf</tt> or <tt>toluene</tt> are converted to their formula.": "使用了 Olex2/SMTBX 溶剂掩蔽。请按<b>每晶胞</b>为每个空腔指定溶剂分子式，例如 <tt>2(H2O)</tt>。\n常见溶剂名（如 <tt>2 thf</tt> 或 <tt>toluene</tt>）会自动转换为其分子式。",
+  "Open PLATON .sqf file": "打开 PLATON .sqf 文件",
+  "PLATON SQUEEZE file (*.sqf)": "PLATON SQUEEZE 文件 (*.sqf)",
+  "PLATON SQUEEZE – Assign Solvent Content": "PLATON SQUEEZE – 指定溶剂含量",
+  "PLATON/SQUEEZE was used. Assign the solvent formula per void <b>per unit cell</b>, e.g. <tt>2(H2O)</tt>.\nCommon solvent names like <tt>2 thf</tt> or <tt>toluene</tt> are converted to their formula.": "使用了 PLATON/SQUEEZE。请按<b>每晶胞</b>为每个空腔指定溶剂分子式，例如 <tt>2(H2O)</tt>。\n常见溶剂名（如 <tt>2 thf</tt> 或 <tt>toluene</tt>）会自动转换为其分子式。",
+  "SQUEEZE details (<i>_platon_squeeze_details</i>):": "SQUEEZE 详情 (<i>_platon_squeeze_details</i>)：",
+  "SQUEEZE – .sqf file required": "SQUEEZE – 需要 .sqf 文件",
+  "Solvent formula\n(per unit cell)": "溶剂分子式\n(每晶胞)",
+  "Void #": "空腔 #",
+  "Volume (Å³)": "体积 (Å³)",
+  "Δ electrons": "Δ 电子数"
+ },
+ "gui/loops.pyc": {
+  "Add Row": "添加行",
+  "Delete Row": "删除行",
+  "Delete column": "删除列",
+  "Author Editor": "作者编辑器",
+  "Create Loops": "创建循环"
+ },
+ "gui/new_key_dialog_ui.pyc": {
+  "Add CIF Keyword": "添加 CIF 关键字",
+  "Add Key(s)": "添加键",
+  "Close": "关闭",
+  "Search": "搜索"
+ },
+ "gui/plaintextedit.pyc": {
+  "Column": "列",
+  "Text field sizes are scaled to text length": "文本字段尺寸随文本长度缩放",
+  "Add new CIF keys": "添加新的 CIF 键",
+  "Copy CIF Keyword": "复制 CIF 关键字",
+  "Delete Row": "删除行",
+  "Open in Editor": "在编辑器中打开",
+  "Text Template": "文本模板"
+ },
+ "gui/combobox.pyc": {
+  "Delete Row": "删除行",
+  "Text Template": "文本模板"
+ },
+ "gui/block_combobox.pyc": {
+  "Delete block '": "删除数据块 '",
+  "Block with index ": "索引为 ",
+  " was deleted.": " 的数据块已删除。"
+ },
+ "gui/cif_table_view.pyc": {
+  "Bad value in property:": "性质值无效：",
+  "No help available for this key.": "此键没有可用的帮助。",
+  "<pre><h2>Validation Response Form (VRF)</h2>\nThe Validation Response Form is supplied in the checkCIF report for problems that have triggered Alerts. It provides a field for the author to respond to the alert. The response is clearly visible to the review process. \nUsually, only level A or B alerts need a VRF.": "<pre><h2>验证响应表 (VRF)</h2>\ncheckCIF 报告会针对触发警报的问题提供验证响应表 (VRF)，供作者填写回应。回应在审稿过程中清晰可见。\n通常只有 A 级或 B 级警报需要填写 VRF。"
+ },
+ "gui/vzs_viewer.pyc": {
+  "No images found.\nSelect a crystal video file.": "未找到图像。\n请选择晶体视频文件。",
+  "Rotation value invalid: ": "旋转值无效：",
+  "VZS Viewer": "VZS 查看器"
+ },
+ "gui/file_editor.pyc": {
+  " lines folded": " 行已折叠",
+  "Open in Editor": "在编辑器中打开",
+  "Double clicking the placeholder of a folded region expands it.": "双击折叠区域的占位符可展开。"
+ },
+ "gui/spell_check_edit.pyc": {
+  "Spelling Suggestions": "拼写建议",
+  "Language": "语言",
+  "Spell Checking": "拼写检查",
+  "Learn": "学习",
+  "Learn '": "学习 '"
+ },
+ "gui/validators.pyc": {
+  "Must be a ": "必须是",
+  "negative ": "负",
+  "positive ": "正",
+  " integer number between ": "整数，范围 ",
+  "decimal number between ": "十进制数，范围 ",
+  " and ": " 至 ",
+  "Must be letters": "必须为字母",
+  "Must be one of: ": "必须是以下之一：",
+  "Any text is allowed.": "允许任意文本。",
+  "Triclinic": "三斜",
+  "The Z calculated from the packed unit cell is ": "由晶胞堆积计算得到的 Z 为 ",
+  ", but a different value is given here.\nThe calulated value can be wromng in edge cases.": "，但此处给的是另一个值。\n该计算值在边缘情况下可能有误。",
+  "This number should not be between zero and 0.95,\nsince it represents the fraction of reflections\nmeasured in the part of the diffraction pattern\nthat is essentially complete.": "该数值不应介于 0 与 0.95 之间，\n因为它表示衍射图中基本完整部分\n已测量衍射点的比例。"
+ }
+}

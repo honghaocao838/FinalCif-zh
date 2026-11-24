@@ -93,14 +93,14 @@ class Ui_MultitableWindow(object):
     # setupUi
 
     def retranslateUi(self, MultitableWindow):
-        MultitableWindow.setWindowTitle(QCoreApplication.translate("MultitableWindow", u"Mutitable", None))
-        self.cif_files_button.setText(QCoreApplication.translate("MultitableWindow", u"Select CIF files", None))
-        self.report_button.setText(QCoreApplication.translate("MultitableWindow", u"Generate Report", None))
+        MultitableWindow.setWindowTitle(QCoreApplication.translate("MultitableWindow", "多文件报告", None))
+        self.cif_files_button.setText(QCoreApplication.translate("MultitableWindow", "选择 CIF 文件", None))
+        self.report_button.setText(QCoreApplication.translate("MultitableWindow", "生成报告", None))
 #if QT_CONFIG(tooltip)
-        self.removeButton.setToolTip(QCoreApplication.translate("MultitableWindow", u"<html><head/><body><p>Removes the currently selected file from the list.</p></body></html>", None))
+        self.removeButton.setToolTip(QCoreApplication.translate("MultitableWindow", "<html><head/><body><p>将当前选中的文件从列表中移除。</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.removeButton.setText(QCoreApplication.translate("MultitableWindow", u"Remove Current File", None))
-        self.groupBox.setTitle(QCoreApplication.translate("MultitableWindow", u"Files List", None))
-        self.groupBox_2.setTitle(QCoreApplication.translate("MultitableWindow", u"Program Output", None))
+        self.removeButton.setText(QCoreApplication.translate("MultitableWindow", "移除当前文件", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MultitableWindow", "文件列表", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MultitableWindow", "程序输出", None))
     # retranslateUi
 

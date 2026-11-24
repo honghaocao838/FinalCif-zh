@@ -51,7 +51,7 @@ class FoldedText:
 
 
 def fold_placeholder(region: FoldRegion) -> str:
-    return f'{FOLD_PLACEHOLDER_PREFIX}{region.line_count} lines folded'
+    return f'{FOLD_PLACEHOLDER_PREFIX}{region.line_count}" 行已折叠"'
 
 
 def _semicolon_region(lines: Sequence[str], start: int) -> tuple[FoldRegion | None, int]:
@@ -237,12 +237,12 @@ class QCodeEditor(QPlainTextEdit):
     def contextMenuEvent(self, event: QContextMenuEvent):
         menu = self.createStandardContextMenu(event.pos())
         menu.addSeparator()
-        open_in_editor = menu.addAction("Open in Editor")
+        open_in_editor = menu.addAction("在编辑器中打开")
         open_in_editor.triggered.connect(self.openInEditor.emit)
         menu.exec(event.globalPos())
 
     def mouseDoubleClickEvent(self, event):
-        """Double clicking the placeholder of a folded region expands it."""
+        "双击折叠区域的占位符可展开。"
         block = self.cursorForPosition(event.position().toPoint()).block()
         # The placeholder always follows the header line that carries the marker.
         if block.text().startswith(FOLD_PLACEHOLDER_PREFIX) and self.toggle_fold_of_block(block.blockNumber() - 1):

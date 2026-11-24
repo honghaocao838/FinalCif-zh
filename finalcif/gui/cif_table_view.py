@@ -283,7 +283,7 @@ class CifTableView(QTableView):
             try:
                 combobox.addItem(retranslate_delimiter(value), num)
             except TypeError:
-                print('Bad value in property:', value)
+                print("性质值无效：", value)
                 if DEBUG:
                     raise
                 continue
@@ -344,15 +344,10 @@ class CifTableView(QTableView):
             keyword_help = retranslate_delimiter(keyword_help, no_html_unescape=True)
             show_keyword_help(self._parent, keyword_help, itemtext)
         elif itemtext.startswith('_vrf_'):
-            helptxt = ('<pre><h2>Validation Response Form (VRF)</h2>\n'
-                       'The Validation Response Form is supplied in the checkCIF report for '
-                       'problems that have triggered Alerts. It '
-                       'provides a field for the author to respond to the alert. '
-                       'The response is clearly visible to the review process. \n'
-                       'Usually, only level A or B alerts need a VRF.')
+            helptxt = ("<pre><h2>验证响应表 (VRF)</h2>\ncheckCIF 报告会针对触发警报的问题提供验证响应表 (VRF)，供作者填写回应。回应在审稿过程中清晰可见。\n通常只有 A 级或 B 级警报需要填写 VRF。")
             show_keyword_help(self._parent, helptxt, itemtext)
         else:
-            show_keyword_help(self._parent, 'No help available for this key.', '')
+            show_keyword_help(self._parent, "此键没有可用的帮助。", '')
 
     # ------------------------------------------------------------------
     # Column layout

@@ -77,13 +77,10 @@ _MODE_CONFIG: dict[SqueezeMode, dict] = {
         'elec_tag'            : '_platon_squeeze_void_count_electrons',
         'content_tag'         : '_platon_squeeze_void_content',
         'details_key'         : '_platon_squeeze_details',
-        'title'               : 'PLATON SQUEEZE \u2013 Assign Solvent Content',
-        'info'                : ('PLATON/SQUEEZE was used. '
-                                 'Assign the solvent formula per void <b>per unit cell</b>, e.g. <tt>2(H2O)</tt>.\n'
-                                 'Common solvent names like <tt>2 thf</tt> or <tt>toluene</tt> are '
-                                 'converted to their formula.'),
-        'details_label'       : 'SQUEEZE details (<i>_platon_squeeze_details</i>):',
-        'electrons_col_header': 'Electrons\n(PLATON)',
+        'title'               : "PLATON SQUEEZE – 指定溶剂含量",
+        'info'                : ("使用了 PLATON/SQUEEZE。请按<b>每晶胞</b>为每个空腔指定溶剂分子式，例如 <tt>2(H2O)</tt>。\n常见溶剂名（如 <tt>2 thf</tt> 或 <tt>toluene</tt>）会自动转换为其分子式。"),
+        'details_label'       : "SQUEEZE 详情 (<i>_platon_squeeze_details</i>)：",
+        'electrons_col_header': "电子数\n(PLATON)",
     },
     SqueezeMode.SMTBX  : {
         'loop_key'            : _SMTBX_LOOP_KEY,
@@ -92,13 +89,10 @@ _MODE_CONFIG: dict[SqueezeMode, dict] = {
         'elec_tag'            : '_smtbx_masks_void_count_electrons',
         'content_tag'         : '_smtbx_masks_void_content',
         'details_key'         : '_smtbx_masks_special_details',
-        'title'               : 'Olex2/SMTBX Masks \u2013 Assign Solvent Content',
-        'info'                : ('Olex2/SMTBX solvent masks were used. '
-                                 'Assign the solvent formula per void <b>per unit cell</b>, e.g. <tt>2(H2O)</tt>.\n'
-                                 'Common solvent names like <tt>2 thf</tt> or <tt>toluene</tt> are '
-                                 'converted to their formula.'),
-        'details_label'       : 'Masks details (<i>_smtbx_masks_special_details</i>):',
-        'electrons_col_header': 'Electrons\n(Masks)',
+        'title'               : "Olex2/SMTBX 掩蔽 – 指定溶剂含量",
+        'info'                : ("使用了 Olex2/SMTBX 溶剂掩蔽。请按<b>每晶胞</b>为每个空腔指定溶剂分子式，例如 <tt>2(H2O)</tt>。\n常见溶剂名（如 <tt>2 thf</tt> 或 <tt>toluene</tt>）会自动转换为其分子式。"),
+        'details_label'       : "掩蔽详情 (<i>_smtbx_masks_special_details</i>)：",
+        'electrons_col_header': "电子数\n(掩蔽)",
     },
 }
 
@@ -219,9 +213,9 @@ class SqueezeSolventDialog(QDialog):
         # void table
         self.table = QTableWidget(0, 6)
         self.table.setHorizontalHeaderLabels([
-            'Void #', 'Volume (\u00c5\u00b3)', self._cfg['electrons_col_header'],
-            'Solvent formula\n(per unit cell)',
-            'Electrons\n(calc.)', '\u0394 electrons',
+            "空腔 #", "体积 (Å³)", self._cfg['electrons_col_header'],
+            "溶剂分子式\n(每晶胞)",
+            "电子数\n(计算)", "Δ 电子数",
         ])
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.setColumnWidth(_COL_NR, 55)
@@ -244,9 +238,9 @@ class SqueezeSolventDialog(QDialog):
 
         # fill-down button row
         btn_row = QHBoxLayout()
-        self.fill_down_btn = QPushButton('Fill down from void 1')
+        self.fill_down_btn = QPushButton("从空腔 1 向下填充")
         self.fill_down_btn.setToolTip(
-            'Copy the formula from the first void to all other voids.'
+            "将第一个空腔的分子式复制到所有其他空腔。"
         )
         self.fill_down_btn.clicked.connect(self._fill_down)
         btn_row.addWidget(self.fill_down_btn)
@@ -257,7 +251,7 @@ class SqueezeSolventDialog(QDialog):
         layout.addWidget(QLabel(self._cfg['details_label']))
         self.details_edit = QPlainTextEdit()
         self.details_edit.setPlaceholderText(
-            'Auto-generated when you enter formulae above. You may edit freely.'
+            "在上方输入分子式后自动生成，可自由编辑。"
         )
         self.details_edit.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         self.details_edit.setMinimumHeight(80)
@@ -298,22 +292,21 @@ class SqueezeSolventDialog(QDialog):
             sqf_path = str(candidate)
         else:
             msg = QMessageBox(self)
-            msg.setWindowTitle('SQUEEZE \u2013 .sqf file required')
+            msg.setWindowTitle("SQUEEZE – 需要 .sqf 文件")
             msg.setText(
-                'No SQUEEZE data found in the current CIF.\n\n'
-                'Please locate the corresponding .sqf file produced by PLATON or Olex2.'
+                "当前 CIF 中没有 SQUEEZE 数据。\n\n请找到 PLATON 或 Olex2 生成的对应 .sqf 文件。"
             )
             msg.setIcon(QMessageBox.Icon.Information)
-            open_btn = msg.addButton('Choose .sqf file\u2026', QMessageBox.ButtonRole.AcceptRole)
+            open_btn = msg.addButton("选择 .sqf 文件…", QMessageBox.ButtonRole.AcceptRole)
             msg.addButton(QMessageBox.StandardButton.Cancel)
             msg.exec()
             if msg.clickedButton() is open_btn:
                 sqf_path, _ = compat.getopenfilename(
                     parent=self,
-                    caption='Open PLATON .sqf file',
+                    caption="打开 PLATON .sqf 文件",
                     basedir=str(cif_path.parent),
-                    filters='PLATON SQUEEZE file (*.sqf)',
-                    selectedfilter='PLATON SQUEEZE file (*.sqf)',
+                    filters="PLATON SQUEEZE 文件 (*.sqf)",
+                    selectedfilter="PLATON SQUEEZE 文件 (*.sqf)",
                 )
 
         if sqf_path:
@@ -336,7 +329,7 @@ class SqueezeSolventDialog(QDialog):
         try:
             sqf_cif = CifContainer(sqf_path)
         except Exception as exc:
-            QMessageBox.warning(self, 'Import failed', f'Could not read {sqf_path.name}:\n{exc}')
+            QMessageBox.warning(self, "导入失败", f'"无法读取 "{sqf_path.name}:\n{exc}')
             return
 
         # Try PLATON SQUEEZE tags first, then fall back to SMTBX tags
@@ -351,8 +344,8 @@ class SqueezeSolventDialog(QDialog):
 
         if not existing_tags:
             QMessageBox.warning(
-                self, 'Import failed',
-                f'No SQUEEZE loop data found in {sqf_path.name}.'
+                self, "导入失败",
+                f'"未找到 SQUEEZE 循环数据："{sqf_path.name}.'
             )
             return
 
@@ -365,7 +358,7 @@ class SqueezeSolventDialog(QDialog):
         self.cif.add_loop_from_columns(existing_tags, columns)
 
     def _populate_table(self) -> None:
-        """Fill the void table from the current CIF's mode-appropriate void loop."""
+        "从当前 CIF 中对应的空腔循环填充表格。"
         self.table.blockSignals(True)
         self.table.setRowCount(0)
 
@@ -489,7 +482,7 @@ class SqueezeSolventDialog(QDialog):
             elec_calc_item.setBackground(_COLOR_NEUTRAL)
 
     def _fill_down(self) -> None:
-        """Copy the formula from void 1 (row 0) to all subsequent rows."""
+        "将空腔 1（第 0 行）的分子式复制到后续所有行。"
         if self.table.rowCount() < 2:
             return
         first_item = self.table.item(0, _COL_FORMULA)
@@ -507,7 +500,7 @@ class SqueezeSolventDialog(QDialog):
         self._regenerate_details()
 
     def _regenerate_details(self) -> None:
-        """Auto-regenerate the details text, but only while the user hasn't modified it."""
+        "仅在用户未修改时自动重新生成详情文本。"
         if self._details_user_modified:
             return
         void_rows = []

@@ -34,19 +34,19 @@ class ReportTemplates:
     def add_new_template(self, templ_path: str = '') -> None:
         if not templ_path:
             templ_path, _ = compat.getopenfilename(parent=self.app,
-                                                        filters="All template files (*.docx *.html *.tmpl *.tex);; DOCX file (*.docx);; html file (*.html *.tmpl);; LaTeX file (*.tex)",
-                                                        selectedfilter="All template files (*.docx *.html *.tmpl *.tex)",
-                                                        caption='Open a Report Template File')
+                                                        filters="所有模板文件 (*.docx *.html *.tmpl *.tex);; DOCX 文件 (*.docx);; HTML 文件 (*.html *.tmpl);; LaTeX 文件 (*.tex)",
+                                                        selectedfilter="所有模板文件 (*.docx *.html *.tmpl *.tex)",
+                                                        caption="打开报告模板文件")
         itemslist = self.get_templates_list_from_widget()
         self.app.status_bar.show_message('')
         if templ_path in itemslist:
-            self.app.status_bar.show_message('This templates is already in the list.', 10)
-            print('This templates is already in the list.')
+            self.app.status_bar.show_message("此模板已在列表中。", 10)
+            print("此模板已在列表中。")
             return
         if (not Path(templ_path).exists() or not Path(templ_path).is_file()
                 or Path(templ_path).suffix not in ('.docx', '.html', '.tmpl', '.tex')):
-            self.app.status_bar.show_message('This template does not exist or is unreadable.', 10)
-            print('This template does not exist or is unreadable.', Path(templ_path).resolve())
+            self.app.status_bar.show_message("此模板不存在或无法读取。", 10)
+            print("此模板不存在或无法读取。", Path(templ_path).resolve())
             return
         item = QListWidgetItem(templ_path)
         item.setCheckState(Qt.CheckState.Unchecked)
@@ -58,7 +58,7 @@ class ReportTemplates:
         if not templates:
             return
         for text in templates:
-            if text.startswith('Use'):
+            if text.startswith("使用"):
                 continue
             with suppress(Exception):
                 if not Path(text).exists():

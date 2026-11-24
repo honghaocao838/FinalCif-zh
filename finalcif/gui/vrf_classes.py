@@ -45,13 +45,13 @@ class MyVRFContainer(QWidget):
         self.mainVLayout.setSpacing(0)
         self.mainVLayout.addWidget(QHLine(self))
         # The button to get help for the respective alert:
-        self.helpbutton = QPushButton('Help')
+        self.helpbutton = QPushButton("帮助")
         self.helpbutton.clicked.connect(self.show_help)
         if not help.strip():
             self.helpbutton.setEnabled(False)
-        self.deletebutton = QPushButton('Delete')
+        self.deletebutton = QPushButton("删除")
         self.deletebutton.clicked.connect(self._on_delete)
-        self.templatesbutton = QPushButton('Templates')
+        self.templatesbutton = QPushButton("模板")
         self.templatesbutton.clicked.connect(self._on_templates)
         self.response_text_edit = QTextEdit()
         self.alert_label_box()
@@ -95,7 +95,7 @@ class MyVRFContainer(QWidget):
         label = QLabel()
         hlayout.addWidget(label)
         level = self.vrf_entry.level
-        atype = level[-1] if len(level) > 1 else 'General A  Alert'
+        atype = level[-1] if len(level) > 1 else "一般 A 级警报"
         color = 'lightgray'
         if atype == 'A':
             color = 'rgb(240, 88, 70)'  # 'red'
@@ -106,7 +106,7 @@ class MyVRFContainer(QWidget):
         elif atype == 'G':
             color = 'green'
         if len(atype) == 1:
-            atype = atype + '  Alert'
+            atype = atype + " 级警报"
         num = self.vrf_entry.alert_num
         if self.is_multi_cif:
             name = "  --> {}".format(self.vrf_entry.data_name)
@@ -136,13 +136,13 @@ class MyVRFContainer(QWidget):
     def _apply_source_style(self, source: str) -> None:
         """Update the source badge label to reflect *source*."""
         if source == 'cif':
-            self.source_label.setText('Saved in CIF')
+            self.source_label.setText("已保存到 CIF")
             self.source_label.setStyleSheet(
                 'QLabel { font-size: 10px; background-color: rgb(70, 160, 160);'
                 ' color: white; border-radius: 3px; padding: 2px 5px; }'
             )
         else:
-            self.source_label.setText('From CheckCIF')
+            self.source_label.setText("来自 CheckCIF")
             self.source_label.setStyleSheet(
                 'QLabel { font-size: 10px; background-color: rgb(70, 110, 200);'
                 ' color: white; border-radius: 3px; padding: 2px 5px; }'
@@ -160,7 +160,7 @@ class MyVRFContainer(QWidget):
         frame.setLayout(hlayout)
         p_label = QLabel()
         hlayout.addWidget(p_label, 0, QtCore.Qt.AlignmentFlag.AlignTop)
-        p_label.setText('Problem:   ')
+        p_label.setText("问题：   ")
         p_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         p_label.setStyleSheet('QLabel { font-size: 12px; font-weight: bold; }')
         p_text_label = QLabel()
@@ -177,7 +177,7 @@ class MyVRFContainer(QWidget):
         frame.setLayout(hlayout)
         resp_label = QLabel()
         hlayout.addWidget(resp_label, 0, QtCore.Qt.AlignmentFlag.AlignTop)
-        resp_label.setText('Response: ')
+        resp_label.setText("响应：")
         resp_label.setStyleSheet('QLabel { font-size: 12px; font-weight: bold }')
         self.response_text_edit.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         if self.vrf_entry.response:

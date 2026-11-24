@@ -9,7 +9,7 @@ class ComboBoxWithContextMenu(QtWidgets.QComboBox):
 
     def contextMenuEvent(self, event):
         context_menu = QtWidgets.QMenu(self)
-        delete_action = context_menu.addAction(f"Delete block '{self.currentText()}'")
+        delete_action = context_menu.addAction(f"删除数据块 '{self.currentText()}'")
         action = context_menu.exec(self.mapToGlobal(event.pos()))
         if action == delete_action and self.count() > 1:
             self.delete_signal.emit(self.currentIndex())
@@ -17,7 +17,7 @@ class ComboBoxWithContextMenu(QtWidgets.QComboBox):
 
 def delete_block(index):
     # For testing only
-    print(f"Block with index {index} was deleted.")
+    print(f"'索引为 '{index}' 的数据块已删除。'")
 
 
 if __name__ == "__main__":

@@ -67,7 +67,7 @@ class InstallerDownload:
             self.error = str(err)
         except Exception as err:  # The dialog would wait forever for a thread that died:
             traceback.print_exc()
-            self.error = f'The installer could not be downloaded:\n{err!r}'
+            self.error = f'"安装程序无法下载：\n"{err!r}'
         finally:
             self.finished = True
 
@@ -81,8 +81,8 @@ def do_update_program(version: str, parent: QWidget | None = None) -> None:
 
 def update_installation(version: str, parent: QWidget | None = None) -> None:
     """Download the installer and hand the installation directory over to it."""
-    progress_dialog = QProgressDialog('Downloading the FinalCif installer...', 'Cancel', 0, 100, parent)
-    progress_dialog.setWindowTitle('FinalCif update')
+    progress_dialog = QProgressDialog("正在下载 FinalCif 安装程序…", "取消", 0, 100, parent)
+    progress_dialog.setWindowTitle("FinalCif 更新")
     progress_dialog.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
     progress_dialog.setAutoClose(False)
     progress_dialog.setAutoReset(False)
@@ -104,18 +104,18 @@ def update_installation(version: str, parent: QWidget | None = None) -> None:
             # Without a content-length there is nothing to calculate a percentage from:
             progress_dialog.setRange(0, 0)
         if received and received == total:
-            progress_dialog.setLabelText('Verifying the downloaded installer...')
+            progress_dialog.setLabelText("正在校验下载的安装程序…")
         else:
             progress_dialog.setLabelText(f'Downloading the FinalCif installer... '
-                                         f'({received / 1024 ** 2:.1f} MB)')
+                                         f'({received / 1024 ** 2:.1f}" MB）"')
 
     def on_failed(message: str) -> None:
         progress_dialog.close()
-        show_general_warning(parent, warn_text='The update failed.', info_text=message,
-                             window_title='FinalCif update')
+        show_general_warning(parent, warn_text="更新失败。", info_text=message,
+                             window_title="FinalCif 更新")
 
     def on_downloaded(setup_file: Path) -> None:
-        progress_dialog.setLabelText('Closing FinalCif for the installation...')
+        progress_dialog.setLabelText("正在关闭 FinalCif 以进行安装…")
         progress_dialog.setRange(0, 100)
         progress_dialog.setValue(100)
         QApplication.processEvents()
@@ -156,14 +156,13 @@ def update_installation(version: str, parent: QWidget | None = None) -> None:
 def install_into_user_directory(setup_file: Path, reason: str, parent: QWidget | None = None) -> bool:
     """Offer the per-user installation to accounts without administrator rights."""
     question = QMessageBox(parent)
-    question.setWindowTitle('FinalCif update')
+    question.setWindowTitle("FinalCif 更新")
     question.setIcon(QMessageBox.Icon.Question)
-    question.setText('FinalCif can be installed in your personal folder instead.')
+    question.setText("也可以将 FinalCif 安装到你的个人文件夹中。")
     question.setInformativeText(f'{reason}\n\n'
-                                f'Install FinalCif into\n{user_installation_directory()}\ninstead? '
-                                f'This needs no administrator rights.\n\n'
-                                f'The current installation stays where it is. Start the new FinalCif '
-                                f'from your personal start menu entry afterwards.')
+                                f'是否改为将 FinalCif 安装到\n{user_installation_directory()}？\n'
+                                f'这不需要管理员权限。\n\n'
+                                f'当前安装保持不变。之后请从你的个人开始菜单启动新的 FinalCif。')
     question.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
     question.setDefaultButton(QMessageBox.StandardButton.Yes)
     if question.exec() != QMessageBox.StandardButton.Yes:
@@ -171,8 +170,8 @@ def install_into_user_directory(setup_file: Path, reason: str, parent: QWidget |
     try:
         start_user_installer(setup_file)
     except UpdateError as err:
-        show_general_warning(parent, warn_text='The update failed.', info_text=str(err),
-                             window_title='FinalCif update')
+        show_general_warning(parent, warn_text="更新失败。", info_text=str(err),
+                             window_title="FinalCif 更新")
         return False
     return True
 
@@ -213,11 +212,11 @@ def unable_to_open_message(parent: QWidget | None, filepath: Path, not_ok: Excep
         line = str(not_ok)[4:].split(':')[1]
     except IndexError:
         line = None
-    info.setText('This cif file is not readable!                                           ')
+    info.setText("此 cif 文件无法读取！                                           ")
     if line:
         try:
             int(line)
-            info.setInformativeText(f'\nPlease check line {line} in\n{filepath.name}')
+            info.setInformativeText(f'"\n请检查第 "{line}" 行\n"{filepath.name}')
         except ValueError:
             info.setInformativeText(f'"{filepath.name}"\n{not_ok}')
     else:
@@ -235,8 +234,7 @@ def show_res_checksum_warning(parent: QWidget | None) -> None:
         return
     info = QMessageBox(parent=parent)
     info.setIcon(QMessageBox.Icon.Warning)
-    info.setText('The "_shelx_res_checksum" is not consistent with the .res file content!\n\n'
-                 'This error might originate from non-ascii Characters like Umlauts in you SHELX file.')
+    info.setText("\"_shelx_res_checksum\" 与 .res 文件内容不一致！\n\n此错误可能源于 SHELX 文件中的非 ASCII 字符（如德文变音字母）。")
     info.setModal(True)
     info.show()
 
@@ -250,7 +248,7 @@ def show_hkl_checksum_warning(parent: QWidget | None) -> None:
         return
     info = QMessageBox(parent=parent)
     info.setIcon(QMessageBox.Icon.Warning)
-    info.setText('The "_shelx_hkl_checksum" is not\nconsistent with the .hkl file content!')
+    info.setText("\"_shelx_hkl_checksum\" 与\n.hkl 文件内容不一致！")
     info.setModal(True)
     info.show()
 
@@ -296,7 +294,7 @@ def show_keyword_help(parent: QWidget | None, helptext: str, title: str = ''):
     window.keyPressEvent = close_window
     widget = QFrame()
     layout = QVBoxLayout()
-    button = QPushButton('close')
+    button = QPushButton("关闭")
     textedit = QTextEdit()
     textedit.setReadOnly(True)
     textedit.setFontFamily('monospace')
@@ -331,16 +329,14 @@ def show_update_warning(parent: QWidget | None, remote_version: int = 0) -> None
     """
     A message box to display if the checksums do not agree.
     """
-    warn_text = "A newer version {} of FinalCif is available under: <br>" \
-                "<a href='https://dkratzert.de/finalcif.html'>" \
-                "https://dkratzert.de/finalcif.html</a>"
+    warn_text = "FinalCif 有新版本 {} 可用，下载地址：<br><a href='https://dkratzert.de/finalcif.html'>https://dkratzert.de/finalcif.html</a>"
     box = QMessageBox(parent)
     box.setTextFormat(QtCore.Qt.TextFormat.AutoText)
-    box.setWindowTitle("FinalCif update")
+    box.setWindowTitle("FinalCif 更新")
     box.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
     if sys.platform.startswith("win"):
-        warn_text += r"<br><br>Updating now will end all running FinalCIF programs!"
-        update_button = box.addButton('Update Now', QMessageBox.ButtonRole.AcceptRole)
+        warn_text += "<br><br>现在更新将结束所有正在运行的 FinalCIF 程序！"
+        update_button = box.addButton("立即更新", QMessageBox.ButtonRole.AcceptRole)
         update_button.clicked.connect(lambda: do_update_program(str(remote_version), parent))
     box.setText(warn_text.format(remote_version))
     box.setModal(True)
@@ -355,7 +351,7 @@ def show_update_warning(parent: QWidget | None, remote_version: int = 0) -> None
 def bad_z_message(parent: QWidget | None, z: float) -> None:
     zinfo = QMessageBox(parent)
     zinfo.setIcon(QMessageBox.Icon.Information)
-    zinfo.setText(f'The number of formula units Z={z:.0f} is probably wrong.\n'
+    zinfo.setText(f'"分子式单位数 Z="{z:.0f} is probably wrong.\n'
                   f'You may restart refinement with a correct value.')
     zinfo.setModal(True)
     zinfo.show()
@@ -363,15 +359,16 @@ def bad_z_message(parent: QWidget | None, z: float) -> None:
 
 def show_bug_found_warning(logfile) -> None:
     window = QMainWindow()
-    title = 'Congratulations, you found a bug in FinalCif!'
-    text = (f'<br>Please send the file <br>'
+    title = "恭喜，你在 FinalCif 中发现了一个 bug！"
+    text = (f'<br>请将文件 <br>'
             f'<a href={logfile.resolve()}>{logfile.resolve()}</a> '
-            f'<br>to Daniel Kratzert:  '
+            f'<br>发送给 Daniel Kratzert：  '
             f'<a href="mailto:dkratzert@gmx.de?subject=FinalCif version {VERSION} crash report">'
             f'dkratzert@gmx.de</a><br>'
-            f'<br>If possible, the corresponding CIF file is also desired.')
+            f'<br>如有可能，也请附上对应的 CIF 文件。'
+            f'<br><br><b>H.C 汉化，问题请联系 honghaocao838@gmail.com（汉化自 FinalCif v180）</b>')
     box = QMessageBox(parent=window)
-    box.setWindowTitle('Warning')
+    box.setWindowTitle("警告")
     box.setText(title)
     box.setInformativeText(text)
     box.setTextFormat(QtCore.Qt.TextFormat.RichText)
@@ -390,12 +387,12 @@ def show_yes_now_question(title: str, question: str, parent: QWidget | None = No
         return False
 
 
-def cif_file_open_dialog(parent: QWidget | None = None, filter: str = "CIF file (*.cif)", last_dir='', options=None) -> str:
+def cif_file_open_dialog(parent: QWidget | None = None, filter: str = "CIF 文件 (*.cif)", last_dir='', options=None) -> str:
     """
     Returns a cif file name from a file dialog.
     """
     filename, _ = compat.getopenfilename(parent=parent,
-                                         caption='Open a .cif File',
+                                         caption="打开 .cif 文件",
                                          basedir=last_dir,
                                          filters=filter,
                                          selectedfilter=filter,
@@ -408,10 +405,10 @@ def cif_file_save_dialog(filename: str, parent: QWidget | None = None) -> str:
     """
     Returns a cif file name from a file dialog.
     """
-    filter = "CIF file (*.cif)"
+    filter = "CIF 文件 (*.cif)"
     filename, _ = compat.getsavefilename(parent=parent,
                                          filters=filter,
-                                         caption='Save .cif File',
+                                         caption="保存 .cif 文件",
                                          selectedfilter=filter)
     return filename
 
@@ -420,9 +417,9 @@ def fcf_file_open_dialog(parent: QWidget | None = None, last_dir: str = '', opti
     """
     Returns the name of a structure factor file from a file dialog.
     """
-    file_filter = "Structure factor file (*.fcf)"
+    file_filter = "结构因子文件 (*.fcf)"
     filename, _ = compat.getopenfilename(parent=parent,
-                                         caption='Select the structure factor (.fcf) file for this CIF',
+                                         caption="选择此 CIF 对应的结构因子 (.fcf) 文件",
                                          basedir=last_dir,
                                          filters=file_filter,
                                          selectedfilter=file_filter,
@@ -431,10 +428,10 @@ def fcf_file_open_dialog(parent: QWidget | None = None, last_dir: str = '', opti
     return filename
 
 
-def video_file_open_dialog(parent: QWidget | None = None, filter: str = "Video file (*.vzs; *.jpg)", last_dir='',
+def video_file_open_dialog(parent: QWidget | None = None, filter: str = "视频文件 (*.vzs; *.jpg)", last_dir='',
                            options=None) -> str:
     filename, _ = compat.getopenfilename(parent=parent,
-                                         caption='Open a crystal video file',
+                                         caption="打开晶体视频文件",
                                          basedir=last_dir,
                                          filters=filter,
                                          selectedfilter=filter,

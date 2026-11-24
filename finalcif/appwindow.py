@@ -221,7 +221,7 @@ class AppWindow(QMainWindow):
         self.equipment = Equipment(app=self, settings=self.settings)
         self.properties = Properties(parent=self, settings=self.settings)
         self.status_bar = StatusBar(ui=self.ui)
-        self.status_bar.show_message(f'FinalCif version {VERSION}')
+        self.status_bar.show_message(f'"H.C 汉化｜联系 honghaocao838@gmail.com｜版本 "{VERSION}')
         self.authors: AuthorLoops | None = None
         self.ui.cifOrderWidget.settings = self.settings
         self.ui.cifOrderWidget.set_order_from_settings(self.settings)
@@ -290,7 +290,7 @@ class AppWindow(QMainWindow):
     def running_inside_unit_test(self):
         if is_unit_test():
             if DEBUG:
-                print(f'pytest process running: {os.environ.get("PYTEST_CURRENT_TEST")}')
+                print(f'"pytest 进程正在运行："{os.environ.get("PYTEST_CURRENT_TEST")}')
             return True
         return False
 
@@ -589,9 +589,9 @@ class AppWindow(QMainWindow):
             filename, _ = compat.getsavefilename(parent=self,
                                                  basedir=str(Path(self.get_last_workdir()).joinpath(
                                                      f'finalcif_templates_{time.strftime("%Y-%m-%d")}.json')),
-                                                 selectedfilter="Template File (*.json)",
-                                                 filters="Template File (*.json)",
-                                                 caption='Save templates')
+                                                 selectedfilter="模板文件 (*.json)",
+                                                 filters="模板文件 (*.json)",
+                                                 caption="保存模板")
         if not filename:
             return
         templates = {'text'               : self.export_raw_text_templates(),
@@ -605,23 +605,23 @@ class AppWindow(QMainWindow):
             with open(filename, "w", encoding="utf-8") as f:
                 json.dump(templates, f, default=_custom_encoder, ensure_ascii=False, indent=2)
         except (TypeError, ValueError) as e:
-            self.status_bar.show_message(f'Saving templates failed: {e!s}')
+            self.status_bar.show_message(f'"保存模板失败："{e!s}')
 
     def import_all_templates(self, filename: Path | None = None) -> None:
         from finalcif.tools.settings import load_template_file
         if not filename:
             filename, _ = compat.getopenfilename(parent=self,
                                                  basedir=self.get_last_workdir(),
-                                                 selectedfilter="Template File (*.json *.dat)",
-                                                 filters="Template File (*.json *.dat)",
-                                                 caption='Load templates')
+                                                 selectedfilter="模板文件 (*.json *.dat)",
+                                                 filters="模板文件 (*.json *.dat)",
+                                                 caption="加载模板")
         if not filename:
             return
         try:
             templates = load_template_file(Path(filename))
         except Exception as e:
-            logging.warning("Failed to load template file %s: %s", filename, e)
-            self.status_bar.show_message(f'Loading templates failed: {e!s}')
+            logging.warning("加载模板文件失败 %s: %s", filename, e)
+            self.status_bar.show_message(f'"加载模板失败："{e!s}')
             return
         if templates is None:
             return
@@ -629,14 +629,14 @@ class AppWindow(QMainWindow):
         self.equipment.import_raw_data(templates.get('equipment'))
         self.properties.import_raw_data(templates.get('properties'))
         self.authors.import_raw_data(templates.get('authors'))
-        self.status_bar.show_message('Template import successful.')
+        self.status_bar.show_message("模板导入成功。")
         self.ui.cifOrderWidget.save_in_settings(templates.get('cif_order'), templates.get('cif_order_essential'))
         self.ui.cifOrderWidget.set_order_from_settings(self.settings)
 
     def draw_image(self):
         image_filename = self.cif.finalcif_file_prefixed(prefix='', suffix='-finalcif.png')
         self.ui.render_widget.save_image(image_filename)
-        self.status_bar.show_message(f'Image saved to {image_filename}', timeout=20)
+        self.status_bar.show_message(f'"图片已保存到 "{image_filename}', timeout=20)
         self.set_report_picture_path(str(image_filename))
 
     def on_text_template_open(self, row: int):
@@ -677,7 +677,7 @@ class AppWindow(QMainWindow):
             doc = read_document_from_cif_file(filename)
             block: gemmi.cif.Block = doc.sole_block()
         except Exception:
-            show_general_warning(self, 'This file is not readable.')
+            show_general_warning(self, "此文件无法读取。")
             return
         text_list = []
         for i in block:
@@ -702,7 +702,7 @@ class AppWindow(QMainWindow):
             loop = block.init_loop(blockname, [''])
         except RuntimeError:
             # Not a valid loop key
-            show_general_warning(self, f'"{blockname}" is not a valid cif keyword.')
+            show_general_warning(self, f'"{blockname}" 不是有效的 cif 关键字。')
             return
         for value in textlist:
             if value:
@@ -717,22 +717,22 @@ class AppWindow(QMainWindow):
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self, f'No permission to write file to {Path(filename).resolve()}')
-        self.status_bar.show_message(f'Template exported to {filename}.', timeout=10)
+            show_general_warning(self, f'"没有写入权限："{Path(filename).resolve()}')
+        self.status_bar.show_message(f'"模板已导出到 "{filename}.', timeout=10)
 
     def delete_text_template(self) -> None:
         """
         Delete template from settings.
         """
         cif_key = self.get_vrf_errortype(self.textedit.cif_key)
-        txt = f'Do you really want to delete all template texts for {cif_key}?'
-        answer = show_yes_now_question(title='Delete templates', question=txt, parent=self)
+        txt = f'"确定要删除以下模板的全部文本吗："{cif_key}?'
+        answer = show_yes_now_question(title="删除模板", question=txt, parent=self)
         if not answer:
             return
         self.settings.delete_template('text_templates/', cif_key)
         self.back_to_main_noload()
         TextEditItem._num = 1
-        self.status_bar.show_message(f'Template for {cif_key} deleted.', timeout=10)
+        self.status_bar.show_message(f'"模板："{cif_key}" 已删除。"', timeout=10)
         self.textedit.clear_fields()
         self.refresh_color_background_from_templates()
 
@@ -743,7 +743,7 @@ class AppWindow(QMainWindow):
         cif_key = self.get_vrf_errortype(self.textedit.cif_key)
         table_data = self.textedit.get_template_texts()
         self.settings.save_settings_list(property='text_templates', name=cif_key, items=table_data)
-        self.status_bar.show_message(f'Template for {cif_key} saved.', timeout=10)
+        self.status_bar.show_message(f'"模板："{cif_key}" 已保存。"', timeout=10)
         self.refresh_color_background_from_templates()
 
     def export_raw_text_templates(self) -> list[dict]:
@@ -779,7 +779,7 @@ class AppWindow(QMainWindow):
             self.ui.MainStackedWidget.got_to_main_page()
             self.textedit.clear_fields()
         else:
-            self.status_bar.show_message('No combined text to apply.')
+            self.status_bar.show_message("没有可应用的合并文本。")
 
     def toggle_hkl_option(self, iucr_is_checked: bool) -> None:
         if iucr_is_checked:
@@ -798,13 +798,13 @@ class AppWindow(QMainWindow):
         if self._open_cif_path_from_text(input_txt):
             return
         if is_database_number(input_txt):
-            self.status_bar.show_message('Request sent to COD...')
+            self.status_bar.show_message("请求已发送至 COD…")
             try:
                 r = requests.get(f'{self.deposit.main_url}{input_txt}.cif', timeout=18)
             except requests.Timeout:
-                show_general_warning(self, 'Request to COD timed out. Please check your internet connection and try again.')
+                show_general_warning(self, "COD 请求超时，请检查网络连接后重试。")
                 return
-            self.status_bar.show_message('Got a result.')
+            self.status_bar.show_message("已获得结果。")
             if r.status_code == 200:
                 filename = cif_file_save_dialog(f'{input_txt}.cif')
                 Path(filename).write_bytes(r.content)
@@ -812,9 +812,9 @@ class AppWindow(QMainWindow):
                 self.load_cif_file(Path(filename))
             else:
                 # self.ui.SelectCif_LineEdit.setText('')
-                self.status_bar.show_message(f'No COD entry for {input_txt} found.')
+                self.status_bar.show_message(f'"未找到 COD 条目："{input_txt}"。"')
         else:
-            self.status_bar.show_message('Paste an existing .cif path or enter a valid COD number. It must be seven digits.')
+            self.status_bar.show_message("粘贴现有 .cif 路径，或输入有效的 COD 编号（必须为 7 位数字）。")
 
     def _cif_path_from_text(self, input_txt: str) -> Path | None:
         cleaned_text = input_txt.strip().strip('"').strip("'")
@@ -1000,6 +1000,9 @@ class AppWindow(QMainWindow):
         changes_cif.save(self.finalcif_changes_filename)
 
     def check_for_update_version(self) -> None:
+        # Chinese edition: the upstream installer would replace this localized
+        # build. Updates are published in this repository's Releases.
+        return
         if os.environ.get('NO_NETWORK'):
             print('Skipping version.txt download because NO_NETWORK variable is set.')
             return
@@ -1029,7 +1032,7 @@ class AppWindow(QMainWindow):
 
     def _download_failed(self, status_code: int) -> None:
         worker = cast(MyDownloader, self.sender())
-        print(f'Download of {worker.url} failed with status code {status_code}.')
+        print(f'"下载 "{worker.url}" 失败，状态码 "{status_code}.')
         self._forget_downloader(worker)
 
     def _forget_downloader(self, worker: MyDownloader) -> None:
@@ -1043,10 +1046,10 @@ class AppWindow(QMainWindow):
         with suppress(Exception):
             remote_version = int(content.decode('ascii', errors='ignore'))
         if remote_version > VERSION:
-            print(f'Version {VERSION} is outdated (actual is {remote_version}).')
+            print(f'"版本 "{VERSION}" 已过时（实际为 "{remote_version}).')
             show_update_warning(self, remote_version)
         else:
-            print(f'Version {VERSION} is up-to-date.')
+            print(f'"版本 "{VERSION}" 已是最新。"')
 
     def erase_disabled_items(self) -> None:
         """
@@ -1188,7 +1191,7 @@ class AppWindow(QMainWindow):
         self.ui.CheckCifLogPlainTextEdit.appendHtml(f'<b>{txt}</b>')
 
     def _log_checkcif_not_finished(self) -> None:
-        self._checkcif_failed('CheckCIF failed to finish. Please try it at https://checkcif.iucr.org/ instead.')
+        self._checkcif_failed("CheckCIF 未能完成，请改用 https://checkcif.iucr.org/ 重试。")
 
     def _log_checkcif(self, txt: str) -> None:
         self.ui.CheckCifLogPlainTextEdit.appendPlainText(txt)
@@ -1211,15 +1214,14 @@ class AppWindow(QMainWindow):
         if not needs_structure_factor_upload(html):
             return
         self.ui.CheckCifLogPlainTextEdit.appendHtml(
-            '<b>CheckCIF requests the structure factor file for this CIF.</b>')
+            "<b>CheckCIF 请求获取此 CIF 的结构因子文件。</b>")
         app.processEvents()
         fcf_file = self._get_structure_factor_file()
         if fcf_file:
             new_html = upload_structure_factors(response_html=html, fcf_file=fcf_file,
                                                 url=self.options.checkcif_url, progress=self._log_checkcif)
         else:
-            self._log_checkcif('No structure factor file selected. '
-                               'Continuing without the remaining structure factors.')
+            self._log_checkcif("未选择结构因子文件，将在没有其余结构因子的情况下继续。")
             new_html = submit_without_structure_factors(response_html=html, url=self.options.checkcif_url,
                                                         progress=self._log_checkcif)
         if new_html == html:
@@ -1231,9 +1233,9 @@ class AppWindow(QMainWindow):
         from finalcif.cif.checkcif.checkcif import find_matching_fcf_file
         fcf_file = find_matching_fcf_file(self.cif.finalcif_file)
         if fcf_file:
-            self._log_checkcif(f'Found structure factor file {fcf_file.name}.')
+            self._log_checkcif(f'"找到结构因子文件 "{fcf_file.name}.')
             return fcf_file
-        self._log_checkcif('No structure factor file found for the current CIF. Please select one.')
+        self._log_checkcif("未找到当前 CIF 的结构因子文件，请选择一个。")
         filename = fcf_file_open_dialog(parent=self, last_dir=str(self.cif.finalcif_file.parent))
         return Path(filename) if filename else None
 
@@ -1272,10 +1274,10 @@ class AppWindow(QMainWindow):
             local_images = {parser.imageurl: gif_file} if parser.imageurl else {}
             self.checkcif_browser.set_checkcif_html(html, local_images)
         except FileNotFoundError:
-            print(f'{self.htmlfile} not found')
+            print(f'{self.htmlfile}" 未找到"')
 
         self._display_structure_factor_report(parser)
-        self.ui.CheckCifLogPlainTextEdit.appendPlainText('CheckCIF Report finished.')
+        self.ui.CheckCifLogPlainTextEdit.appendPlainText("CheckCIF 报告完成。")
 
         html_entries = parser.response_forms
         # Merge HTML-parsed entries into the main table:
@@ -1318,9 +1320,9 @@ class AppWindow(QMainWindow):
         """Return the log message summarizing how many VRFs a CheckCIF run produced."""
         if count:
             form_noun = 'form' if count == 1 else 'forms'
-            return f'<br><b>{count} validation response {form_noun} added to the main table.</b>'
-        levels = 'A, B or C' if self.ui.explainCAlertsCheckBox.isChecked() else 'A or B'
-        return f'<br><b>No level {levels} alerts require a response.</b>'
+            return f'<br><b>{count} validation response {form_noun}" 已添加到主表。</b>"'
+        levels = "A、B 或 C" if self.ui.explainCAlertsCheckBox.isChecked() else "A 或 B"
+        return f'"<br><b>没有 "{levels}" 级警报需要填写响应。</b>"'
 
     def _vrf_insert_position(self) -> int:
         """Return the row index just after the last existing ``_vrf_*`` row in the main table.
@@ -1354,13 +1356,13 @@ class AppWindow(QMainWindow):
             app.processEvents()
         except Exception as e:
             if DEBUG:
-                print('Browser not removed:')
+                print("浏览器未移除：")
                 print(e)
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(1)
         self.ui.CheckCifLogPlainTextEdit.appendPlainText(
-            f'Sending html report request to {self.options.checkcif_url} ...')
+            f'"正在向 "{self.options.checkcif_url}" 发送报告请求…"')
         if not self.save_current_cif_file():
-            self.ui.CheckCifLogPlainTextEdit.appendHtml('<b>Unable to save CIF file. Aborting action...</b>')
+            self.ui.CheckCifLogPlainTextEdit.appendHtml("<b>无法保存 CIF 文件，操作已中止…</b>")
             return None
         self.load_cif_file(self.cif.finalcif_file, block=current_block, load_changes=False)
         self.htmlfile = self.cif.finalcif_file_prefixed(prefix='checkcif-', suffix='-finalcif.html')
@@ -1382,6 +1384,12 @@ class AppWindow(QMainWindow):
         self.ckf.start()
 
     def _get_check_def(self) -> None:
+        # Prefer the copy shipped with this build: alert help works offline and
+        # is not replaced by an English download.
+        bundled = application_path / 'datafiles' / 'check.def'
+        if bundled.exists():
+            self.checkdef = bundled.read_text(encoding='utf-8', errors='ignore').splitlines(keepends=False)
+            return
         if self.checkdef_file.exists() and file_age_in_days(self.checkdef_file) < 60:
             self.checkdef = self.checkdef_file.read_text().splitlines(keepends=False)
         else:
@@ -1415,7 +1423,7 @@ class AppWindow(QMainWindow):
             self.pdf_htmlfile = None
             return
         self.ckf.show_pdf_report()
-        self.ui.CheckCifLogPlainTextEdit.appendPlainText('PDF Checkcif report finished.')
+        self.ui.CheckCifLogPlainTextEdit.appendPlainText("PDF CheckCIF 报告完成。")
         with suppress(OSError):
             self.pdf_htmlfile.unlink(missing_ok=True)
         self.pdf_htmlfile = None
@@ -1467,7 +1475,7 @@ class AppWindow(QMainWindow):
         self.ui.CheckCifLogPlainTextEdit.clear()
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(2)
         if not self.save_current_cif_file():
-            self.ui.CheckCifLogPlainTextEdit.appendHtml('<b>Unable to save CIF file. Aborting action...</b>')
+            self.ui.CheckCifLogPlainTextEdit.appendHtml("<b>无法保存 CIF 文件，操作已中止…</b>")
             return None
         self.load_cif_file(self.cif.finalcif_file, current_block, load_changes=False)
         self.pdf_htmlfile = self.cif.finalcif_file_prefixed(prefix='checkpdf-', suffix='.html')
@@ -1476,7 +1484,7 @@ class AppWindow(QMainWindow):
         except (FileNotFoundError, PermissionError):
             pass
         self.ui.CheckCifLogPlainTextEdit.appendPlainText(
-            f'Sending pdf report request to {self.options.checkcif_url} ...')
+            f'"正在向 "{self.options.checkcif_url}" 发送报告请求…"')
         self.ckf = CheckCif(parent=self, cif=self.cif, outfile=self.pdf_htmlfile,
                             hkl_upload=(not self.ui.structfactCheckBox.isChecked()),
                             pdf=True, url=self.options.checkcif_url,
@@ -1497,10 +1505,10 @@ class AppWindow(QMainWindow):
         self.ui.MainStackedWidget.go_to_checkcif_page()
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(0)
         self.ui.CheckcifPlaintextEdit.clear()
-        self.ui.CheckCifLogPlainTextEdit.appendPlainText("Running Checkcif locally. Please wait...\n")
+        self.ui.CheckCifLogPlainTextEdit.appendPlainText("正在本地运行 CheckCIF，请稍候…\n")
         self.ui.cif_main_table.clearSelection()
         if not self.save_current_cif_file():
-            self.ui.CheckCifLogPlainTextEdit.appendPlainText('Unable to save CIF file. Aborting action...')
+            self.ui.CheckCifLogPlainTextEdit.appendPlainText("无法保存 CIF 文件，操作已中止…")
             return None
         self.load_cif_file(self.cif.finalcif_file, block=self.ui.datanameComboBox.currentIndex(), load_changes=False)
         self.ui.MainStackedWidget.go_to_checkcif_page()
@@ -1509,9 +1517,9 @@ class AppWindow(QMainWindow):
                               output_widget=self.ui.CheckcifPlaintextEdit,
                               cif_file=self.cif.fileobj)
         if not Path(runner.platon_exe).exists():
-            self.ui.CheckCifLogPlainTextEdit.setPlainText('\nPlaton executable not found!')
+            self.ui.CheckCifLogPlainTextEdit.setPlainText("\n未找到 PLATON 可执行文件！")
             self.ui.CheckCifLogPlainTextEdit.appendPlainText(
-                'You can download Platon at http://www.platonsoft.nl/platon/\n')
+                "可从 http://www.platonsoft.nl/platon/ 下载 PLATON\n")
             self.ui.CheckcifButton.setEnabled(True)
             return None
         runner.tick.connect(self.append_to_ciflog_without_newline)
@@ -1596,9 +1604,8 @@ class AppWindow(QMainWindow):
             self.report_picture_path = Path(file)
         else:
             filename, _ = compat.getopenfilename(parent=self,
-                                                 filters="Image Files (*.png *.jpg *.jpeg *.bmp "
-                                                         "*.gif *.tif *.tiff)",
-                                                 caption='Open a Report Picture')
+                                                 filters="图片文件 (*.png *.jpg *.jpeg *.bmp *.gif *.tif *.tiff)",
+                                                 caption="打开报告图片")
             self.set_report_picture_path(filename)
 
     def set_report_picture_path(self, filename: str) -> None:
@@ -1650,7 +1657,7 @@ class AppWindow(QMainWindow):
         else:
             self.options.structure_figure = self.cif.finalcif_file.with_suffix('.gif')
         try:
-            print('Report with templates')
+            print("使用模板生成报告")
             template_path = Path(self.get_checked_templates_list_text())
             ok = False
             if template_path.suffix in ('.docx',):
@@ -1678,23 +1685,23 @@ class AppWindow(QMainWindow):
         except FileNotFoundError as e:
             if DEBUG:
                 raise
-            print('Unable to make report from cif file.')
+            print("无法从 cif 文件生成报告。")
             not_ok = e
-            show_general_warning(self, "The report templates could not be found:\n" + str(not_ok))
+            show_general_warning(self, "找不到报告模板：\n" + str(not_ok))
             return None
         except PermissionError:
             if DEBUG:
                 print('dbg> Unable to open report or CIF file')
                 raise
             show_general_warning(self,
-                                 f'The document {report_filename.name} could not be opened to '
+                                 f'"文档 "{report_filename.name} could not be opened to '
                                  f'write the report.\nIs the file already opened?')
             return None
         except UnrecognizedImageError:
             if DEBUG:
                 print('dbg> Unrecognized image error')
                 raise
-            show_general_warning(self, 'The report contains an unrecognized image format.')
+            show_general_warning(self, "报告中包含无法识别的图片格式。")
             return None
         if not self.running_inside_unit_test:
             self.open_report_document(report_filename, multi_table_document)
@@ -1759,7 +1766,7 @@ class AppWindow(QMainWindow):
     def load_recent_cifs_list(self) -> None:
         self.ui.RecentComboBox.clear()
         recent = self.settings.load_recent_files()
-        self.ui.RecentComboBox.addItem('Recent Files')
+        self.ui.RecentComboBox.addItem("最近文件")
         for n, file in enumerate(recent):
             if not isinstance(file, str):
                 del recent[n]
@@ -1787,14 +1794,14 @@ class AppWindow(QMainWindow):
         self.cif.set_order_keys(self.ui.cifOrderWidget.order_keys)
         try:
             self.cif.save()
-            self.status_bar.show_message(f'  File Saved:  {self.cif.finalcif_file}', 10)
+            self.status_bar.show_message(f'"  文件已保存：  "{self.cif.finalcif_file}', 10)
             if DEBUG:
-                print('File saved ...')
+                print("文件已保存…")
             return True
         except Exception as e:
-            print('Unable to save file:')
+            print("无法保存文件：")
             print(e)
-            show_general_warning(self, 'Can not save file: ' + str(e))
+            show_general_warning(self, "无法保存文件：" + str(e))
             return False
 
     def store_data_from_table_rows(self) -> None:
@@ -1806,7 +1813,7 @@ class AppWindow(QMainWindow):
             try:
                 changes_cif = self.get_changes_cif(self.finalcif_changes_filename)
             except Exception as e:
-                print('Unable to create changes CIF:', e)
+                print("无法创建更改记录 CIF：", e)
                 unable_to_open_message(parent=self, filepath=self.finalcif_changes_filename, not_ok=e)
                 changes_cif = None
         # makes sure also the currently edited item is saved:
@@ -1825,7 +1832,7 @@ class AppWindow(QMainWindow):
                 try:
                     self.cif[vhead] = col_edit
                 except (OSError, RuntimeError, ValueError) as e:
-                    print('Can not take cif info from table:', e)
+                    print("无法从表中获取 CIF 信息：", e)
             elif changes_cif:
                 del changes_cif[vhead]
         if self.options.track_changes and changes_cif and changes_cif.file_is_there_and_writable():
@@ -1836,12 +1843,12 @@ class AppWindow(QMainWindow):
         try:
             changes_cif.save(filename=self.finalcif_changes_filename)
         except Exception as e:
-            print(f'Unable to save changes file: {e}')
+            print(f'"无法保存更改记录文件："{e}')
             # del changes_cif
             # self.finalcif_changes_filename.unlink(missing_ok=True)
             return
         if (changes_cif.fileobj.exists() and changes_cif.fileobj.stat().st_size == 0) or changes_cif.is_empty():
-            print('Changes file has no content. Deleting it ...')
+            print("更改记录文件为空，正在删除…")
             with suppress(Exception):
                 changes_cif.fileobj.unlink(missing_ok=True)
 
@@ -1930,17 +1937,17 @@ class AppWindow(QMainWindow):
         if not filename:
             filename = cif_file_open_dialog(
                 parent=self,
-                filter="CIF file (*.cif *.pcf *.cif_od *.cfx *.sqf)",
+                filter="CIF 文件 (*.cif *.pcf *.cif_od *.cfx *.sqf)",
             )
         if not filename:
             return
         try:
             imp_cif = CifContainer(Path(filename))
         except RuntimeError as e:
-            show_general_warning(self, f'Could not import {filename}:\n' + str(e))
+            show_general_warning(self, f'"无法导入 "{filename}"：\n"' + str(e))
             return
         except GemmiError as e:
-            warning = f'Problems parsing file: {filename}:\n' + str(e)
+            warning = f'"解析文件出错："{filename}"：\n"' + str(e)
             if 'data_' in str(e):
                 warning = warning + "\n\nA CIF needs to start with 'data_[some_name]'."
                 show_general_warning(self, warning)
@@ -1948,7 +1955,7 @@ class AppWindow(QMainWindow):
             unable_to_open_message(self, Path(self.cif.filename), e)
             return
         except OSError as e:
-            show_general_warning(self, f'Unable to open file {filename}:\n' + str(e))
+            show_general_warning(self, f'"无法打开文件 "{filename}"：\n"' + str(e))
             return
         self.check_cif_for_missing_values_before_really_open_it()
         self.import_selector = ImportSelector(self, import_cif=imp_cif, target_cif=self.cif, settings=self.settings)
@@ -1990,7 +1997,7 @@ class AppWindow(QMainWindow):
             if not self.able_to_open(filepath):
                 return None
         except (OSError, IndexError):
-            print('Something failed during cif file opening...')
+            print("打开 cif 文件时出现问题…")
             if DEBUG:
                 raise
             return None
@@ -1999,7 +2006,7 @@ class AppWindow(QMainWindow):
             e = None
             self.cif = CifContainer(filepath)
         except GemmiError as e:
-            print('Unable to open cif file...')
+            print("无法打开 cif 文件…")
             if DEBUG:
                 raise
             print(e)
@@ -2030,10 +2037,10 @@ class AppWindow(QMainWindow):
             self._select_crystal_video(videos[0])
 
     def find_widgets_without_parent(self) -> None:
-        print('Finding parents...')
+        print("正在查找母体…")
         all_widgets = app.allWidgets()
         no_parent_widgets = [widget for widget in all_widgets if widget.parent is None]
-        print(f"Found {len(no_parent_widgets)} widget(s) out of {len(all_widgets)} without parent:")
+        print(f"Found {len(no_parent_widgets)}' 个部件，共 '{len(all_widgets)}' 没有父窗口：'")
         for widget in no_parent_widgets:
             print(widget, widget.objectName())
 
@@ -2071,12 +2078,11 @@ class AppWindow(QMainWindow):
             self.fill_cif_table()
         except UnicodeDecodeError:
             nums = self.cif.get_line_numbers_of_bad_characters(Path(self.cif.doc.source))
-            show_general_warning(parent=self, window_title='Unable to open file',
-                                 warn_text='Invalid characters in file!',
-                                 info_text=f'The file "{Path(self.cif.doc.source)}" has invalid '
-                                           f'characters in line(s)'
-                                           f' {", ".join([str(x + 1) for x in nums])}.'
-                                           '\n\nOnly ascii characters are allowed.')
+            show_general_warning(parent=self, window_title="无法打开文件",
+                                 warn_text="文件中包含无效字符！",
+                                 info_text=(f'文件 "{Path(self.cif.doc.source)}" 在以下行中包含无效字符：'
+                                            f' {", ".join([str(x + 1) for x in nums])}。'
+                                            '\n\n只允许 ASCII 字符。'))
         except Exception as e:
             not_ok = e
             print(e)
@@ -2092,10 +2098,10 @@ class AppWindow(QMainWindow):
             elif self.finalcif_changes_filename.exists() and self.changes_cif_has_values():
                 changes_exist = True
             if changes_exist and not self.running_inside_unit_test and self.changes_answer == 0 and not self.cif.is_multi_cif:
-                self.changes_answer = QMessageBox.question(self, 'Previous changes found',
-                                                           f'Previous changes from a former FinalCif session '
-                                                           f'were found in\n{self.finalcif_changes_filename.name}.\n\n'
-                                                           'Do you wish to reload them?',
+                self.changes_answer = QMessageBox.question(self, "发现先前的更改",
+                                                           f'发现先前 FinalCif 会话的更改，'
+                                                           f'位于 {self.finalcif_changes_filename.name}。\n\n'
+                                                           '是否重新加载？',
                                                            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
             if self.changes_answer == QMessageBox.StandardButton.Yes:
                 try:
@@ -2163,7 +2169,7 @@ class AppWindow(QMainWindow):
         moiety = formula_moiety or self.cif['_chemical_formula_moiety']
         html = formula_to_html(moiety)
         self.ui.SumFormMainLineEdit.setToolTip(
-            f'Moiety formula: {html}' if html else 'No moiety formula available')
+            f'"分子式片段："{html}' if html else "无分子式片段可用")
 
     def fill_space_group_lineedit(self) -> None:
         try:
@@ -2171,7 +2177,7 @@ class AppWindow(QMainWindow):
                    f'&thinsp;({spgrps[self.cif.space_group][1].get("itnumber")})</body>')
             self.ui.Spacegroup_top_LineEdit.setText(txt)
         except Exception as e:
-            print('Space group error:', str(e))
+            print("空间群错误：", str(e))
             self.ui.Spacegroup_top_LineEdit.setText(self.cif.space_group)
 
     def set_shredcif_state(self) -> None:
@@ -2188,17 +2194,17 @@ class AppWindow(QMainWindow):
         if has_cif2_header(cif_file):
             show_general_warning(
                 self,
-                "This is a CIF2 file and cannot be opened directly.\n",
+                "这是 CIF2 文件，无法直接打开。\n",
             )
             return
         cif2 = CifContainer(cif_file)
         if cif2.is_multi_cif:
-            show_general_warning(self, 'Can add single data CIFs only!')
+            show_general_warning(self, "只能添加单数据块 CIF！")
             return
         if cif2.block.name in [x.name for x in self.cif.doc]:
-            show_general_warning(self, warn_text='Duplicate block',
-                                 info_text=f'Data block name "<b>{cif2.block.name}</b>" '
-                                           f'already present in current CIF!')
+            show_general_warning(self, warn_text="重复的数据块",
+                                 info_text=f'数据块名称 "<b>{cif2.block.name}</b>" '
+                                           f'已存在于当前 CIF 中！')
             return
         self.cif.save()
         self.load_cif_file(filepath=self.cif.finalcif_file, load_changes=False)
@@ -2221,11 +2227,11 @@ class AppWindow(QMainWindow):
             # Will not stop reading if only the value is missing and ends with newline:
             self.cif.doc.check_for_missing_values()
         except (RuntimeError, ValueError) as e:
-            print('Missing value:')
+            print("缺少值：")
             print(str(e))
             errlist = str(e).split(':')
             if len(errlist) > 1:
-                show_general_warning(self, f"Attention in CIF line {errlist[1]}:\n"
+                show_general_warning(self, f"'请注意 CIF 第 '{errlist[1]}:\n"
                                            f"'{errlist[2].split()[0]}' has no value.")
 
     def get_last_workdir(self) -> str:
@@ -2246,24 +2252,21 @@ class AppWindow(QMainWindow):
 
     def able_to_open(self, filepath: Path) -> bool:
         if not filepath.exists():
-            show_general_warning(self, "The file you tried to open does not exist!")
+            show_general_warning(self, "试图打开的文件不存在！")
             return False
         if filepath.stat().st_size == 0:
-            show_general_warning(self, 'This file has zero byte size!')
+            show_general_warning(self, "此文件大小为 0 字节！")
             return False
         if has_cif2_header(filepath):
             show_general_warning(
                 self,
-                "This is a CIF2 file and cannot be opened directly.\n",
+                "这是 CIF2 文件，无法直接打开。\n",
             )
             return False
         return True
 
     def warn_about_bad_cif(self):
-        show_general_warning(self, "You have non-ascii characters like umlauts in the SHELX file "
-                                   "attached to this CIF.\n\n"
-                                   "FinalCif tries to convert them, but be warned "
-                                   "(they are not allowed in CIF1 files anyway).\n")
+        show_general_warning(self, "此 CIF 附带的 SHELX 文件包含非 ASCII 字符（如德文变音字母）。\n\nFinalCif 会尝试转换它们，但请注意：CIF1 文件本来就不允许这些字符。\n")
 
     def show_residuals(self) -> None:
         """
@@ -2313,7 +2316,7 @@ class AppWindow(QMainWindow):
         except (TypeError, ValueError):
             compl = 0.0
         try:
-            self.ui.completeLineEdit.setText(f"{compl:<5.1f} (at {theta_full}°)")
+            self.ui.completeLineEdit.setText(f"{compl:<5.1f}'（位于 '{theta_full}'°）'")
         except ValueError:
             pass
         self.ui.wavelengthLineEdit.setText(f"{wavelen}")
@@ -2328,7 +2331,7 @@ class AppWindow(QMainWindow):
         try:
             single_shot(self, 0, lambda: self.view_molecule(reset_view=True))
         except Exception:
-            print('Molecule view crashed!')
+            print("分子视图崩溃！")
 
     def _find_shelx_line_for_atom(self, atom_name: str) -> int:
         """Delegate to :func:`~finalcif.gui.shelx_navigation.find_shelx_line_for_atom`."""
@@ -2354,7 +2357,7 @@ class AppWindow(QMainWindow):
             self.ui.shelx_warn_TextEdit.clear()
             if hasattr(self.cif.shx, 'restraint_errors') and self.cif.shx.restraint_errors:
                 self.ui.shelx_warn_TextEdit.show()
-                self.ui.shelx_warn_TextEdit.setPlainText('Errors were found in the SHELX file:\n')
+                self.ui.shelx_warn_TextEdit.setPlainText("SHELX 文件中发现错误：\n")
                 self.ui.shelx_warn_TextEdit.appendPlainText('\n'.join(self.cif.shx.restraint_errors))
                 vScrollBar = self.ui.shelx_warn_TextEdit.verticalScrollBar()
                 vScrollBar.triggerAction(QScrollBar.SliderAction.SliderToMinimum)
@@ -2362,17 +2365,17 @@ class AppWindow(QMainWindow):
                 self.ui.shelx_warn_TextEdit.hide()
             self.ui.shelx_TextEdit.setPlainText(cif.as_string(self.cif.res_file_data))
         else:
-            self.ui.shelx_TextEdit.setPlainText("No Shelx file available")
+            self.ui.shelx_TextEdit.setPlainText("没有可用的 SHELX 文件")
             self.ui.shelx_warn_TextEdit.hide()
 
     def view_molecule(self, reset_view: bool = False) -> None:
         self.ui.render_widget.show_labels(self.ui.labelsCheckBox.isChecked())
 
         if self.ui.growCheckBox.isChecked():
-            self.ui.molGroupBox.setTitle('Completed Molecule')
+            self.ui.molGroupBox.setTitle("完整分子")
             atoms = self._calc_grown_atoms()
         else:
-            self.ui.molGroupBox.setTitle('Asymmetric Unit')
+            self.ui.molGroupBox.setTitle("不对称单元")
             atoms = self.cif.atoms_orth
 
         with suppress(Exception):
@@ -2469,26 +2472,26 @@ class AppWindow(QMainWindow):
         self.ui.zEstimateLabel.setText(f"Z = {result.z}  Z′ = {result.z_prime:.3g}  {confidence_icon}")
         self.ui.zEstimateLabel2.setText(f"Z = {result.z}  Z′ = {result.z_prime:.3g}  {confidence_icon}")
         tip_lines = [
-            f"Estimated Z = {result.z} formula units per unit cell",
-            f"Z′ = {result.z_prime:.4f}  (formula units per asymmetric unit)",
-            f"Z_sg = {result.z_sg}  (general positions in space group)",
+            f"'估计 Z = '{result.z}' 个分子式单位/晶胞'",
+            f"Z′ = {result.z_prime:.4f}'（每个不对称单元的分子式单位数）'",
+            f"Z_sg = {result.z_sg}'（空间群中的一般位置数）'",
             "",
         ]
         if result.confidence == 'high':
-            tip_lines.append("Confidence: HIGH — Z′ is a positive integer.")
+            tip_lines.append("置信度：高 — Z′ 为正整数。")
         elif result.confidence == 'medium':
-            tip_lines.append("Confidence: MEDIUM — Z′ is a non-integer crystallographic")
-            tip_lines.append("fraction (½, ⅓, ¼, or ⅙), suggesting the molecule sits")
-            tip_lines.append("on a special position; the true Z may be higher.")
+            tip_lines.append("置信度：中 — Z′ 为晶体学上的非整数")
+            tip_lines.append("分数（½、⅓、¼ 或 ⅙），提示该分子位于")
+            tip_lines.append("特殊位置上；真实的 Z 可能更大。")
         elif result.confidence == 'formula':
-            tip_lines.append("Confidence: FORMULA — Z was derived from the chemical formula.")
-            tip_lines.append("The bond-graph method is unreliable for this structure")
-            tip_lines.append("(typical for coordination polymers, metal–organic frameworks,")
-            tip_lines.append("or other extended inorganic networks).")
+            tip_lines.append("置信度：由分子式推出 — Z 来自化学式。")
+            tip_lines.append("对于此结构，键图方法不可靠")
+            tip_lines.append("（常见于配位聚合物、金属有机框架、")
+            tip_lines.append("或其他延伸的无机网络）。")
         else:
-            tip_lines.append("Confidence: LOW — Z′ is not a multiple of ½.")
-            tip_lines.append("The bond-graph estimate is likely incorrect")
-            tip_lines.append("(common for polymers, frameworks, or salts).")
+            tip_lines.append("置信度：低 — Z′ 不是 ½ 的整数倍。")
+            tip_lines.append("键图估计可能不正确")
+            tip_lines.append("聚合物、框架或盐类中很常见）。")
         self.ui.zEstimateLabel.setToolTip('\n'.join(tip_lines))
         self.ui.zEstimateLabel2.setToolTip('\n'.join(tip_lines))
         # Only flag a mismatch when the packing estimate itself is trustworthy:
@@ -2563,7 +2566,7 @@ class AppWindow(QMainWindow):
         try:
             self.view_molecule(reset_view=reset_view)
         except Exception as e:
-            print(f'Molecule view crashed: {e}')
+            print(f'"分子视图崩溃："{e}')
 
     def show_labels(self, value: bool):
         self.ui.render_widget.show_labels(value)
@@ -2646,7 +2649,7 @@ class AppWindow(QMainWindow):
                 continue
             widget = self.ui.cif_main_table.widget_from_key(key, Column.DATA)
             if widget:
-                widget.setToolTip(f'Source: {source[1]}')
+                widget.setToolTip(f'"来源："{source[1]}')
 
     def _apply_source_overrides(self, overrides: set[str]) -> None:
         """
@@ -2731,7 +2734,7 @@ class AppWindow(QMainWindow):
                 self.missing_data.add(key)
                 raw_value = '?'
 
-            is_sep = (key == "These below are already in:")
+            is_sep = (key == "以下内容已存在：")
             if raw_value is None or raw_value == '?':
                 strval = '?'
             else:
@@ -2822,7 +2825,7 @@ class AppWindow(QMainWindow):
             show_hkl_checksum_warning(parent=self)
 
     def add_audit_creation_method(self, key: str = '_audit_creation_method') -> None:
-        txt = 'FinalCif V{} by Daniel Kratzert, Freiburg {}, https://dkratzert.de/finalcif.html'
+        txt = "FinalCif V{}，作者 Daniel Kratzert，Freiburg {}，https://dkratzert.de/finalcif.html"
         strval = txt.format(VERSION, datetime.now().year)
         self.ui.cif_main_table.setText(key=key, column=Column.DATA, txt=strval)
         self.ui.cif_main_table.setText(key=key, column=Column.EDIT, txt=strval)
@@ -2839,7 +2842,7 @@ class AppWindow(QMainWindow):
         else:
             row_num = self.ui.cif_main_table.rowCount()
         if self.ui.cif_main_table.has_key(key):
-            print(f'The key {key} is already present.')
+            print(f'"键 "{key}" 已存在。"')
             return
         self.ui.cif_main_table.add_row(key=key, position=row_num)
         if value is None or value == '?':
@@ -2849,7 +2852,7 @@ class AppWindow(QMainWindow):
         if not key:
             strval = ''
         # All regular linedit fields:
-        if key == "These below are already in:":
+        if key == "以下内容已存在：":
             self.ui.cif_main_table.add_separation_line(row_num)
             self.complete_data_row = row_num
         else:

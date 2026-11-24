@@ -58,7 +58,7 @@ class VZSImageViewer(QtWidgets.QWidget):
                         try:
                             self.rotation = float(rotation)
                         except ValueError:
-                            print(f'Rotation value invalid: {rotation}')
+                            print(f'"旋转值无效："{rotation}')
                             self.rotation = 0.0
                         return None
 
@@ -101,7 +101,7 @@ class VZSImageViewer(QtWidgets.QWidget):
         painter = QtGui.QPainter(self)
         if not self.pixmap:
             painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter,
-                             "No images found.\nSelect a crystal video file.")
+                             "未找到图像。\n请选择晶体视频文件。")
             return
         if self.zoomed and self.zoom_rect:
             cropped = self.pixmap.copy(self.zoom_rect)
@@ -183,6 +183,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     widget = VZSImageViewer()
     widget.load_file(Path("tests/examples/BB_GS3.vzs"))
-    widget.setWindowTitle("VZS Viewer")
+    widget.setWindowTitle("VZS 查看器")
     widget.show()
     sys.exit(app.exec())

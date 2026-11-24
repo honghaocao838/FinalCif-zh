@@ -7,6 +7,7 @@
 #  ----------------------------------------------------------------------------
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import sys
@@ -470,11 +471,22 @@ class AlertHelp:
     def __init__(self, checkdef: list):
         self.checkdef = checkdef  # Path('../check.def').read_text().splitlines(keepends=False)
 
+    def _load_chinese(self) -> dict:
+        zh_file = Path(__file__).resolve().parents[2] / 'datafiles' / 'checkdef_zh.json'
+        try:
+            return json.loads(zh_file.read_text(encoding='utf-8'))
+        except Exception:
+            return {}
+
     def get_help(self, alert: str) -> str:
         checkdef_help = self._parse_checkdef(alert)
         if not checkdef_help or 'PLAT' not in alert:
             return ''
-        return checkdef_help
+        code = alert[4:] if len(alert) > 4 else alert
+        chinese = self._load_chinese().get(code, '')
+        if not chinese:
+            return checkdef_help
+        return f'【中文】\n{chinese}\n\n【English 原文（PLATON check.def）】\n{checkdef_help}'
 
     def _parse_checkdef(self, alert: str) -> str:
         """

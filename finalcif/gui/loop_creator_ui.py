@@ -109,12 +109,12 @@ class Ui_LoopCreator(object):
 
     def retranslateUi(self, LoopCreator):
         LoopCreator.setWindowTitle(QCoreApplication.translate("LoopCreator", u"LoopCreator", None))
-        self.label_2.setText(QCoreApplication.translate("LoopCreator", u"<html><head/><body><p><span style=\" font-size:18pt;\">Available CIF keywords</span></p></body></html>", None))
-        self.label.setText(QCoreApplication.translate("LoopCreator", u"Search a Key", None))
+        self.label_2.setText(QCoreApplication.translate("LoopCreator", "<html><head/><body><p><span style=\" font-size:18pt;\">可用 CIF 关键字</span></p></body></html>", None))
+        self.label.setText(QCoreApplication.translate("LoopCreator", "搜索键", None))
         self.rightPushButton.setText(QCoreApplication.translate("LoopCreator", u"-->", None))
         self.leftPushButton.setText(QCoreApplication.translate("LoopCreator", u"<--", None))
-        self.label_3.setText(QCoreApplication.translate("LoopCreator", u"<html><head/><body><p><span style=\" font-size:18pt;\">New Loop Header</span></p></body></html>", None))
-        self.label_4.setText(QCoreApplication.translate("LoopCreator", u"Add CIF keys in order to create a new loop", None))
-        self.saveLoopPushButton.setText(QCoreApplication.translate("LoopCreator", u"Save new Loop", None))
+        self.label_3.setText(QCoreApplication.translate("LoopCreator", "<html><head/><body><p><span style=\" font-size:18pt;\">新循环表头</span></p></body></html>", None))
+        self.label_4.setText(QCoreApplication.translate("LoopCreator", "添加 CIF 关键字以创建新循环", None))
+        self.saveLoopPushButton.setText(QCoreApplication.translate("LoopCreator", "保存新循环", None))
     # retranslateUi
 

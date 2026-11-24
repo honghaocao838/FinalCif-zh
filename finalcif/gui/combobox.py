@@ -32,11 +32,11 @@ class MyComboBox(QComboBox):
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         self.setEditable(True)  # only editable as new template
         self.installEventFilter(self)
-        self.actionDelete = QtGui.QAction("Delete Row", self)
+        self.actionDelete = QtGui.QAction("删除行", self)
         self.setContextMenuPolicy(Qt.ContextMenuPolicy.ActionsContextMenu)
         self.addAction(self.actionDelete)
         self.actionDelete.triggered.connect(self._delete_row)
-        action_template = QtGui.QAction("Text Template", self)
+        action_template = QtGui.QAction("文本模板", self)
         self.addAction(action_template)
         action_template.triggered.connect(lambda: self.textTemplate.emit(self.row))
 

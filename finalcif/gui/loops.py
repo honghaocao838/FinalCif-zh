@@ -57,7 +57,7 @@ class Loop(QtCore.QObject):
     def display_help(self, header_section: int) -> None:
         from finalcif.cif.all_cif_dicts import cif_all_dict
         tag = self.tags[header_section]
-        keyword_help = cif_all_dict.get(tag, None) or f'No help text found for {tag}.'
+        keyword_help = cif_all_dict.get(tag, None) or f'"未找到帮助文本："{tag}.'
         if keyword_help:
             keyword_help = retranslate_delimiter(keyword_help, no_html_unescape=True)
             show_keyword_help(self._parent_widget, keyword_help, tag)
@@ -152,13 +152,13 @@ class MyQTableView(QTableView):
 
     def contextMenuEvent(self, event):
         self.menu = QMenu(self)
-        add_action = QtGui.QAction('Add Row', self)
-        del_action = QtGui.QAction('Delete Row', self)
-        down_action = QtGui.QAction('Move row down', self)
-        up_action = QtGui.QAction('Move row up', self)
-        col_left_action = QtGui.QAction('Move column left', self)
-        col_right_action = QtGui.QAction('Move column right', self)
-        del_col_action = QtGui.QAction('Delete column', self)
+        add_action = QtGui.QAction("添加行", self)
+        del_action = QtGui.QAction("删除行", self)
+        down_action = QtGui.QAction("下移行", self)
+        up_action = QtGui.QAction("上移行", self)
+        col_left_action = QtGui.QAction("左移列", self)
+        col_right_action = QtGui.QAction("右移列", self)
+        del_col_action = QtGui.QAction("删除列", self)
         add_action.triggered.connect(lambda: self._add_row(event))
         del_action.triggered.connect(lambda: self._delete_row(event))
         up_action.triggered.connect(lambda: self._row_up(event))
@@ -452,7 +452,7 @@ class LoopsPage(QtWidgets.QWidget):
 
     def set_author_editor_tab(self, widget: QtWidgets.QWidget) -> None:
         """Insert the Author Editor widget as the first (index 0) tab."""
-        self.tab_widget.insertTab(0, widget, 'Author Editor')
+        self.tab_widget.insertTab(0, widget, "作者编辑器")
         self._has_author_tab = True
 
     def load(self, cif: 'CifContainer') -> None:
@@ -505,7 +505,7 @@ class LoopsPage(QtWidgets.QWidget):
     def _add_res_file_to_loops(self) -> None:
         fixfont = QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.SystemFont.FixedFont)
         textedit = QtWidgets.QPlainTextEdit()
-        self.tab_widget.addTab(textedit, 'SHELX res file')
+        self.tab_widget.addTab(textedit, "SHELX res 文件")
         textedit.setPlainText(self._cif.res_file_data[1:-1])
         textedit.document().setDefaultFont(fixfont)
         textedit.setLineWrapMode(QtWidgets.QPlainTextEdit.LineWrapMode.NoWrap)
@@ -520,7 +520,7 @@ class LoopsPage(QtWidgets.QWidget):
         """Add a LoopCreator tab and emit new_loop_requested so AppWindow can hide buttons."""
         from finalcif.gui.loop_creator import LoopCreator
         self._loopcreate = LoopCreator(parent=self, cif=self._cif)
-        self.tab_widget.addTab(self._loopcreate, 'Create Loops')
+        self.tab_widget.addTab(self._loopcreate, "创建循环")
         self.tab_widget.setCurrentIndex(self.tab_widget.count() - 1)
         self._loopcreate.saveLoopPushButton.clicked.connect(self._save_new_loop_to_cif)
         self.new_loop_requested.emit()

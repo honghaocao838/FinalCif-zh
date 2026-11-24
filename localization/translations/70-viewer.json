@@ -1,0 +1,14 @@
+{
+ "fastmolwidget/density_controls.pyc": {
+  "Residual Density": "残余电子密度",
+  "Residual density": "残余电子密度",
+  "Level:": "等值面：",
+  "Open Reflection File": "打开衍射文件",
+  "Remove the residual electron-density isosurface.": "移除残余电子密度等值面。",
+  "Residual density requires the compiled density_cpp extension.": "残余电子密度功能需要编译好的 density_cpp 扩展。",
+  "Residual-density button and level spin box for a viewer widget.": "查看器部件的残余电子密度按钮与等值面调节框。"
+ },
+ "fastmolwidget/viewer_widget_quick.pyc": {
+  "Residual density": "残余电子密度"
+ }
+}

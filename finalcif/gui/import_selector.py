@@ -122,11 +122,11 @@ class ImportSelector(QtWidgets.QMainWindow):
         return excluded_kv, excluded_loops
 
     def _set_label(self) -> None:
-        self.ui.importInfoLabel.setText(f"Importing\n{self.import_cif.fileobj}\n\n"
-                                        f"The CIF to import contains {self.keys_to_import} keys "
-                                        f"and {self.loops_to_import} loops from which "
-                                        f"{len(self.get_keys(include=True)) + len(self.get_loops(include=True))} "
-                                        f"are selected for import.")
+        self.ui.importInfoLabel.setText(f'正在导入\n{self.import_cif.fileobj}\n\n'
+                                        f'要导入的 CIF 包含 {self.keys_to_import} 个键'
+                                        f'和 {self.loops_to_import} 个循环，其中 '
+                                        f'{len(self.get_keys(include=True)) + len(self.get_loops(include=True))} '
+                                        f'已选中用于导入。')
 
     def _add_checkbox(self, text: str, row: int, col: QtWidgets.QTableWidget, checked: bool = False,
                       tooltip: str = '') -> None:

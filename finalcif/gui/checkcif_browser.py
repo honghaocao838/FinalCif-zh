@@ -84,9 +84,9 @@ class CheckCifBrowser(QTextBrowser):
             alert: The alert code, e.g. ``PLAT042``.
         """
         from finalcif.cif.checkcif.checkcif import AlertHelp
-        helptext = AlertHelp(self.checkdef).get_help(alert) or f'No help text found for {alert}.'
+        helptext = AlertHelp(self.checkdef).get_help(alert) or f'"未找到帮助文本："{alert}.'
         dialog = QDialog(self)
-        dialog.setWindowTitle(f'checkCIF help: {alert}')
+        dialog.setWindowTitle(f'"checkCIF 帮助："{alert}')
         dialog.resize(600, 350)
         layout = QVBoxLayout(dialog)
         browser = QTextBrowser(dialog)

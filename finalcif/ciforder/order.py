@@ -131,7 +131,7 @@ class CifOrder(QtWidgets.QGroupBox):
             self.cif = gemmi.cif.read_file(cif_file)
             block = self.cif.sole_block()
         except Exception:
-            show_general_warning(self, 'Unable to load file')
+            show_general_warning(self, "无法加载文件")
             return
         keys = [x.pair[0] for x in block if x.pair is not None]
         essentials = [x.pair[0] for x in block if x.pair is not None and x.pair[1] == 'True']
@@ -217,7 +217,7 @@ class CifOrder(QtWidgets.QGroupBox):
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self, f'No permission to write file to {Path(filename).resolve()}')
+            show_general_warning(self, f'"没有写入权限："{Path(filename).resolve()}')
 
 
 if __name__ == "__main__":

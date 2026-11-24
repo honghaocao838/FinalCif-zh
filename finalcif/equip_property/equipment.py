@@ -75,7 +75,7 @@ class Equipment:
         if item is None:
             return
         menu = QMenu(listw)
-        rename_action = menu.addAction('Rename')
+        rename_action = menu.addAction("重命名")
         # Keep a strong Python reference so PySide6 does not garbage-collect the
         # menu wrapper (and thereby drop the triggered signal connection) before
         # the user selects an action.  Clear it whenever the menu closes so the
@@ -110,7 +110,7 @@ class Equipment:
         # Remove the editable flag so items cannot be renamed by accident
         item.setFlags(QtCore.Qt.ItemFlag.ItemIsEnabled | QtCore.Qt.ItemFlag.ItemIsSelectable)
         if not new_name:
-            show_general_warning(self.app, 'Equipment template names cannot be empty.')
+            show_general_warning(self.app, "仪器模板名称不能为空。")
             item.setText(old_name)
             return
         if new_name != old_name:
@@ -155,7 +155,7 @@ class Equipment:
                 self.app.ui.cif_main_table.setText(key, Column.DATA, txt=value, color=light_green)
                 self.app.ui.cif_main_table.setText(key, Column.EDIT, txt=value)
         else:
-            print('Empty main table!')
+            print("主表为空！")
 
     def new_equipment(self) -> None:
         item = QListWidgetItem('')
@@ -273,11 +273,11 @@ class Equipment:
             if key not in cif_all_dict.keys():
                 if not key.startswith('_'):
                     show_general_warning(self.app,
-                                         f'"{key}" is not a valid keyword! \n'
-                                         f'Change the name in order to save.\n'
-                                         f'Keys must start with an underscore.')
+                                         f'"{key}" 不是有效关键字！\n'
+                                         f'请修改名称后再保存。\n'
+                                         f'键必须以底线开头。')
                     return
-                show_general_warning(self.app, f'"{key}" is not an official CIF keyword!')
+                show_general_warning(self.app, f'"{key}" 不是官方 CIF 关键字！')
         self.settings.save_settings_list('equipment', self.selected_template_name(), table_data)
         self.app.ui.EquipmentTemplatesStackedWidget.setCurrentIndex(0)
         self.load_default_equipment()
@@ -289,9 +289,9 @@ class Equipment:
         if isinstance(filename, Path):
             filename = str(filename)
         if not filename:
-            filename = cif_file_open_dialog(filter="CIF file (*.pcf *.cif  *.cif_od *.cfx)")
+            filename = cif_file_open_dialog(filter="CIF 文件 (*.pcf *.cif  *.cif_od *.cfx)")
         if not filename:
-            print('No file given')
+            print("未提供文件")
             return
         doc = read_document_from_cif_file(filename)
         if not doc:
@@ -367,7 +367,7 @@ class Equipment:
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self.app, f'No permission to write file to {Path(filename).resolve()}')
+            show_general_warning(self.app, f'"没有写入权限："{Path(filename).resolve()}')
 
     def cancel_equipment_template(self) -> None:
         """

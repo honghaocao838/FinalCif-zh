@@ -16,7 +16,18 @@ blue = QColor(102, 150, 179)
 yellow = QColor(250, 247, 150)
 light_red = QColor(254, 191, 189)
 
-COLUMN_HEADERS = ['CIF Value', 'From Data Source', 'Own Data']
+COLUMN_HEADERS = ['CIF 值', '来自数据源', '自定义数据']
+
+# 中文版：列说明（鼠标停在表头上即可看到）
+COLUMN_TIPS = [
+    '文件原值，只读。',
+    '从 .res、.hkl、.lst、SADABS 等文件提取的参考值。\n'
+    '绿色：已自动采用；黄色：未找到或不确定。',
+    '手工填写值，保存时写入 CIF，优先于前两列。\n'
+    '浅蓝：已保存响应模板；红底：格式不合法，悬停单元格查看原因。',
+]
+ROW_HEADER_TIP = ('CIF 键，项目正式名称，以 _ 开头（如 _cell_length_a 为晶胞参数 a）。\n'
+                  '选中行后点「帮助」查看官方解释。')
 
 
 class Column(IntEnum):
@@ -130,6 +141,13 @@ class CifTableModel(QAbstractTableModel):
         return base
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: int = Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.ToolTipRole:
+            if orientation == Qt.Orientation.Horizontal:
+                if 0 <= section < len(COLUMN_TIPS):
+                    return COLUMN_TIPS[section]
+            elif orientation == Qt.Orientation.Vertical:
+                return ROW_HEADER_TIP
+            return None
         if role == Qt.ItemDataRole.DisplayRole:
             if orientation == Qt.Orientation.Horizontal:
                 if 0 <= section < len(COLUMN_HEADERS):

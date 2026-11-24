@@ -1,0 +1,14 @@
+{
+ "finalcif_start.pyc": {
+  "FinalCif v": "FinalCif 中文版 v",
+  "File not found": "未找到文件",
+  "The file ": "文件 ",
+  " \nyou tried to open does not exist.": " \n不存在（无法打开）。"
+ },
+ "tools/selfupdate.pyc": {
+  "The installer could not be started:\n": "安装程序无法启动：\n",
+  "\ncan only be updated with administrator rights, which were not granted.": "\n只能在获得管理员权限的情况下更新，但权限未获批准。",
+  "Could not download the checksum:\n": "无法下载校验文件：\n",
+  "Could not download the installer:\n": "无法下载安装程序：\n"
+ }
+}

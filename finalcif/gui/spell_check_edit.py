@@ -81,7 +81,7 @@ try:
                 menu = self.createStandardContextMenu(pos)
             except TypeError:  # Before Qt 5.5
                 menu = self.createStandardContextMenu()
-            menu.setTitle('Spell Checking')
+            menu.setTitle("拼写检查")
             menu.insertMenu(menu.actions()[0], self.create_languages_menu(menu))
             # menu.insertSeparator(menu.actions()[1])
             # Add a submenu for setting the spell-check language
@@ -99,14 +99,14 @@ try:
             if not cursor:
                 return None
             text = cursor.selectedText()
-            learn_action = QtGui.QAction(f"Learn '{text}'", parent=menu)
+            learn_action = QtGui.QAction(f"学习 '{text}'", parent=menu)
             learn_action.setData(text)
             menu.triggered.connect(self.learn_word)
             menu.insertAction(menu.actions()[0], learn_action)
 
         def learn_word(self, action: QtGui.QAction) -> None:
             misspelled_word = action.data()
-            if 'Learn' not in action.text() or isinstance(misspelled_word, tuple):
+            if "学习" not in action.text() or isinstance(misspelled_word, tuple):
                 return None
             # Add the misspelled word to the personal dictionary
             personal_dictionary = self.highlighter.dict()
@@ -121,7 +121,7 @@ try:
             text = cursor.selectedText()
             suggests = trim_suggestions(text, self.highlighter.dict().suggest(text), self.max_suggestions)
 
-            spell_menu = QMenu('Spelling Suggestions', parent)
+            spell_menu = QMenu("拼写建议", parent)
             for word in suggests:
                 action = QtGui.QAction(word, spell_menu)
                 action.setData((cursor, word))
@@ -136,7 +136,7 @@ try:
         def create_languages_menu(self, parent=None):
             """Create and return a menu for selecting the spell-check language."""
             curr_lang = self.highlighter.dict().tag
-            lang_menu = QMenu("Language", parent)
+            lang_menu = QMenu("语言", parent)
             lang_actions = QtGui.QActionGroup(lang_menu)
 
             for lang in enchant.list_languages():

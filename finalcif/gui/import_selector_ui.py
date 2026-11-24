@@ -91,17 +91,17 @@ class Ui_importSelectMainWindow(object):
     # setupUi
 
     def retranslateUi(self, importSelectMainWindow):
-        importSelectMainWindow.setWindowTitle(QCoreApplication.translate("importSelectMainWindow", u"Select import items", None))
+        importSelectMainWindow.setWindowTitle(QCoreApplication.translate("importSelectMainWindow", "选择导入项目", None))
         self.importInfoLabel.setText("")
         ___qtablewidgetitem = self.importTable_keys.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("importSelectMainWindow", u"keys", None))
+        ___qtablewidgetitem.setText(QCoreApplication.translate("importSelectMainWindow", "键", None))
         ___qtablewidgetitem1 = self.importTable_loops.horizontalHeaderItem(0)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("importSelectMainWindow", u"loops", None))
-        self.importSelectedPushbutton.setText(QCoreApplication.translate("importSelectMainWindow", u"Import Selected", None))
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("importSelectMainWindow", "循环", None))
+        self.importSelectedPushbutton.setText(QCoreApplication.translate("importSelectMainWindow", "导入所选", None))
 #if QT_CONFIG(tooltip)
-        self.selectOnlyNewPB.setToolTip(QCoreApplication.translate("importSelectMainWindow", u"Select only keys and loops that are not yet present in the current CIF. Keys without a value are not selected.", None))
+        self.selectOnlyNewPB.setToolTip(QCoreApplication.translate("importSelectMainWindow", "仅选择当前 CIF 中尚不存在的键和循环。没有值的键不会被选中。", None))
 #endif // QT_CONFIG(tooltip)
-        self.selectOnlyNewPB.setText(QCoreApplication.translate("importSelectMainWindow", u"Select Only New Data", None))
-        self.saveSelectionPushbutton.setText(QCoreApplication.translate("importSelectMainWindow", u"Save current Selection", None))
+        self.selectOnlyNewPB.setText(QCoreApplication.translate("importSelectMainWindow", "仅选择新数据", None))
+        self.saveSelectionPushbutton.setText(QCoreApplication.translate("importSelectMainWindow", "保存当前选择", None))
     # retranslateUi
 

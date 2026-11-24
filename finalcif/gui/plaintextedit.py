@@ -72,13 +72,13 @@ class MyQPlainTextEdit(QPlainTextEdit):
 
     def contextMenuEvent(self, event: QContextMenuEvent):
         menu = self.createStandardContextMenu(event.pos())
-        action_copy_vhead = menu.addAction("Copy CIF Keyword")
-        deleterow = menu.addAction("Delete Row")
+        action_copy_vhead = menu.addAction("复制 CIF 关键字")
+        deleterow = menu.addAction("删除行")
         menu.addSeparator()
-        action_template = menu.addAction("Text Template")
-        new_key = menu.addAction('Add new CIF keys')
+        action_template = menu.addAction("文本模板")
+        new_key = menu.addAction("添加新的 CIF 键")
         menu.addSeparator()
-        open_in_editor = menu.addAction("Open in Editor")
+        open_in_editor = menu.addAction("在编辑器中打开")
         action_copy_vhead.triggered.connect(self.copy_vhead_item)
         action_template.triggered.connect(self._on_create_template)
         deleterow.triggered.connect(self._delete_row)
@@ -215,7 +215,7 @@ class MyQPlainTextEdit(QPlainTextEdit):
         return self.toPlainText()
 
     def sizeHint(self) -> QSize:
-        """Text field sizes are scaled to text length"""
+        "文本字段尺寸随文本长度缩放"
         max_size = QSize(100, 350)
         if len(self.toPlainText()) > 500:
             return max_size
@@ -275,7 +275,7 @@ class PlainTextEditTemplate(QPlainTextEdit):
         return self.toPlainText()
 
     def sizeHint(self) -> QSize:
-        """Text field sizes are scaled to text length"""
+        "文本字段尺寸随文本长度缩放"
         rect = self.fontmetric.boundingRect(self.contentsRect(), Qt.TextFlag.TextWordWrap, self.toPlainText())
         size = QSize(100, rect.height() + 14)
         if size.height() > 300:

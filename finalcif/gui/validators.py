@@ -47,8 +47,8 @@ class Integerlimits(BaseLimits):
 
     def __init__(self, lower: int, upper: int, help_text: str | None = None):
         if not help_text:
-            help_text = (f'Must be a {"negative" if lower < 0 else "positive"} '
-                         f'integer number between {lower} and {upper}.')
+            help_text = (f'必须是{"负" if lower < 0 else "正"}整数，'
+                         f'范围 {lower} 至 {upper}。')
         super().__init__(lower, upper, help_text)
 
     def validate_cif_key(self, value: str):
@@ -65,20 +65,19 @@ class Floatlimits(BaseLimits):
     def __init__(self, lower: float = -inf, upper: float = inf, help_text: str | None = None):
         if not help_text:
             if lower < 0 and upper <= 0:
-                limit = 'negative '
+                limit = '负'
             elif lower < 0 < upper:
                 limit = ''
             else:
-                limit = 'positive '
-            help_text = (f'Must be a {limit}'
-                         f'decimal number between {lower} and {upper}.')
+                limit = '正'
+            help_text = f'必须是{limit}十进制数，范围 {lower} 至 {upper}。'
         super().__init__(lower, upper, help_text)
 
 
 class Stringlimits:
     def __init__(self, help_text: str | None = None):
         self.valid = self.validate_cif_key
-        self.help_text = 'Must be letters'
+        self.help_text = "必须为字母"
         if help_text:
             self.help_text = help_text
 
@@ -106,9 +105,9 @@ class CalculatedZLimits(Integerlimits):
         """Set (or clear, with ``None``) the Z value calculated from unit-cell packing."""
         self.calculated_z = z
         if z is not None:
-            self.help_text = (f'The Z calculated from the packed unit cell is {z}, '
-                              f'but a different value is given here.\n'
-                              f'The calulated value can be wromng in edge cases.')
+            self.help_text = (f'由晶胞堆积计算得到的 Z 为 {z}，'
+                              '但此处给的是另一个值。\n'
+                              '该计算值在边缘情况下可能有误。')
         else:
             self.help_text = self._range_help_text
 
@@ -137,7 +136,7 @@ class Textlimits:
     def __init__(self, options: list[str], help_text: str | None= None):
         self.valid = self.validate_cif_key
         self.options = options
-        self.help_text = f'Must be one of: {", ".join(options)}.'
+        self.help_text = f'"必须是以下之一："{", ".join(options)}.'
         if help_text:
             self.help_text = help_text
 
@@ -150,7 +149,7 @@ class Textlimits:
 class AnyTextLimits:
     def __init__(self, help_text: str | None = None):
         self.valid = self.validate_cif_key
-        self.help_text = help_text or 'Any text is allowed.'
+        self.help_text = help_text or "允许任意文本。"
 
     def validate_cif_key(self, value: str) -> bool:
         return True
@@ -188,17 +187,11 @@ validators: dict[str, BaseLimits] = {
     '_diffrn_reflns_Laue_'
     'measured_fraction_full'               : Floatlimits(lower=0.95,
                                                          upper=1.0,
-                                                         help_text="This number should not be between zero and 0.95,\n"
-                                                                   "since it represents the fraction of reflections\n"
-                                                                   "measured in the part of the diffraction pattern\n"
-                                                                   "that is essentially complete."),
+                                                         help_text="该数值不应介于 0 与 0.95 之间，\n因为它表示衍射图中基本完整部分\n已测量衍射点的比例。"),
     '_diffrn_reflns_point_group_'
     'measured_fraction_full'               : Floatlimits(lower=0.95,
                                                          upper=1.0,
-                                                         help_text="This number should not be between zero and 0.95,\n"
-                                                                   "since it represents the fraction of reflections\n"
-                                                                   "measured in the part of the diffraction pattern\n"
-                                                                   "that is essentially complete."),
+                                                         help_text="该数值不应介于 0 与 0.95 之间，\n因为它表示衍射图中基本完整部分\n已测量衍射点的比例。"),
     '_diffrn_reflns_Laue_'
     'measured_fraction_max'                : Floatlimits(lower=0.0, upper=1.0),
     '_diffrn_reflns_point_'
@@ -322,5 +315,5 @@ if __name__ == '__main__':
     print(min_.help_text)
 
     min_ = validators['_space_group_crystal_system']
-    print(min_.valid('Triclinic'))
+    print(min_.valid("三斜"))
     print(min_.help_text)

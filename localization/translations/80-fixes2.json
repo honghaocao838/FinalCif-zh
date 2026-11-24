@@ -1,0 +1,30 @@
+{
+ "appwindow.pyc": {
+  "pytest process running: ": "pytest 进程正在运行："
+ },
+ "ciforder/order.pyc": {
+  "No permission to write file to ": "没有写入权限："
+ },
+ "equip_property/properties.pyc": {
+  " already exists": " 已存在"
+ },
+ "gui/loops.pyc": {
+  "Move row up": "上移行",
+  "Move row down": "下移行",
+  "Move column left": "左移列",
+  "Move column right": "右移列",
+  "SHELX res file": "SHELX res 文件",
+  "No help text found for ": "未找到帮助文本："
+ },
+ "tools/selfupdate.pyc": {
+  "No checksum file was found for this version.": "未找到此版本的校验文件。",
+  "The installer is not available at\n": "安装程序不可用：\n",
+  "The download of the installer is incomplete.": "安装程序下载不完整。",
+  "The downloaded installer could not be read:\n": "无法读取下载的安装程序：\n",
+  "The update could not be performed.": "无法执行更新。",
+  "The checksum of the downloaded installer is wrong.\nThe file was not installed.": "下载的安装程序校验值不正确。\n文件未安装。",
+  "The download of the installer failed:\n": "安装程序下载失败：\n",
+  "The installer of a machine wide installation did not get administrator rights.": "全局安装的安装程序未获得管理员权限。",
+  "The checksum file of this version is empty.": "此版本的校验文件为空。"
+ }
+}

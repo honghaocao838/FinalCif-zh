@@ -70,7 +70,7 @@ class Properties(QtCore.QObject):
         if key in keys and self.selected_template_name() not in names:
             self.app.ui.SavePropertiesButton.setDisabled(True)
             self.lb.setWindowFlags(QtCore.Qt.WindowType.ToolTip)
-            self.lb.setText(f'key {key} already exists')
+            self.lb.setText(f'key {key}" 已存在"')
             self.lb.move(self.app.ui.cifKeywordLineEdit.mapToGlobal(QtCore.QPoint(15, 25)))
             self.lb.show()
             single_shot(self.lb, 5000, self.hide_label)
@@ -99,7 +99,7 @@ class Properties(QtCore.QObject):
         if item is None:
             return
         menu = QMenu(listw)
-        rename_action = menu.addAction('Rename')
+        rename_action = menu.addAction("重命名")
         # Keep a strong Python reference so PySide6 does not garbage-collect the
         # menu wrapper (and thereby drop the triggered signal connection) before
         # the user selects an action.  Clear it whenever the menu closes so the
@@ -138,7 +138,7 @@ class Properties(QtCore.QObject):
             return
         if new_name != old_name:
             if new_name in self.settings.get_properties_list():
-                show_general_warning(self.app, f'A template named "{new_name}" already exists.')
+                show_general_warning(self.app, f'名为 "{new_name}" 的模板已存在。')
                 item.setText(old_name)
                 return
             self.settings.rename_template('property', old_name, new_name)
@@ -232,7 +232,7 @@ class Properties(QtCore.QObject):
             loop = block.init_loop(cif_key, [''])
         except RuntimeError:
             # Not a valid loop key
-            show_general_warning(self.app, f'"{cif_key}" is not a valid cif keyword.')
+            show_general_warning(self.app, f'"{cif_key}" 不是有效的 cif 关键字。')
             return
         for value in table_data:
             if value:
@@ -246,7 +246,7 @@ class Properties(QtCore.QObject):
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self.app, f'No permission to write file to {Path(filename).resolve()}')
+            show_general_warning(self.app, f'"没有写入权限："{Path(filename).resolve()}')
 
     def selected_template_name(self) -> str:
         return self.app.ui.PropertiesTemplatesListWidget.currentIndex().data()
@@ -256,7 +256,7 @@ class Properties(QtCore.QObject):
         Imports a cif file as entry of the property templates list.
         """
         if not filename:
-            filename = cif_file_open_dialog(filter="CIF file (*.cif)")
+            filename = cif_file_open_dialog(filter="CIF 文件 (*.cif)")
         if not filename:
             return
         doc = read_document_from_cif_file(filename)
@@ -317,7 +317,7 @@ class Properties(QtCore.QObject):
             try:
                 self.add_propeties_row(table, retranslate_delimiter(str(value)))
             except TypeError:
-                print('Bad value in property table')
+                print("性质表中的值无效")
                 continue
         self.add_propeties_row(table, '')
         self.app.ui.PropertiesTemplatesStackedWidget.setCurrentIndex(1)

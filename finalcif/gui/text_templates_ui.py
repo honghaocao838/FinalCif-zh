@@ -170,16 +170,16 @@ class Ui_TextTemplatesWidget(object):
 
     def retranslateUi(self, TextTemplatesWidget):
         TextTemplatesWidget.setWindowTitle(QCoreApplication.translate("TextTemplatesWidget", u"TextTemplatesWidget", None))
-        self.cifKeyLabel.setText(QCoreApplication.translate("TextTemplatesWidget", u"CIF key:", None))
+        self.cifKeyLabel.setText(QCoreApplication.translate("TextTemplatesWidget", "CIF 键：", None))
         self.cifKeyLineEdit.setText("")
-        self.TemplatesListGroupBox.setTitle(QCoreApplication.translate("TextTemplatesWidget", u"Select template(s)", None))
-        self.combinedTestGroupBox.setTitle(QCoreApplication.translate("TextTemplatesWidget", u"Combined text", None))
-        self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("TextTemplatesWidget", u"The text of the selected templates is added here in the order of selection.", None))
-        self.applyTextPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", u"Apply Text", None))
-        self.cancelTextPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", u"Cancel", None))
-        self.savePushButton.setText(QCoreApplication.translate("TextTemplatesWidget", u"Save as Template", None))
-        self.importPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", u"Import Template", None))
-        self.exportTextPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", u"Export to CIF", None))
-        self.deletePushButton.setText(QCoreApplication.translate("TextTemplatesWidget", u"Delete Template", None))
+        self.TemplatesListGroupBox.setTitle(QCoreApplication.translate("TextTemplatesWidget", "选择模板", None))
+        self.combinedTestGroupBox.setTitle(QCoreApplication.translate("TextTemplatesWidget", "合并文本", None))
+        self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("TextTemplatesWidget", "所选模板的文本将按选择顺序添加到这里。", None))
+        self.applyTextPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", "应用文本", None))
+        self.cancelTextPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", "取消", None))
+        self.savePushButton.setText(QCoreApplication.translate("TextTemplatesWidget", "保存为模板", None))
+        self.importPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", "导入模板", None))
+        self.exportTextPushButton.setText(QCoreApplication.translate("TextTemplatesWidget", "导出到 CIF", None))
+        self.deletePushButton.setText(QCoreApplication.translate("TextTemplatesWidget", "删除模板", None))
     # retranslateUi
 

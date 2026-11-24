@@ -70,9 +70,9 @@ class Ui_AddKeyWindow(object):
     # setupUi
 
     def retranslateUi(self, AddKeyWindow):
-        AddKeyWindow.setWindowTitle(QCoreApplication.translate("AddKeyWindow", u"Add CIF Keyword", None))
-        self.searchLabel.setText(QCoreApplication.translate("AddKeyWindow", u"Search", None))
-        self.addKeyPushButton.setText(QCoreApplication.translate("AddKeyWindow", u"Add Key(s)", None))
-        self.cancelPushButton.setText(QCoreApplication.translate("AddKeyWindow", u"Close", None))
+        AddKeyWindow.setWindowTitle(QCoreApplication.translate("AddKeyWindow", "添加 CIF 关键字", None))
+        self.searchLabel.setText(QCoreApplication.translate("AddKeyWindow", "搜索", None))
+        self.addKeyPushButton.setText(QCoreApplication.translate("AddKeyWindow", "添加键", None))
+        self.cancelPushButton.setText(QCoreApplication.translate("AddKeyWindow", "关闭", None))
     # retranslateUi
 
