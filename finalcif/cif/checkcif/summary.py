@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 LEVELS = ('A', 'B', 'C', 'G')
 
 _ALERT_RE = re.compile(
-    r'(?P<code>[A-Z][A-Z0-9]*\d{3}|\d{3})_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
+    r'(?P<code>[A-Z][A-Z0-9]*\d+|\d{3,})_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
     r'\s*(?P<desc>.*)')
 _COUNT_RE = re.compile(
     r'(\d+)[ \t]*(?:<[^>]+>[ \t]*)*ALERT\s+level[ \t]+([A-G])', re.IGNORECASE)
