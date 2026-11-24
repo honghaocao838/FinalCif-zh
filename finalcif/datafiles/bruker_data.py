@@ -137,10 +137,10 @@ class BrukerData(WorkDataMixin):
             temperature = '?'
         if (self.cif['_diffrn_ambient_temperature'].split('(')[0] or
             self.cif['_cell_measurement_temperature']).split('(')[0] == '0':
-            show_general_warning(self.app, '<b>Warning of impossible temperature specification</b>:<br>'
-                                           'You probably entered &minus;273.15 °C instead '
-                                           'of &minus;173.15 °C into the SHELX instruction file.<br>'
-                                           'A temperature of 0 K is likely to be wrong.')
+            show_general_warning(self.app, '<b>温度设定不可能</b>：<br>'
+                                           '你可能在 SHELX 指令文件中输入了 −273.15 °C，'
+                                           '而不是 −173.15 °C。<br>'
+                                           '0 K 的温度很可能是错的。')
         try:
             temperature_diff = abs(int(self.cif['_diffrn_ambient_temperature'].split('(')[0]) - int(temperature)) >= 2
         except ValueError:
@@ -148,32 +148,31 @@ class BrukerData(WorkDataMixin):
         if (temperature_diff and not self.app.temperature_warning_displayed):
             self.app.temperature_warning_displayed = True
             show_general_warning(self.app,
-                                 f'<b>Warning</b>: The temperature from the measurement and from SHELX '
-                                 f'differ. Please double-check for correctness.'
-                                 f'<br><br>SHELX says: {self.cif["_diffrn_ambient_temperature"].split("(")[0]} K'
-                                 f'<br>The P4P file says: {temp2} {"K" if temp2 else ""}<br>Frame header says: '
-                                 f'{temp1} {"K" if temp2 else ""}<br><br>You may add a '
+                                 f'<b>警告</b>：测量温度与 SHELX 中的温度不一致，请核实。'
+                                 f'<br><br>SHELX：{self.cif["_diffrn_ambient_temperature"].split("(")[0]} K'
+                                 f'<br>P4P 文件：{temp2} {"K" if temp2 else ""}<br>帧头：'
+                                 f'{temp1} {"K" if temp2 else ""}<br><br>可以在 SHELX 文件中加入 '
                                  f'<a href="http://shelx.uni-goettingen.de/shelxl_html.php#TEMP">TEMP</a> '
-                                 f'instruction to your SHELX file (in °C).')
+                                 f'指令（单位为 °C）。')
         if not self.cif['_space_group_name_H-M_alt']:
             try:
                 self.sources['_space_group_name_H-M_alt'] = (
-                    self.cif.space_group, 'Calculated by gemmi: https://gemmi.readthedocs.io')
+                    self.cif.space_group, "由 gemmi 计算：https://gemmi.readthedocs.io")
             except AttributeError:
                 pass
         if not self.cif['_space_group_name_Hall']:
             with suppress(AttributeError):
                 self.sources['_space_group_name_Hall'] = (
-                    self.cif.hall_symbol, 'Calculated by gemmi: https://gemmi.readthedocs.io')
+                    self.cif.hall_symbol, "由 gemmi 计算：https://gemmi.readthedocs.io")
         if not self.cif['_space_group_IT_number']:
             with suppress(AttributeError):
                 self.sources['_space_group_IT_number'] = (
-                    self.cif.spgr_number_from_symmops, 'Calculated by gemmi: https://gemmi.readthedocs.io')
+                    self.cif.spgr_number_from_symmops, "由 gemmi 计算：https://gemmi.readthedocs.io")
         if not self.cif['_space_group_crystal_system']:
             with suppress(AttributeError):
                 csystem = self.cif.crystal_system
                 self.sources['_space_group_crystal_system'] = (
-                    csystem, 'calculated by gemmi: https://gemmi.readthedocs.io')
+                    csystem, "由 gemmi 计算：https://gemmi.readthedocs.io")
         if not self.cif.symmops and self.cif.symmops_from_spgr:
             loop = self.cif.block.init_loop('_space_group_symop_operation_', ['xyz'])
             for symmop in reversed(self.cif.symmops_from_spgr):
@@ -202,7 +201,7 @@ class BrukerData(WorkDataMixin):
         self.sources['_exptl_crystal_size_mid'] = (self.p4p.crystal_size[1] or '', source_path(self.p4p.filename))
         self.sources['_exptl_crystal_size_max'] = (self.p4p.crystal_size[2] or '', source_path(self.p4p.filename))
         self.sources['_computing_structure_solution'] = solution_program
-        self.sources['_atom_sites_solution_primary'] = (sol.method, 'Inherited from solution program.')
+        self.sources['_atom_sites_solution_primary'] = (sol.method, "继承自解析程序。")
         self.sources['_diffrn_source_voltage'] = (kilovolt or '', frame_name)
         self.sources['_diffrn_source_current'] = (milliamps or '', frame_name)
         self.sources['_chemical_formula_moiety'] = ('', '')
@@ -227,7 +226,7 @@ class BrukerData(WorkDataMixin):
                 self.sources['_twin_individual_id'] = (
                     str(self.saint_data.components_firstsample), saint_file)
                 self.sources['_twin_special_details'] = (
-                    'The data was integrated as a 2-component twin.', saint_file)
+                    "数据按双分量孪晶积分。", saint_file)
 
     def _add_reflection_data(self, sadabs: Sadabs) -> None:
         """
@@ -277,10 +276,10 @@ class BrukerData(WorkDataMixin):
 
     def _calculated_rint_source(self, twinned: bool) -> str:
         if twinned:
-            return (f'calculated from {source_path(self.cif.fileobj)} '
-                    f'(singles of twin component {self._reference_domain()}, '
-                    f'merged in {self.cif.space_group})')
-        return f'calculated from {source_path(self.cif.fileobj)}'
+            return (f'计算自 {source_path(self.cif.fileobj)} '
+                    f'（孪晶分量 {self._reference_domain()}，'
+                    f'合并于 {self.cif.space_group}）')
+        return f'"计算自 "{source_path(self.cif.fileobj)}'
 
     def _reference_domain(self) -> int | None:
         return self._twst() or reference_domain(self.cif.hkl_file)
@@ -293,8 +292,8 @@ class BrukerData(WorkDataMixin):
         source = source_path(sadabs.filename)
         statistics = dataset.singles_statistics if dataset else None
         if statistics and dataset.equivalents_point_group:
-            return (f'{source} (singles of twin component {statistics.component}, '
-                    f'point group {dataset.equivalents_point_group})')
+            return (f'{source}（孪晶分量 {statistics.component}，'
+                    f'点群 {dataset.equivalents_point_group}）')
         return source
 
     def _rint_from_hkl_data(self) -> float | None:

@@ -1694,8 +1694,8 @@ class AppWindow(QMainWindow):
                 print('dbg> Unable to open report or CIF file')
                 raise
             show_general_warning(self,
-                                 f'文档 {report_filename.name} could not be opened to '
-                                 f'write the report.\nIs the file already opened?')
+                                 f'文档 {report_filename.name} 无法打开以写入报告。\n'
+                                 f'该文件是否已被打开？')
             return None
         except UnrecognizedImageError:
             if DEBUG:

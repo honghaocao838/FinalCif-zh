@@ -116,7 +116,7 @@ class Equipment:
         if new_name != old_name:
             deleted = self.settings.load_value_of_key(key='deleted_templates') or []
             if new_name in self.settings.get_equipment_list() and new_name not in deleted:
-                show_general_warning(self.app, f'A template named "{new_name}" already exists.')
+                show_general_warning(self.app, f'名为 "{new_name}" 的模板已存在。')
                 item.setText(old_name)
                 return
             self.settings.rename_template('equipment', old_name, new_name)

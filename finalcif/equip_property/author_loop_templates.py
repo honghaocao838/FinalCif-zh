@@ -159,10 +159,10 @@ class AuthorLoops:
         if author.contact_author and self._any_key_is_pair(author_loop_tags):
             # Contact author items are not loopable in coreCIF, so the existing pairs get overwritten:
             self._set_main_table_values(author_loop_tags, row)
-            self.app.status_bar.show_message('Contact author was set in the main table.', 15)
+            self.app.status_bar.show_message("通讯作者已从主表设定。", 15)
         elif table.width():
             if tuple(row) in [tuple(table_row) for table_row in table]:
-                self.app.status_bar.show_message('This author already exists.', 15)
+                self.app.status_bar.show_message("该作者已存在。", 15)
                 return
             table.ensure_loop()
             table.append_row(row)
@@ -274,7 +274,7 @@ class AuthorLoops:
     def _author_template_name(self, author: Author) -> str:
         """Return the default template-list name for an author."""
         if author.contact_author:
-            return f'{string_to_utf8(as_string(author.name))} (contact author)'
+            return f'{string_to_utf8(as_string(author.name))}"（通讯作者）"'
         return string_to_utf8(as_string(author.name))
 
     def _unique_author_name(self, base_name: str) -> str:
@@ -316,7 +316,7 @@ class AuthorLoops:
         except (OSError, PermissionError):
             if Path(filename).is_dir():
                 return
-            show_general_warning(self, f'No permission to write file to {Path(filename).resolve()}')
+            show_general_warning(self, f'"没有写入权限："{Path(filename).resolve()}')
 
     def put_author_in_cif_object(self, blockname: str, filename: str) -> CifContainer:
         author_data = self.author_loopdata(author_name=self.get_selected_loop_name())
@@ -350,7 +350,7 @@ class AuthorLoops:
         Import an author from a cif file.
         """
         if not filename:
-            filename = cif_file_open_dialog(parent=self.app, filter="CIF file (*.cif)")
+            filename = cif_file_open_dialog(parent=self.app, filter="CIF 文件 (*.cif)")
         if not filename:
             return
         doc = read_document_from_cif_file(filename)
@@ -492,7 +492,7 @@ class AuthorLoops:
             return
         if new_name != old_name:
             if new_name in self.authors_list():
-                show_general_warning(self.app, f'A template named "{new_name}" already exists.')
+                show_general_warning(self.app, f'名为 "{new_name}" 的模板已存在。')
                 item.setText(old_name)
                 return
             self.settings.rename_template('authors_list', old_name, new_name)

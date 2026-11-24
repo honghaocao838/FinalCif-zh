@@ -19,7 +19,7 @@ class NewKey(QtWidgets.QMainWindow, Ui_AddKeyWindow):
         self.keysListWidget.addItems(['', *list(all_cif_dicts.cif_all_dict.keys())])
         self.keysListWidget.item(0).setFlags(
             QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled | QtCore.Qt.ItemFlag.ItemIsEditable)
-        self.keysListWidget.item(0).setText('Double-click to add custom key.')
+        self.keysListWidget.item(0).setText("双击可添加自定义键。")
         self.keysListWidget.item(0).setForeground(QtGui.QBrush(QtGui.QColor("gray")))
         self.keysListWidget.itemDoubleClicked.connect(self.item_clicked)
         for num in range(self.keysListWidget.count()):

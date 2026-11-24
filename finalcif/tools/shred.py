@@ -36,18 +36,18 @@ class ShredCIF:
         if not self._cif:
             return
         if not any([self._cif.res_file_data, self._cif.hkl_file]):
-            self._statusbar.show_message('No .res and .hkl file data found!')
+            self._statusbar.show_message("未找到 .res 和 .hkl 文件内容！")
             return
         if self._cif.res_file_data:
             res_data = self._cif.res_file_data
         if self._cif.hkl_file:
             hkl_data = self._cif.hkl_file
         if not self._data_is_valid(res_data):
-            self._statusbar.show_message('No .res file data found!')
+            self._statusbar.show_message("未找到 .res 文件内容！")
         elif not self._write_res_file(resfile_path, res_data):
             return None
         if not self._data_is_valid(hkl_data):
-            self._statusbar.show_message('No .hkl file data found!')
+            self._statusbar.show_message("未找到 .hkl 文件内容！")
         else:
             hkl_data = self.format_hkl_data(hkl_data)
             if not self._write_hkl_file(hklfile_path, hkl_data):
@@ -72,12 +72,12 @@ class ShredCIF:
 
     def _show_info(self, resname: Path, hklname: Path, resdata: str | None, hkldata: str | None) -> None:
         if resdata and not hkldata:
-            self._statusbar.show_message(f'{self._statusbar.current_message}\nFinished writing data to {resname.name}.')
+            self._statusbar.show_message(f'{self._statusbar.current_message}"\n数据已写入 "{resname.name}.')
         if hkldata and not resdata:
-            self._statusbar.show_message(f'{self._statusbar.current_message}\nFinished writing data to {hklname.name}.')
+            self._statusbar.show_message(f'{self._statusbar.current_message}"\n数据已写入 "{hklname.name}.')
         if hkldata and resdata:
             self._statusbar.show_message(
-                f'{self._statusbar.current_message}\nFinished writing data to {resname.name} and {hklname.name}.')
+                f'{self._statusbar.current_message}"\n数据已写入 "{resname.name} and {hklname.name}.')
 
     @staticmethod
     def _data_is_valid(data: str | None) -> bool:
@@ -92,7 +92,7 @@ class ShredCIF:
             hklfile.write_text(hkl, encoding='latin1', errors='ignore')
         except Exception as e:
             print(e)
-            show_general_warning(parent=None, warn_text='Unable to write files: ' + str(e))
+            show_general_warning(parent=None, warn_text="无法写入文件：" + str(e))
             return False
         return True
 
@@ -101,11 +101,11 @@ class ShredCIF:
         Check whether hkl and/or res file content is included in the cif file.
         """
         if not self._cif.res_file_data:
-            self._statusbar.show_message('No .res file data found!')
+            self._statusbar.show_message("未找到 .res 文件内容！")
         if not self._cif.hkl_file and isinstance(self._statusbar.current_message, str):
-            self._statusbar.show_message(self._statusbar.current_message + '\nNo .hkl file data found!')
+            self._statusbar.show_message(self._statusbar.current_message + "\n未找到 .hkl 文件内容！")
         if not any([self._cif.res_file_data, self._cif.hkl_file]):
-            self._statusbar.show_message('No .res and .hkl file data found!')
+            self._statusbar.show_message("未找到 .res 和 .hkl 文件内容！")
             return False
         else:
             return True
@@ -119,6 +119,6 @@ class ShredCIF:
             resfile.write_text(reslines, encoding='latin1', errors='ignore', newline='\n')
         except Exception as e:
             print(e)
-            show_general_warning(parent=None, warn_text='Unable to write files: ' + str(e))
+            show_general_warning(parent=None, warn_text="无法写入文件：" + str(e))
             return False
         return True

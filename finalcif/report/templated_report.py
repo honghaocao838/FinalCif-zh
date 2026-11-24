@@ -1193,11 +1193,11 @@ class TemplatedReport:
         except PermissionError:
             # raise
             show_general_warning(parent=None, window_title='Warning',
-                                 warn_text=f'The document {output_filename} could not be opened to write the report.\n'
-                                           f'Is the file already opened?')
+                                 warn_text=f'文档 {output_filename} 无法打开以写入报告。\n'
+                                           f'该文件是否已被打开？')
             return False
         except Exception as e:
-            show_general_warning(parent=None, window_title='Warning', warn_text='Document generation failed',
+            show_general_warning(parent=None, window_title='Warning', warn_text="文档生成失败",
                                  info_text=str(e))
             print(e)
             return False
@@ -1232,7 +1232,7 @@ class TemplatedReport:
                 outputText = template.render(context)
                 f.write(outputText)
         except Exception as e:
-            show_general_warning(parent=None, window_title='Warning', warn_text='Document generation failed',
+            show_general_warning(parent=None, window_title='Warning', warn_text="文档生成失败",
                                  info_text=str(e))
             raise
             return False
@@ -1281,7 +1281,7 @@ class TemplatedReport:
                 outputText = template.render(context)
                 f.write(outputText)
         except Exception as e:
-            show_general_warning(parent=None, window_title='Warning', warn_text='Document generation failed',
+            show_general_warning(parent=None, window_title='Warning', warn_text="文档生成失败",
                                  info_text=str(e))
             raise
             return False

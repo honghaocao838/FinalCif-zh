@@ -1,0 +1,62 @@
+{
+ "cif/cod/deposit.pyc": {
+  "Unable to login. Check username/password.": "登录失败，请检查用户名和密码。",
+  "Failed to get DOI information!": "获取 DOI 信息失败！",
+  "no username given": "未输入用户名",
+  "no password given": "未输入密码",
+  "  File Saved:  ": "  文件已保存：  ",
+  "Deposition aborted.": "提交已中止。",
+  "Deposit CIF": "提交 CIF",
+  "Try Again": "重试",
+  "Refresh List": "刷新列表",
+  "Enter username and password": "输入用户名和密码",
+  "HKL file (*.hkl *.fcf)": "HKL 文件 (*.hkl *.fcf)",
+  "Only plain hkl or fcf (LIST 4 style) files should be uploaded.": "只能上传普通 hkl 或 fcf（LIST 4 格式）文件。",
+  "You are attempting to upload a CIF without hkl data.\nDo you really want to proceed?": "当前 CIF 不包含 hkl 数据。\n确定要继续上传吗？"
+ },
+ "tools/shred.pyc": {
+  "No .res and .hkl file data found!": "未找到 .res 和 .hkl 文件内容！",
+  "No .res file data found!": "未找到 .res 文件内容！",
+  "No .hkl file data found!": "未找到 .hkl 文件内容！",
+  "\nFinished writing data to ": "\n数据已写入 ",
+  "\nNo .hkl file data found!": "\n未找到 .hkl 文件内容！",
+  "Unable to write files: ": "无法写入文件："
+ },
+ "gui/new_key_dialog.pyc": {
+  "Double-click to add custom key.": "双击可添加自定义键。"
+ },
+ "equip_property/author_loop_templates.pyc": {
+  "Contact author was set in the main table.": "通讯作者已从主表设定。",
+  "This author already exists.": "该作者已存在。",
+  " (contact author)": "（通讯作者）",
+  "No permission to write file to ": "没有写入权限：",
+  "CIF file (*.cif)": "CIF 文件 (*.cif)"
+ },
+ "equip_property/equipment.pyc": {
+  "No permission to write file to ": "没有写入权限："
+ },
+ "datafiles/bruker_data.pyc": {
+  "Inherited from solution program.": "继承自解析程序。",
+  "calculated from ": "计算自 ",
+  " (singles of twin component ": "（孪晶分量 ",
+  ", merged in ": "，合并于 ",
+  ", point group ": "，点群 ",
+  "The data was integrated as a 2-component twin.": "数据按双分量孪晶积分。",
+  "Calculated by gemmi: https://gemmi.readthedocs.io": "由 gemmi 计算：https://gemmi.readthedocs.io",
+  "calculated by gemmi: https://gemmi.readthedocs.io": "由 gemmi 计算：https://gemmi.readthedocs.io"
+ },
+ "appwindow.pyc": {
+  " could not be opened to write the report.\nIs the file already opened?": " 无法打开以写入报告。\n该文件是否已被打开？",
+  "' has no value.": "' 没有值。",
+  "The document ": "文档 "
+ },
+ "report/templated_report.pyc": {
+  " could not be opened to write the report.\nIs the file already opened?": " 无法打开以写入报告。\n该文件是否已被打开？",
+  "Document generation failed": "文档生成失败",
+  "The document ": "文档 "
+ },
+ "cif/checkcif/checkcif.pyc": {
+  " could not be opened to write the report.\nIs the file already opened?": " 无法打开以写入报告。\n该文件是否已被打开？",
+  "The document ": "文档 "
+ }
+}

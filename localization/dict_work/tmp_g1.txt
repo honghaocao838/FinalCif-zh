@@ -1,0 +1,389 @@
+#####15 _cell_subsystem_matrix_W_4_8
+<pre><h2>_cell_subsystem_matrix_W_4_8</h2> In the case of composites, for each subsystem the matrix W as
+ defined in van Smaalen (1991); see also van Smaalen (1995).
+ Its dimension must match
+ (_cell_modulation_dimension+3)*(_cell_modulation_dimension+3).
+
+ Intergrowth compounds are composed of several periodic
+ substructures in which the reciprocal lattices of two different
+ subsystems are incommensurate in at least one direction. The
+ indexing of the whole diffraction diagram with integer indices
+ requires more than three reciprocal basic vectors. However, the
+ distinction between main reflections and satellites is not as
+ obvious as in normal incommensurate structures. Indeed, true
+ satellites are normally difficult to locate for composites and
+ the modulation wave vectors are reciprocal vectors of the
+ other subsystem(s) referred to the reciprocal basis of one
+ of them. The choice of the enlarged reciprocal basis
+ {a*, b*, c*, q~1~,..., q~d~} is completely arbitrary, but
+ the reciprocal basis of each subsystem is always known through
+ the W matrices. These matrices [(3+d)x(3+d)-dimensional], one for
+ each subsystem, can be blocked as follows:
+
+                   (Z^\n^~3~    Z^\n^~d~)
+            W^\n^= (                    )
+                   (V^\n^~3~    V^\n^~d~),
+
+ the dimension of each block being (3x3), (3xd), (dx3) and (dxd)
+ for Z^\n^~3~, Z^\n^~d~, V^\n^~3~ and V^\n^~d~, respectively. For
+ example, Z^\n^ expresses the reciprocal basis of each subsystem
+ in terms of the basis {a*, b*, c*, q~1~ ,..., q~d~}.
+ W^\n^ also gives the irrational components of the modulation wave
+ vectors of each subsystem in its own three-dimensional reciprocal
+ basis {a~\n~*, b~\n~*, c~\n~*} and the superspace group of
+ a given subsystem from the unique superspace group of the
+ composite.
+
+ The structure of these materials is always described by a set of
+ incommensurate structures, one for each subsystem. The atomic
+ coordinates, modulation parameters and wave vectors used for
+ describing the modulation(s) are always referred to the (direct
+ or reciprocal) basis of each particular subsystem. Although
+ expressing the structural results in the chosen common basis is
+ possible (using the matrices W), it is less confusing to use
+ this alternative description. Atomic coordinates are only
+ referred to a common basis when interatomic distances are
+ calculated. Usually, the reciprocal vectors {a*, b* and c*}
+ span the lattice of main reflections of one of the subsystems and
+ therefore its W matrix is the unit matrix.
+
+ For composites described in a single data block using
+ *_subsystem_code pointers, the cell parameters, the superspace
+ group and the measured modulation wave vectors (see
+ CELL_WAVE_VECTOR below) correspond to the reciprocal basis
+ described in _cell_reciprocal_basis_description and coincide
+ with the reciprocal basis of the specific subsystem (if any)
+ whose W matrix is the unit matrix. The cell parameters and the
+ symmetry of the remaining subsystems can be derived using the
+ appropriate W matrices. In any case (single or multiblock CIF),
+ the values assigned to the items describing the atomic parameters
+ (including the wave vectors used to describe the modulations)
+ are always the same and are referred to the basis of each
+ particular subsystem. Such a basis will be explicitly given in a
+ multiblock CIF or should be calculated (with the appropriate W
+ matrix) in the case of a single block description of the
+ composite.
+
+ Ref: Smaalen, S. van (1991). Phys. Rev. B, 43, 11330-11341.
+ Smaalen, S. van (1995). Crystallogr. Rev. 4, 79-202.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####16 _cell_subsystem_matrix_W_6_8
+<pre><h2>_cell_subsystem_matrix_W_6_8</h2> In the case of composites, for each subsystem the matrix W as
+ defined in van Smaalen (1991); see also van Smaalen (1995).
+ Its dimension must match
+ (_cell_modulation_dimension+3)*(_cell_modulation_dimension+3).
+
+ Intergrowth compounds are composed of several periodic
+ substructures in which the reciprocal lattices of two different
+ subsystems are incommensurate in at least one direction. The
+ indexing of the whole diffraction diagram with integer indices
+ requires more than three reciprocal basic vectors. However, the
+ distinction between main reflections and satellites is not as
+ obvious as in normal incommensurate structures. Indeed, true
+ satellites are normally difficult to locate for composites and
+ the modulation wave vectors are reciprocal vectors of the
+ other subsystem(s) referred to the reciprocal basis of one
+ of them. The choice of the enlarged reciprocal basis
+ {a*, b*, c*, q~1~,..., q~d~} is completely arbitrary, but
+ the reciprocal basis of each subsystem is always known through
+ the W matrices. These matrices [(3+d)x(3+d)-dimensional], one for
+ each subsystem, can be blocked as follows:
+
+                   (Z^\n^~3~    Z^\n^~d~)
+            W^\n^= (                    )
+                   (V^\n^~3~    V^\n^~d~),
+
+ the dimension of each block being (3x3), (3xd), (dx3) and (dxd)
+ for Z^\n^~3~, Z^\n^~d~, V^\n^~3~ and V^\n^~d~, respectively. For
+ example, Z^\n^ expresses the reciprocal basis of each subsystem
+ in terms of the basis {a*, b*, c*, q~1~ ,..., q~d~}.
+ W^\n^ also gives the irrational components of the modulation wave
+ vectors of each subsystem in its own three-dimensional reciprocal
+ basis {a~\n~*, b~\n~*, c~\n~*} and the superspace group of
+ a given subsystem from the unique superspace group of the
+ composite.
+
+ The structure of these materials is always described by a set of
+ incommensurate structures, one for each subsystem. The atomic
+ coordinates, modulation parameters and wave vectors used for
+ describing the modulation(s) are always referred to the (direct
+ or reciprocal) basis of each particular subsystem. Although
+ expressing the structural results in the chosen common basis is
+ possible (using the matrices W), it is less confusing to use
+ this alternative description. Atomic coordinates are only
+ referred to a common basis when interatomic distances are
+ calculated. Usually, the reciprocal vectors {a*, b* and c*}
+ span the lattice of main reflections of one of the subsystems and
+ therefore its W matrix is the unit matrix.
+
+ For composites described in a single data block using
+ *_subsystem_code pointers, the cell parameters, the superspace
+ group and the measured modulation wave vectors (see
+ CELL_WAVE_VECTOR below) correspond to the reciprocal basis
+ described in _cell_reciprocal_basis_description and coincide
+ with the reciprocal basis of the specific subsystem (if any)
+ whose W matrix is the unit matrix. The cell parameters and the
+ symmetry of the remaining subsystems can be derived using the
+ appropriate W matrices. In any case (single or multiblock CIF),
+ the values assigned to the items describing the atomic parameters
+ (including the wave vectors used to describe the modulations)
+ are always the same and are referred to the basis of each
+ particular subsystem. Such a basis will be explicitly given in a
+ multiblock CIF or should be calculated (with the appropriate W
+ matrix) in the case of a single block description of the
+ composite.
+
+ Ref: Smaalen, S. van (1991). Phys. Rev. B, 43, 11330-11341.
+ Smaalen, S. van (1995). Crystallogr. Rev. 4, 79-202.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####17 _cell_subsystem_matrix_W_8_8
+<pre><h2>_cell_subsystem_matrix_W_8_8</h2> In the case of composites, for each subsystem the matrix W as
+ defined in van Smaalen (1991); see also van Smaalen (1995).
+ Its dimension must match
+ (_cell_modulation_dimension+3)*(_cell_modulation_dimension+3).
+
+ Intergrowth compounds are composed of several periodic
+ substructures in which the reciprocal lattices of two different
+ subsystems are incommensurate in at least one direction. The
+ indexing of the whole diffraction diagram with integer indices
+ requires more than three reciprocal basic vectors. However, the
+ distinction between main reflections and satellites is not as
+ obvious as in normal incommensurate structures. Indeed, true
+ satellites are normally difficult to locate for composites and
+ the modulation wave vectors are reciprocal vectors of the
+ other subsystem(s) referred to the reciprocal basis of one
+ of them. The choice of the enlarged reciprocal basis
+ {a*, b*, c*, q~1~,..., q~d~} is completely arbitrary, but
+ the reciprocal basis of each subsystem is always known through
+ the W matrices. These matrices [(3+d)x(3+d)-dimensional], one for
+ each subsystem, can be blocked as follows:
+
+                   (Z^\n^~3~    Z^\n^~d~)
+            W^\n^= (                    )
+                   (V^\n^~3~    V^\n^~d~),
+
+ the dimension of each block being (3x3), (3xd), (dx3) and (dxd)
+ for Z^\n^~3~, Z^\n^~d~, V^\n^~3~ and V^\n^~d~, respectively. For
+ example, Z^\n^ expresses the reciprocal basis of each subsystem
+ in terms of the basis {a*, b*, c*, q~1~ ,..., q~d~}.
+ W^\n^ also gives the irrational components of the modulation wave
+ vectors of each subsystem in its own three-dimensional reciprocal
+ basis {a~\n~*, b~\n~*, c~\n~*} and the superspace group of
+ a given subsystem from the unique superspace group of the
+ composite.
+
+ The structure of these materials is always described by a set of
+ incommensurate structures, one for each subsystem. The atomic
+ coordinates, modulation parameters and wave vectors used for
+ describing the modulation(s) are always referred to the (direct
+ or reciprocal) basis of each particular subsystem. Although
+ expressing the structural results in the chosen common basis is
+ possible (using the matrices W), it is less confusing to use
+ this alternative description. Atomic coordinates are only
+ referred to a common basis when interatomic distances are
+ calculated. Usually, the reciprocal vectors {a*, b* and c*}
+ span the lattice of main reflections of one of the subsystems and
+ therefore its W matrix is the unit matrix.
+
+ For composites described in a single data block using
+ *_subsystem_code pointers, the cell parameters, the superspace
+ group and the measured modulation wave vectors (see
+ CELL_WAVE_VECTOR below) correspond to the reciprocal basis
+ described in _cell_reciprocal_basis_description and coincide
+ with the reciprocal basis of the specific subsystem (if any)
+ whose W matrix is the unit matrix. The cell parameters and the
+ symmetry of the remaining subsystems can be derived using the
+ appropriate W matrices. In any case (single or multiblock CIF),
+ the values assigned to the items describing the atomic parameters
+ (including the wave vectors used to describe the modulations)
+ are always the same and are referred to the basis of each
+ particular subsystem. Such a basis will be explicitly given in a
+ multiblock CIF or should be calculated (with the appropriate W
+ matrix) in the case of a single block description of the
+ composite.
+
+ Ref: Smaalen, S. van (1991). Phys. Rev. B, 43, 11330-11341.
+ Smaalen, S. van (1995). Crystallogr. Rev. 4, 79-202.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####18 _chemical_identifier_inchi_version
+<pre><h2>_chemical_identifier_inchi_version</h2> The version number of the InChI standard to which the
+ associated chemical identifier string applies.
+
+<h3>Example:</h3>
+1.03</pre>
+<br><p><h4>Type:</h4> string</p>
+#####19 _citation_author_ordinal
+<pre><h2>_citation_author_ordinal</h2> This data name defines the order of the author's name in the
+ list of authors of a citation.</pre>
+<br><p><h4>Type:</h4> string</p>
+#####20 _computing_molecular_graphics
+<pre><h2>_computing_molecular_graphics</h2> Software used in the processing of the data. Give the program
+ or package name and a brief reference.
+
+<h3>Example:</h3>
+CAD-4 (Enraf-Nonius, 1989)
+DIFDAT, SORTRF, ADDREF (Hall &amp; Stewart, 1990)
+FRODO (Jones, 1986), ORTEP (Johnson, 1965)
+CRYSTALS (Watkin, 1988)
+SHELX85 (Sheldrick, 1985)</pre>
+<br><p><h4>Type:</h4> string</p>
+#####21 _database_code_NBS
+<pre><h2>_database_code_NBS</h2> The codes are assigned by databases: Chemical Abstracts;
+ Crystallography Open Database (COD);
+ Cambridge Structural Database (organic and metal-organic
+ compounds); Inorganic Crystal Structure Database; Metals
+ Data File (metal structures); NBS (NIST) Crystal Data
+ Database (lattice parameters); Protein Data Bank; and the
+ Powder Diffraction File (JCPDS/ICDD).</pre>
+<br><p><h4>Type:</h4> string</p>
+#####22 _diffrn_detector_dtime
+<pre><h2>_diffrn_detector_dtime</h2> The deadtime in microseconds of the detector used to measure
+ the diffraction intensities.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+<br><p><h4>Limits:</h4> 0.0:∞ </p>
+#####23 _diffrn_measurement_details
+<pre><h2>_diffrn_measurement_details</h2> A description of special aspects of the intensity measurement.
+
+<h3>Example:</h3>
+440 frames of 0.25\%</pre>
+<br><p><h4>Type:</h4> string</p>
+#####24 _diffrn_orient_matrix_UB_32
+<pre><h2>_diffrn_orient_matrix_UB_32</h2> The elements of the diffractometer orientation matrix. These
+ define the dimensions of the reciprocal cell and its orientation
+ to the local diffractometer axes. See _diffrn_orient_matrix_type.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####25 _diffrn_refln_index_m_8
+<pre><h2>_diffrn_refln_index_m_8</h2> Additional Miller indices needed to write the reciprocal vector
+ of a certain reflection in the basis described in
+ _cell_reciprocal_basis_description. Following the usual
+ convention, such a vector would be expressed as
+          H=h*a*+k*b*+l*c*+m1*q(1)+...+m8*q(8),
+ where h,k,l are the usual _diffrn_refln_index_, and q(1)...q(8)
+ represent the independent wave vectors given by
+ _cell_wave_vector_ and identified by _cell_wave_vector_seq_id.
+ Therefore, the total number of indices of a given reflection must
+ match (_cell_modulation_dimension + 3) and the order of the
+ additional indices must be consistent with the codes given in
+ _cell_wave_vector_seq_id. These indices need not match
+ _refln_index_m_ values if a transformation of the original
+ measured cell has occurred.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####26 _diffrn_refln_intensity_sigma
+<pre><h2>_diffrn_refln_intensity_sigma</h2> Standard uncertainty (e.s.d.) of the net intensity calculated
+ from the diffraction counts after the attenuator and standard
+ scales have been applied.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+<br><p><h4>Limits:</h4> 0:∞ </p>
+#####27 _diffrn_reflns_av_R_equivalents
+<pre><h2>_diffrn_reflns_av_R_equivalents</h2> The residual [sum av|del(I)| / sum |av(I)|] for
+ symmetry-equivalent reflections used to calculate the
+ average intensity av(I). The av|del(I)| term is the
+ average absolute difference between av(I) and the
+ individual symmetry-equivalent intensities.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+<br><p><h4>Limits:</h4> 0.0:∞ </p>
+#####28 _diffrn_reflns_limit_index_m_8_min
+<pre><h2>_diffrn_reflns_limit_index_m_8_min</h2> Maximum and minimum values of the additional Miller indices
+ appearing in _diffrn_refln_index_m_. The number of ranges must
+ match _cell_modulation_dimension. The order of the additional
+ indices must be consistent with the codes given in
+ _cell_wave_vector_seq_id.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####29 _diffrn_reflns_limit_l_min
+<pre><h2>_diffrn_reflns_limit_l_min</h2> The limits on the Miller indices of the intensities specified
+ by _diffrn_refln_index_h, *_k, *_l.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####30 _diffrn_standard_refln_code
+<pre><h2>_diffrn_standard_refln_code</h2> The code identifying a reflection measured as a standard
+ reflection with the indices _diffrn_standard_refln_index_.
+ This is the same code as the  _diffrn_refln_standard_code in
+ the _diffrn_refln_ list.
+
+<h3>Example:</h3>
+1
+2
+3
+s1
+A
+B</pre>
+<br><p><h4>Type:</h4> string</p>
+#####31 _diffrn_standard_refln_index_m_8
+<pre><h2>_diffrn_standard_refln_index_m_8</h2> Additional Miller indices needed to write the reciprocal vectors
+ of the standard intensities used in the diffraction measurement
+ process, in the basis described in
+ _cell_reciprocal_basis_description. The total number of indices
+ of a given standard reflection must match
+ (_cell_modulation_dimension + 3) and the order of the
+ additional indices must be consistent with the codes given in
+ _cell_wave_vector_seq_id.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####32 _exptl_crystal_face_index_l
+<pre><h2>_exptl_crystal_face_index_l</h2> Miller indices of the crystal face associated with the value
+ _exptl_crystal_face_perp_dist.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####33 _exptl_crystal_face_index_m_7
+<pre><h2>_exptl_crystal_face_index_m_7</h2> Additional Miller indices of the crystal face associated with the
+ value _exptl_crystal_face_perp_dist when the face is indexed
+ using a multidimensional scheme. The total number of indices must
+ match (_cell_modulation_dimension + 3). The order of the indices
+ must be consistent with the codes given in
+ _cell_wave_vector_seq_id.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####34 _geom_angle_site_symmetry_1
+<pre><h2>_geom_angle_site_symmetry_1</h2> The symmetry code of each atom site as the symmetry-equivalent
+ position number 'n' and the cell translation number 'klm'.
+ These numbers are combined to form the code 'n klm' or n_klm.
+ The character string n_klm is composed as follows:
+
+ n refers to the symmetry operation that is applied to the
+ coordinates stored in _atom_site_fract_x, _atom_site_fract_y
+ and _atom_site_fract_z. It must match a number given in
+ _space_group_symop_id.
+
+ k, l and m refer to the translations that are subsequently
+ applied to the symmetry-transformed coordinates to generate
+ the atom used in calculating the angle. These translations
+ (x,y,z) are related to (k,l,m) by the relations
+      k = 5 + x
+      l = 5 + y
+      m = 5 + z
+ By adding 5 to the translations, the use of negative numbers
+ is avoided.
+
+<h3>Example:</h3>
+None
+4
+7_645</pre>
+<br><p><h4>Type:</h4> string</p>
+#####35 _geom_bond_valence
+<pre><h2>_geom_bond_valence</h2> The bond valence calculated from _geom_bond_distance.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####36 _geom_torsion_av
+<pre><h2>_geom_torsion_av</h2> Maximum, minimum and average torsion angles in degrees bounded
+ by the four atom sites identified by the
+ _geom_torsion_atom_site_label_ codes. These must match labels
+ specified as _atom_site_label in the atom list. The torsion-
+ angle definition should be that of Klyne and Prelog (1960).
+
+ Ref: Klyne, W. &amp; Prelog, V. (1960). Experientia, 16, 521-523.</pre>
+<br><p><h4>Type:</h4> number (int or float)</p>
+#####37 _geom_torsion_publ_flag
+<pre><h2>_geom_torsion_publ_flag</h2> This code signals whether the torsion angle is referred to in a
+ publication or should be placed in a table of significant
+ torsion angles.
+
+<h3>Example:</h3>
+no
+	do not include angle in special list
+
+n
+	abbreviation for "no"
+
+yes
+	do include angle in special list
+
+y
+	abbreviation for "yes"
+</pre>
+<br><p><h4>Type:</h4> string</p>
+<br><p><h4>Default:</h4> no </p>

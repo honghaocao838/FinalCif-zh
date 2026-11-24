@@ -210,7 +210,7 @@ class CODdeposit:
             if f.authenticated:
                 self.token_valid = True
             else:
-                self.ui.statusBar.showMessage('Unable to login. Check username/password.', 12000)
+                self.ui.statusBar.showMessage("登录失败，请检查用户名和密码。", 12000)
         f.get_table_data_by_token(self._cod_token)
         parser = MyCODStructuresParser()
         parser.feed(f.table_html)
@@ -255,23 +255,23 @@ class CODdeposit:
             self.cif.set_pair_delimited(key, value)
             status = True
         if not status:
-            self.ui.DOIResolveTextLabel.setText("Failed to get DOI information!")
+            self.ui.DOIResolveTextLabel.setText("获取 DOI 信息失败！")
 
     def _init_deposit(self) -> None:
         print(f"#### Deposition in '{self.deposition_type}' mode...")
         self.ui.depositOutputTextBrowser.clear()
         self.switch_to_page('deposit')
         if len(self.username) < 2:
-            self.ui.depositOutputTextBrowser.setText('no username given')
+            self.ui.depositOutputTextBrowser.setText("未输入用户名")
             self.set_deposit_button_to_try_again()
             return
         if len(self.password) < 4:
-            self.ui.depositOutputTextBrowser.setText('no password given')
+            self.ui.depositOutputTextBrowser.setText("未输入密码")
             self.set_deposit_button_to_try_again()
             return
         self.cif.save()
         print('Saved cif to:', self.cif.filename)
-        self.ui.statusBar.showMessage(f'  File Saved:  {self.cif.filename}', 10 * 1000)
+        self.ui.statusBar.showMessage(f'"  文件已保存：  "{self.cif.filename}', 10 * 1000)
         data, files = self.prepare_upload(username=self.username,
                                           password=self.password,
                                           author_name=self.author_name,
@@ -302,12 +302,11 @@ class CODdeposit:
         data = self._enrich_upload_data(author_email, author_name, data, deposition_type, embargo_time)
         files = self._get_files_data_for_upload()
         if 'hkl' not in files and not self.cif.hkl_file \
-            and not show_ok_cancel_warning(self.ui.Mainwidget, 'You are attempting to upload a CIF without hkl data.\n'
-                                                               'Do you really want to proceed?'):
-            self.ui.depositOutputTextBrowser.setText('Deposition aborted.')
+            and not show_ok_cancel_warning(self.ui.Mainwidget, "当前 CIF 不包含 hkl 数据。\n确定要继续上传吗？"):
+            self.ui.depositOutputTextBrowser.setText("提交已中止。")
             return
         self.ui.depositOutputTextBrowser.setText(
-            f'Starting deposition of {self.cif.fileobj.name} in "{deposition_type}" mode ...'
+            f'正在提交 {self.cif.fileobj.name}（模式 "{deposition_type}"）…'
             )
         return data, files
 
@@ -348,11 +347,11 @@ class CODdeposit:
     def reset_deposit_button_state_to_initial(self):
         self.ui.depositCIFpushButton.clicked.disconnect()
         self.ui.depositOutputTextBrowser.clear()
-        self.ui.depositCIFpushButton.setText("Deposit CIF")
+        self.ui.depositCIFpushButton.setText("提交 CIF")
         self.ui.depositCIFpushButton.clicked.connect(self._init_deposit)
 
     def set_deposit_button_to_try_again(self):
-        self.ui.depositCIFpushButton.setText("Try Again")
+        self.ui.depositCIFpushButton.setText("重试")
         self.ui.depositCIFpushButton.clicked.disconnect()
         self.ui.depositCIFpushButton.clicked.connect(lambda: self.switch_to_page(self.deposition_type))
 
@@ -368,10 +367,10 @@ class CODdeposit:
         self.token_valid = False
         # Do not store this anywhere!
         if len(text) > 4:
-            self.ui.refreshDepositListPushButton.setText('Refresh List')
+            self.ui.refreshDepositListPushButton.setText("刷新列表")
             self.ui.refreshDepositListPushButton.setEnabled(True)
         else:
-            self.ui.refreshDepositListPushButton.setText('Enter username and password')
+            self.ui.refreshDepositListPushButton.setText("输入用户名和密码")
             self.ui.refreshDepositListPushButton.setDisabled(True)
         self.password = text
 
@@ -380,7 +379,7 @@ class CODdeposit:
         self.user_email = text
 
     def _set_external_hkl_file(self) -> None:
-        file = cif_file_open_dialog(parent=self, filter="HKL file (*.hkl *.fcf)")
+        file = cif_file_open_dialog(parent=self, filter="HKL 文件 (*.hkl *.fcf)")
         if file.endswith('.hkl'):
             if self.cif.res_file_data:
                 hklf = self.cif._hklf_number_from_shelxl_file()
@@ -393,14 +392,14 @@ class CODdeposit:
             list_code = cif['_shelx_refln_list_code']
             if list_code != '4':
                 show_general_warning(self.ui.Mainwidget,
-                                     'Only plain hkl or fcf (LIST 4 style) files should be uploaded.')
+                                     "只能上传普通 hkl 或 fcf（LIST 4 格式）文件。")
                 return
             self.hkl_file = io.StringIO(Path(file).read_text())
             self.hkl_file.name = Path(file).name
         elif file == '':
             self.hkl_file = None
         else:
-            show_general_warning(self.ui.Mainwidget, 'Only plain hkl or fcf (LIST 4 style) files should be uploaded.')
+            show_general_warning(self.ui.Mainwidget, "只能上传普通 hkl 或 fcf（LIST 4 格式）文件。")
 
 
 if __name__ == '__main__':

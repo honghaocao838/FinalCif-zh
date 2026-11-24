@@ -331,8 +331,8 @@ class CheckCif(QThread):
             try:
                 pdfobj.write_bytes(pdf)
             except PermissionError:
-                show_general_warning(self, f'The document {pdfobj.name} could not be opened to '
-                                           f'write the report.\nIs the file already opened?')
+                show_general_warning(self, f'文档 {pdfobj.name} 无法打开以写入报告。\n'
+                                           f'该文件是否已被打开？')
             if sys.platform == 'win' or sys.platform == 'win32':
                 subprocess.Popen([str(pdfobj.absolute())], shell=True)
             if sys.platform == 'darwin':
