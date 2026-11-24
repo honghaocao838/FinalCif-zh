@@ -54,7 +54,7 @@ Write-Host "==> patching fastmolwidget labels"
 Write-Host "==> adding documents"
 Copy-Item (Join-Path $repo 'README.md') $build -Force
 Copy-Item (Join-Path $repo 'README.en.md') $build -Force
-Copy-Item (Join-Path $repo 'LICENSE.md') $build -Force
+Copy-Item (Join-Path $repo 'LICENSE') $build -Force
 Copy-Item (Join-Path $repo 'THIRD_PARTY_NOTICES.md') $build -Force
 Copy-Item (Join-Path $PSScriptRoot 'README-zh.txt') $build -Force
 

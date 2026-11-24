@@ -33,7 +33,7 @@ FinalCIF 是一个 CIF 文件编辑器，用于把单晶 X 射线衍射实验的
 
 ## 许可与致谢
 
-- 原版 FinalCif：Daniel Kratzert，Beer-Ware（Revision 42），见 [LICENSE.md](LICENSE.md)
+- 原版 FinalCif：Daniel Kratzert，Beer-Ware（Revision 42），见 [LICENSE](LICENSE)
 - 中文汉化：Honghao Cao，同样以 Beer-Ware 发布
 - 第三方组件（PLATON、fastmolwidget、PySide6）：见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 

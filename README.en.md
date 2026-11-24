@@ -33,7 +33,7 @@ Changes in this edition:
 
 ## License and credits
 
-- FinalCif: Daniel Kratzert, Beer-Ware (Revision 42), see [LICENSE.md](LICENSE.md)
+- FinalCif: Daniel Kratzert, Beer-Ware (Revision 42), see [LICENSE](LICENSE)
 - Chinese localization: Honghao Cao, under the same Beer-Ware terms
 - Third-party components (PLATON, fastmolwidget, PySide6): see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 

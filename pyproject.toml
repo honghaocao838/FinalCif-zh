@@ -16,10 +16,11 @@ name = "finalcif"
 dynamic = ["version"]
 authors = [
     { name = "Daniel Kratzert", email = "dkratzert@gmx.de" },
+    { name = "Honghao Cao", email = "honghaocao838@gmail.com" },
 ]
 description = "CIF file editor"
 license = "Beerware"
-license-files = ["LICENSE.md"]
+license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.12"
 classifiers = [
@@ -80,8 +81,9 @@ build-constraint-dependencies = ["nanobind<3"]
 gemmi = { "cmake.define.CMAKE_C_STANDARD" = "23" }
 
 [project.urls]
-"Homepage" = "https://dkratzert.de/finalcif.html"
-"Bug Tracker" = "https://github.com/dkratzert/FinalCif/issues"
+"Homepage" = "https://github.com/honghaocao838/FinalCif-zh"
+"Bug Tracker" = "https://github.com/honghaocao838/FinalCif-zh/issues"
+"Upstream" = "https://github.com/dkratzert/FinalCif"
 
 [tool.hatch.version]
 path = "finalcif/__init__.py"
