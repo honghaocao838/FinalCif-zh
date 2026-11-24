@@ -205,8 +205,7 @@ testing2.py
 finalcif-setup.exe
 tests/examples/1979688-finalcif.cif
 myfile.pdf
-docs/*
-!docs/tasks/
+docs
 finalcif/gui/finalcif_gui.ui.autosave
 tests/examples/1000007-multi-finalcif.cif
 test.docx
