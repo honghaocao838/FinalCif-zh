@@ -18,6 +18,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}/releases
 DefaultDirName={autopf}\FinalCif-zh
 DisableProgramGroupPage=yes
+DisableDirPage=no
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2/fast
 SolidCompression=yes
