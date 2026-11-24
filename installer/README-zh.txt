@@ -1,7 +1,7 @@
-FinalCIF 中文版（v180）
+FinalCIF 中文版
 =====================
 
-Honghao Cao 汉化，联系 honghaocao838@gmail.com，汉化自 FinalCif v180（Daniel Kratzert）。
+Honghao Cao 汉化，联系 honghaocao838@gmail.com，汉化自 FinalCif（Daniel Kratzert）。
 
 启动：桌面「FinalCIF 中文版」，或运行本目录 finalcif.exe。
 支持拖放 .cif、.res、.hkl 文件。

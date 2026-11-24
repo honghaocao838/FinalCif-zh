@@ -2,7 +2,7 @@ English | [简体中文](README.md)
 
 # FinalCif Chinese Edition
 
-Chinese localization of [FinalCif](https://github.com/dkratzert/FinalCif) v180.
+Chinese localization of [FinalCif](https://github.com/dkratzert/FinalCif).
 
 ## Download and installation
 
@@ -10,7 +10,7 @@ Download `FinalCif-zh-v180-setup-x64.exe` from [Releases](https://github.com/hon
 
 - Installs per user, no administrator rights required
 - Windows 10/11 x64
-- Setup wizard is in English; the application itself is in Chinese
+- Both the setup wizard and the application are in Chinese
 - Open `.cif`, `.res` or `.hkl` files, or drop them onto the window
 
 ## What FinalCIF does

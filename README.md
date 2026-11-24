@@ -2,7 +2,7 @@
 
 # FinalCif 中文版
 
-FinalCif 的中文本地化版本，基于 [dkratzert/FinalCif](https://github.com/dkratzert/FinalCif) v180。
+FinalCif 的中文本地化版本，基于 [dkratzert/FinalCif](https://github.com/dkratzert/FinalCif)。
 
 ## 下载与安装
 
@@ -10,7 +10,7 @@ FinalCif 的中文本地化版本，基于 [dkratzert/FinalCif](https://github.c
 
 - 安装到当前用户目录，不需要管理员权限
 - 支持 Windows 10/11 x64
-- 安装向导为英文，程序界面为中文
+- 安装向导与程序界面均为中文
 - 安装后可直接打开 `.cif`、`.res`、`.hkl` 文件，或拖到窗口上
 
 ## FinalCIF 是什么

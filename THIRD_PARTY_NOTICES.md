@@ -6,7 +6,7 @@ runtime libraries required by FinalCif.
 
 ## FinalCif
 
-Original application, version 180. Author: Daniel Kratzert, dkratzert@gmx.de.
+Original application by Daniel Kratzert, dkratzert@gmx.de.
 License: Beer-Ware (Revision 42), see `LICENSE`.
 
 ## PLATON
