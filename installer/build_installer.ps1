@@ -51,6 +51,26 @@ Write-Host "==> patching fastmolwidget labels"
 & (Join-Path $build 'python.exe') -I (Join-Path $PSScriptRoot 'patch_fastmolwidget.py') `
     (Join-Path $build 'Lib\site-packages') (Join-Path $repo 'localization\translations\70-viewer.json')
 
+Write-Host "==> trimming unused data"
+$pysideTr = Join-Path $build 'Lib/site-packages/PySide6/translations'
+if (Test-Path $pysideTr) {
+    Get-ChildItem $pysideTr -File |
+        Where-Object { $_.Name -notin @('qtbase_zh_CN.qm', 'qt_zh_CN.qm') } |
+        Remove-Item -Force
+}
+$huns = Join-Path $build 'Lib\site-packages\enchant\data\mingw64\share\enchant\hunspell'
+if (Test-Path $huns) {
+    Get-ChildItem $huns -File |
+        Where-Object { $_.BaseName -notin @('en_US', 'en_GB') } |
+        Remove-Item -Force
+}
+$enchantLib = Join-Path $build 'Lib\site-packages\enchant\data\mingw64\lib\enchant-2'
+if (Test-Path $enchantLib) {
+    Get-ChildItem $enchantLib -File |
+        Where-Object { $_.Extension -in @('.a', '.la') -or $_.Name -like '*.dll.a' } |
+        Remove-Item -Force
+}
+
 Write-Host "==> adding documents"
 Copy-Item (Join-Path $repo 'README.md') $build -Force
 Copy-Item (Join-Path $repo 'README.en.md') $build -Force
