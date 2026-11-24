@@ -1,10 +1,10 @@
-; Inno Setup script for the Chinese FinalCif edition.
+﻿; Inno Setup script for the Chinese FinalCif edition.
 ; Build with installer\build_installer.ps1 (it stages build\FinalCif-zh first).
 
 #define MyAppName "FinalCif 中文版"
 #define MyAppVersion "180"
 #define MyAppPublisher "H.C"
-#define MyAppURL "https://github.com/honghaocao838/FinalCif"
+#define MyAppURL "https://github.com/honghaocao838/FinalCif-zh"
 #define MyAppExeName "finalcif.exe"
 
 [Setup]
@@ -19,7 +19,7 @@ AppUpdatesURL={#MyAppURL}/releases
 DefaultDirName={autopf}\FinalCif-zh
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\{#MyAppExeName}
-Compression=lzma2/max
+Compression=lzma2/fast
 SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=lowest

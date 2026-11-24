@@ -6,7 +6,7 @@ FinalCif v180 的中文本地化分支，基于上游 [dkratzert/FinalCif](https
 
 ## 下载与安装
 
-在 [Releases](https://github.com/honghaocao838/FinalCif/releases) 下载 `FinalCif-zh-v180-setup-x64.exe`，双击安装。安装到当前用户目录，不需要管理员权限。支持 Windows 10/11 x64。
+在 [Releases](https://github.com/honghaocao838/FinalCif-zh/releases) 下载 `FinalCif-zh-v180-setup-x64.exe`，双击安装。安装到当前用户目录，不需要管理员权限。支持 Windows 10/11 x64。
 
 启动后可直接打开 `.cif`、`.res`、`.hkl` 文件，或把它们拖到窗口上。
 
@@ -35,7 +35,7 @@ FinalCif v180 的中文本地化分支，基于上游 [dkratzert/FinalCif](https
 需要 Python 3.12 或更高版本。
 
 ```bash
-git clone https://github.com/honghaocao838/FinalCif.git
+git clone https://github.com/honghaocao838/FinalCif-zh.git
 cd FinalCif
 python -m venv .venv
 .venv\Scripts\activate
@@ -70,6 +70,7 @@ powershell -ExecutionPolicy Bypass -File installer\build_installer.ps1 `
 ## 许可与致谢
 
 - 原版 FinalCif：Daniel Kratzert，Beer-Ware（Revision 42），见 `LICENSE.md`。
+- 中文汉化：H.C（2026），同样以 Beer-Ware 发布，见 `LICENSE.md`。
 - PLATON：Anthony L. Spek，学术用途免费，见 `THIRD_PARTY_NOTICES.md`。
 - fastmolwidget：MIT。
 - Qt for Python（PySide6）：LGPLv3。
