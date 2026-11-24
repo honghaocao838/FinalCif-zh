@@ -67,7 +67,7 @@ class InstallerDownload:
             self.error = str(err)
         except Exception as err:  # The dialog would wait forever for a thread that died:
             traceback.print_exc()
-            self.error = f'"安装程序无法下载：\n"{err!r}'
+            self.error = f'安装程序无法下载：\n{err!r}'
         finally:
             self.finished = True
 
@@ -216,7 +216,7 @@ def unable_to_open_message(parent: QWidget | None, filepath: Path, not_ok: Excep
     if line:
         try:
             int(line)
-            info.setInformativeText(f'"\n请检查第 "{line}" 行\n"{filepath.name}')
+            info.setInformativeText(f'\n请检查第 {line} 行\n{filepath.name}')
         except ValueError:
             info.setInformativeText(f'"{filepath.name}"\n{not_ok}')
     else:
@@ -351,7 +351,7 @@ def show_update_warning(parent: QWidget | None, remote_version: int = 0) -> None
 def bad_z_message(parent: QWidget | None, z: float) -> None:
     zinfo = QMessageBox(parent)
     zinfo.setIcon(QMessageBox.Icon.Information)
-    zinfo.setText(f'"分子式单位数 Z="{z:.0f} is probably wrong.\n'
+    zinfo.setText(f'分子式单位数 Z={z:.0f} is probably wrong.\n'
                   f'You may restart refinement with a correct value.')
     zinfo.setModal(True)
     zinfo.show()
@@ -366,7 +366,7 @@ def show_bug_found_warning(logfile) -> None:
             f'<a href="mailto:dkratzert@gmx.de?subject=FinalCif version {VERSION} crash report">'
             f'dkratzert@gmx.de</a><br>'
             f'<br>如有可能，也请附上对应的 CIF 文件。'
-            f'<br><br><b>H.C 汉化，问题请联系 honghaocao838@gmail.com（汉化自 FinalCif v180）</b>')
+            f'<br><br><b>Honghao Cao 汉化，问题请联系 honghaocao838@gmail.com（汉化自 FinalCif v180）</b>')
     box = QMessageBox(parent=window)
     box.setWindowTitle("警告")
     box.setText(title)

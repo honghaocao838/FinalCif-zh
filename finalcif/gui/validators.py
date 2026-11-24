@@ -136,7 +136,7 @@ class Textlimits:
     def __init__(self, options: list[str], help_text: str | None= None):
         self.valid = self.validate_cif_key
         self.options = options
-        self.help_text = f'"必须是以下之一："{", ".join(options)}.'
+        self.help_text = f'必须是以下之一：{", ".join(options)}.'
         if help_text:
             self.help_text = help_text
 

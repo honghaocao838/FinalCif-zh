@@ -27,19 +27,19 @@ Changes in this edition:
 
 - Chinese user interface, messages and dialogs
 - Column hints above the main table; tooltips on headers and CIF keys
-- Chinese explanations for 58 common PLAT alerts (others show the official English text)
+- Chinese explanations for all 545 PLAT alerts, with the official English text appended
 - Upstream auto-update disabled; updates are published in this repository
 - Generated CIF files and report text remain in English
 
 ## License and credits
 
 - FinalCif: Daniel Kratzert, Beer-Ware (Revision 42), see [LICENSE.md](LICENSE.md)
-- Chinese localization: H.C, under the same Beer-Ware terms
+- Chinese localization: Honghao Cao, under the same Beer-Ware terms
 - Third-party components (PLATON, fastmolwidget, PySide6): see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 ## Contact
 
-H.C, honghaocao838@gmail.com. Please use e-mail or the issue tracker.
+Honghao Cao, honghaocao838@gmail.com. Please use e-mail or the issue tracker.
 
 ## Upstream
 

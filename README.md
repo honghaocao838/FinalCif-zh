@@ -27,19 +27,19 @@ FinalCIF 是一个 CIF 文件编辑器，用于把单晶 X 射线衍射实验的
 
 - 界面、提示、对话框全部中文
 - 主表上方有列说明，列标题与 CIF 键有悬停提示
-- CheckCIF 的 PLAT 警报附中文解释（58 条常用，其余为官方英文原文）
+- CheckCIF 的 PLAT 警报全部 545 条附中文解释，并附官方英文原文
 - 关闭了上游自动更新，更新通过本仓库的 Releases 发布
 - 生成的 CIF 内容与报告正文保持英文
 
 ## 许可与致谢
 
 - 原版 FinalCif：Daniel Kratzert，Beer-Ware（Revision 42），见 [LICENSE.md](LICENSE.md)
-- 中文汉化：H.C，同样以 Beer-Ware 发布
+- 中文汉化：Honghao Cao，同样以 Beer-Ware 发布
 - 第三方组件（PLATON、fastmolwidget、PySide6）：见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 ## 联系
 
-H.C，honghaocao838@gmail.com。问题请发邮件或在仓库开 Issue。
+Honghao Cao，honghaocao838@gmail.com。问题请发邮件或在仓库开 Issue。
 
 ## 原仓库
 

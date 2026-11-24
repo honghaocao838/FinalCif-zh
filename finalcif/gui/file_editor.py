@@ -51,7 +51,7 @@ class FoldedText:
 
 
 def fold_placeholder(region: FoldRegion) -> str:
-    return f'{FOLD_PLACEHOLDER_PREFIX}{region.line_count}" 行已折叠"'
+    return f'{FOLD_PLACEHOLDER_PREFIX}{region.line_count} 行已折叠'
 
 
 def _semicolon_region(lines: Sequence[str], start: int) -> tuple[FoldRegion | None, int]:

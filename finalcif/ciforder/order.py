@@ -217,7 +217,7 @@ class CifOrder(QtWidgets.QGroupBox):
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self, f'"没有写入权限："{Path(filename).resolve()}')
+            show_general_warning(self, f'没有写入权限：{Path(filename).resolve()}')
 
 
 if __name__ == "__main__":

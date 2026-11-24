@@ -178,10 +178,10 @@ def _download_to_file(url: str, target: Path,
     try:
         response = requests.get(url, stream=True, headers=_headers(), timeout=DOWNLOAD_TIMEOUT)
     except requests.RequestException as err:
-        raise UpdateError(f'"无法下载安装程序：\n"{err}') from err
+        raise UpdateError(f'无法下载安装程序：\n{err}') from err
     with response:
         if response.status_code != 200:
-            raise UpdateError(f'"安装程序不可用：\n"{url}\n(HTTP {response.status_code}).')
+            raise UpdateError(f'安装程序不可用：\n{url}\n(HTTP {response.status_code}).')
         total = int(response.headers.get('content-length', 0))
         received = 0
         try:
@@ -195,7 +195,7 @@ def _download_to_file(url: str, target: Path,
                     if progress is not None:
                         progress(received, total)
         except (requests.RequestException, OSError) as err:
-            raise UpdateError(f'"安装程序下载失败：\n"{err}') from err
+            raise UpdateError(f'安装程序下载失败：\n{err}') from err
     if total and received != total:
         raise UpdateError("安装程序下载不完整。")
 
@@ -204,7 +204,7 @@ def _verify_checksum(setup_file: Path, checksum_url: str) -> None:
     try:
         response = requests.get(checksum_url, headers=_headers(), timeout=DOWNLOAD_TIMEOUT)
     except requests.RequestException as err:
-        raise UpdateError(f'"无法下载校验文件：\n"{err}') from err
+        raise UpdateError(f'无法下载校验文件：\n{err}') from err
     with response:
         if response.status_code != 200:
             raise UpdateError("未找到此版本的校验文件。")
@@ -225,7 +225,7 @@ def _checksum_of_downloaded_file(setup_file: Path, attempts: int = LOCKED_FILE_A
             return sha512_checksum_of_file(str(setup_file))
         except OSError as err:
             if attempt == attempts - 1:
-                raise UpdateError(f'"无法读取下载的安装程序：\n"{err}') from err
+                raise UpdateError(f'无法读取下载的安装程序：\n{err}') from err
             time.sleep(LOCKED_FILE_DELAY)
     raise UpdateError('The downloaded installer could not be read.')
 
@@ -331,7 +331,7 @@ def _start_launcher(script: Path) -> None:
             return
         except OSError as err:
             if attempt == LOCKED_FILE_ATTEMPTS - 1:
-                raise UpdateError(f'"安装程序无法启动：\n"{err}') from err
+                raise UpdateError(f'安装程序无法启动：\n{err}') from err
             time.sleep(LOCKED_FILE_DELAY)
 
 
@@ -376,7 +376,7 @@ def _start_detached(setup_file: Path, parameters: list[str]) -> None:
             return
         except OSError as err:
             if attempt == LOCKED_FILE_ATTEMPTS - 1:
-                raise UpdateError(f'"安装程序无法启动：\n"{err}') from err
+                raise UpdateError(f'安装程序无法启动：\n{err}') from err
             time.sleep(LOCKED_FILE_DELAY)
 
 

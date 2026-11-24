@@ -70,7 +70,7 @@ class Properties(QtCore.QObject):
         if key in keys and self.selected_template_name() not in names:
             self.app.ui.SavePropertiesButton.setDisabled(True)
             self.lb.setWindowFlags(QtCore.Qt.WindowType.ToolTip)
-            self.lb.setText(f'key {key}" 已存在"')
+            self.lb.setText(f'key {key} 已存在')
             self.lb.move(self.app.ui.cifKeywordLineEdit.mapToGlobal(QtCore.QPoint(15, 25)))
             self.lb.show()
             single_shot(self.lb, 5000, self.hide_label)
@@ -246,7 +246,7 @@ class Properties(QtCore.QObject):
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self.app, f'"没有写入权限："{Path(filename).resolve()}')
+            show_general_warning(self.app, f'没有写入权限：{Path(filename).resolve()}')
 
     def selected_template_name(self) -> str:
         return self.app.ui.PropertiesTemplatesListWidget.currentIndex().data()

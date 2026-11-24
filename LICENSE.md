@@ -7,5 +7,5 @@ Dr. Daniel Kratzert
 
 --------------------------------------------------------------------------------
 
-Chinese localization (FinalCif-zh) by H.C, honghaocao838@gmail.com.
+Chinese localization (FinalCif-zh) by Honghao Cao (H.C), honghaocao838@gmail.com.
 Distributed under the same Beer-Ware terms.

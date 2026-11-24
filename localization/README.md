@@ -7,11 +7,10 @@
 | 文件 | 用途 |
 |---|---|
 | `translations/*.json` | 按模块的英文到中文对照（键是上游原文） |
-| `translations/checkdef_zh*.json` | CheckCIF 警报中文解释，构建时合并为 `finalcif/datafiles/checkdef_zh.json` |
+| `checkdef_zh.json` | CheckCIF 警报中文解释（545 条，同时写入 `finalcif/datafiles/`） |
 | `apply_translations.py` | 基于 AST 定位字符串字面量并替换，处理跨行拼接 |
 | `patch_fstrings.py` | 跨 f-string 片段的整句改写（批量脚本无法安全处理的部分） |
 | `patch_source.py` | 内置 check.def、CheckCIF 中文帮助、停用自动更新、加载 Qt 中文翻译 |
-| `checkdef_zh.json` | 合并后的警报解释，供安装包使用 |
 
 ## 上游更新后的流程
 

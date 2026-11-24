@@ -26,7 +26,7 @@
   "Warning": "警告",
   "<br>Please send the file <br><a href=": "<br>请将文件 <br><a href=",
   "</a> <br>to Daniel Kratzert:  <a href=\"mailto:dkratzert@gmx.de?subject=FinalCif version ": "</a> <br>发送给 Daniel Kratzert：  <a href=\"mailto:dkratzert@gmx.de?subject=FinalCif version ",
-  " crash report\">dkratzert@gmx.de</a><br><br>If possible, the corresponding CIF file is also desired.": " crash report\">dkratzert@gmx.de</a><br><br>如有可能，也请附上对应的 CIF 文件。<br><br><b>H.C 汉化，问题请联系 honghaocao838@gmail.com（汉化自 FinalCif v180）</b>",
+  " crash report\">dkratzert@gmx.de</a><br><br>If possible, the corresponding CIF file is also desired.": " crash report\">dkratzert@gmx.de</a><br><br>如有可能，也请附上对应的 CIF 文件。<br><br><b>Honghao Cao 汉化，问题请联系 honghaocao838@gmail.com（汉化自 FinalCif v180）</b>",
   "The installer could not be downloaded:\n": "安装程序无法下载：\n",
   "CIF file (*.cif)": "CIF 文件 (*.cif)",
   "Open a .cif File": "打开 .cif 文件",

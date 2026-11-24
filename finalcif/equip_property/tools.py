@@ -14,5 +14,5 @@ def read_document_from_cif_file(filename: str) -> gemmi.cif.Document | None:
             warning = f"{warning}\n\nCIF 必须以 'data_[some_name]' 开头。"
         show_general_warning(parent=None, warn_text=warning)
     except OSError as e:
-        show_general_warning(parent=None, warn_text=f'"无法打开文件 "{filename}:\n{e!s}')
+        show_general_warning(parent=None, warn_text=f'无法打开文件 {filename}:\n{e!s}')
     return doc

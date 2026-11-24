@@ -367,7 +367,7 @@ class Equipment:
         except PermissionError:
             if Path(filename).is_dir():
                 return
-            show_general_warning(self.app, f'"没有写入权限："{Path(filename).resolve()}')
+            show_general_warning(self.app, f'没有写入权限：{Path(filename).resolve()}')
 
     def cancel_equipment_template(self) -> None:
         """

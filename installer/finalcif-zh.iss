@@ -3,7 +3,7 @@
 
 #define MyAppName "FinalCif 中文版"
 #define MyAppVersion "180"
-#define MyAppPublisher "H.C"
+#define MyAppPublisher "Honghao Cao"
 #define MyAppURL "https://github.com/honghaocao838/FinalCif-zh"
 #define MyAppExeName "finalcif.exe"
 
@@ -26,6 +26,7 @@ PrivilegesRequired=lowest
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 AppMutex=FinalCifSetupMutex
+ShowLanguageDialog=no
 OutputDir=..\dist
 OutputBaseFilename=FinalCif-zh-v180-setup-x64
 SetupIconFile=..\finalcif\icon\finalcif2.ico
@@ -36,7 +37,7 @@ VersionInfoProductName={#MyAppName}
 VersionInfoProductVersion=180
 
 [Languages]
-Name: "chinesesimp"; MessagesFile: "compiler:Default.isl"
+Name: "chinesesimp"; MessagesFile: "ChineseSimplified.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "创建桌面快捷方式"; GroupDescription: "附加任务:"; Flags: checkedonce

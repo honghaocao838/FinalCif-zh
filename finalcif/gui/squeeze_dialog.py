@@ -329,7 +329,7 @@ class SqueezeSolventDialog(QDialog):
         try:
             sqf_cif = CifContainer(sqf_path)
         except Exception as exc:
-            QMessageBox.warning(self, "导入失败", f'"无法读取 "{sqf_path.name}:\n{exc}')
+            QMessageBox.warning(self, "导入失败", f'无法读取 {sqf_path.name}:\n{exc}')
             return
 
         # Try PLATON SQUEEZE tags first, then fall back to SMTBX tags
@@ -345,7 +345,7 @@ class SqueezeSolventDialog(QDialog):
         if not existing_tags:
             QMessageBox.warning(
                 self, "导入失败",
-                f'"未找到 SQUEEZE 循环数据："{sqf_path.name}.'
+                f'未找到 SQUEEZE 循环数据：{sqf_path.name}.'
             )
             return
 

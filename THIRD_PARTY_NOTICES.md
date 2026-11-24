@@ -1,6 +1,6 @@
 # Third-party notices
 
-This repository is a Chinese localization of FinalCif by H.C (honghaocao838@gmail.com). It contains the upstream
+This repository is a Chinese localization of FinalCif by Honghao Cao (honghaocao838@gmail.com). It contains the upstream
 source code plus localization changes, and the Windows installer bundles the
 runtime libraries required by FinalCif.
 

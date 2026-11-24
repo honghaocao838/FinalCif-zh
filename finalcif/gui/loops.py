@@ -57,7 +57,7 @@ class Loop(QtCore.QObject):
     def display_help(self, header_section: int) -> None:
         from finalcif.cif.all_cif_dicts import cif_all_dict
         tag = self.tags[header_section]
-        keyword_help = cif_all_dict.get(tag, None) or f'"未找到帮助文本："{tag}.'
+        keyword_help = cif_all_dict.get(tag, None) or f'未找到帮助文本：{tag}.'
         if keyword_help:
             keyword_help = retranslate_delimiter(keyword_help, no_html_unescape=True)
             show_keyword_help(self._parent_widget, keyword_help, tag)

@@ -58,7 +58,7 @@ class VZSImageViewer(QtWidgets.QWidget):
                         try:
                             self.rotation = float(rotation)
                         except ValueError:
-                            print(f'"旋转值无效："{rotation}')
+                            print(f'旋转值无效：{rotation}')
                             self.rotation = 0.0
                         return None
 

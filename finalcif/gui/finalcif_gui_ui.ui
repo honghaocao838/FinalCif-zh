@@ -926,7 +926,7 @@
           <item>
            <widget class="QPushButton" name="HelpPushButton">
               <property name="toolTip">
-               <string>查看所选 CIF 键的官方字典解释。H.C 汉化，问题联系 honghaocao838@gmail.com</string>
+               <string>查看所选 CIF 键的官方字典解释。Honghao Cao 汉化，问题联系 honghaocao838@gmail.com</string>
               </property>
             <property name="text">
              <string>Help</string>
