@@ -205,7 +205,8 @@ testing2.py
 finalcif-setup.exe
 tests/examples/1979688-finalcif.cif
 myfile.pdf
-docs
+docs/*
+!docs/tasks/
 finalcif/gui/finalcif_gui.ui.autosave
 tests/examples/1000007-multi-finalcif.cif
 test.docx
@@ -254,3 +255,5 @@ localization/dict_work/_*
 localization/dict_work/build_part*
 localization/cif_dict_zh.json
 localization/dict_work/tmp*
+
+installer_build.log

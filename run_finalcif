@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Runs the FinalCif Linux/MacOS application
-
-# Before running this script, you probably need to run './install_requirements'
-
-source venv/bin/activate
-export PYTHONPATH=.
-python3 finalcif/finalcif_start.py "$@"
