@@ -100,7 +100,7 @@ def main():
     app.setQuitOnLastWindowClosed(True)
     w = AppWindow(file=file)
     app.setWindowIcon(QIcon(str(application_path / r'icon/finalcif2.png')))
-    w.setWindowTitle(f'FinalCif 中文版 v{VERSION}')
+    w.setWindowTitle('FinalCif 中文版')
     # w.showMaximized()  # For full screen view
     w.setBaseSize(1200, 780)
     sys.exit(app.exec())

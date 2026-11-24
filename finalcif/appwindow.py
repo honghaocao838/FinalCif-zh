@@ -221,7 +221,7 @@ class AppWindow(QMainWindow):
         self.equipment = Equipment(app=self, settings=self.settings)
         self.properties = Properties(parent=self, settings=self.settings)
         self.status_bar = StatusBar(ui=self.ui)
-        self.status_bar.show_message(f'Honghao Cao 汉化｜联系 honghaocao838@gmail.com｜版本 {VERSION}')
+        self.status_bar.show_message('Honghao Cao 汉化｜联系 honghaocao838@gmail.com')
         self.authors: AuthorLoops | None = None
         self.ui.cifOrderWidget.settings = self.settings
         self.ui.cifOrderWidget.set_order_from_settings(self.settings)
