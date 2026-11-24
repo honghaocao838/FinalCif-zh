@@ -289,6 +289,9 @@ class CheckCif(QThread):
             "duplic"    : "duplicyes" if self.check_duplicates else "duplicno",
         }
         t1 = time.perf_counter()
+        if self._cancelled:
+            self.state.emit('cancelled')
+            return
         self.progress.emit('已提交，等待服务器返回…')
         self.state.emit('submitted')
         req = self._do_the_server_request(headers, temp_cif)
@@ -298,7 +301,7 @@ class CheckCif(QThread):
         if req is not None:
             self.progress.emit('request finished')
             if req.status_code != 200:
-                self.failed.emit(f'服务器返回 HTTP {req.status_code} {req.reason}')
+                self.failed.emit(f'服务器返回 {req.status_code}')
             else:
                 t2 = time.perf_counter()
                 time.sleep(0.1)
@@ -315,6 +318,11 @@ class CheckCif(QThread):
                 except (OSError, UnicodeDecodeError) as exc:
                     self.failed.emit(f'CheckCIF 结果处理失败：{exc}')
                     return
+                if self._cancelled:
+                    with suppress(OSError):
+                        self.html_out_file.unlink(missing_ok=True)
+                    self.state.emit('cancelled')
+                    return
                 self.state.emit('success')
         with suppress(Exception):
             Path('finalcif_checkcif_tmp.cif').unlink(missing_ok=True)
@@ -327,7 +335,7 @@ class CheckCif(QThread):
         except Exception as exc:
             if self._cancelled:
                 return None
-            self.failed.emit(f'失败：{classify_request_exception(exc)}')
+            self.failed.emit(classify_request_exception(exc))
         return req
 
     def _open_pdf_result(self) -> None:

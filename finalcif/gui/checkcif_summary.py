@@ -144,9 +144,21 @@ class CheckCifSummaryBar(QtWidgets.QWidget):
 
     def set_status(self, text: str) -> None:
         self.status_label.setText(text)
+        self.show()
 
     def set_stale(self, stale: bool) -> None:
         self.stale_label.setVisible(bool(stale))
+
+    def show_level(self, level: str, checkdef: list[str] | None = None) -> None:
+        """Open the alert list for *level* (if the summary has items)."""
+        if checkdef is not None:
+            self.checkdef = list(checkdef)
+        if self._summary is None:
+            return
+        items = [item for item in self._summary.items if item.level == level]
+        if not items:
+            return
+        AlertListDialog(self, level, items, self.checkdef).exec()
 
     def clear(self) -> None:
         self._summary = None
@@ -171,7 +183,6 @@ class CheckCifSummaryBar(QtWidgets.QWidget):
         if self._summary is None:
             return
         items = [item for item in self._summary.items if item.level == level]
-        if not items:
-            return
         self.levelClicked.emit(level)
-        AlertListDialog(self, level, items, self.checkdef).exec()
+        if items:
+            self.show_level(level)

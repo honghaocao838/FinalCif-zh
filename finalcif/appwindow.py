@@ -1830,7 +1830,7 @@ class AppWindow(QMainWindow):
         if html:
             from finalcif.cif.checkcif.summary import parse_html
             summary = parse_html(html)
-            if summary.counts or summary.items:
+            if summary.parsed:
                 stamp = datetime.now().strftime('%H:%M:%S')
                 self.checkcif_summary_online.set_summary(
                     summary, timestamp=stamp, checkdef=self.checkdef)
@@ -2115,7 +2115,7 @@ class AppWindow(QMainWindow):
         with suppress(Exception):
             text = self.cif.fileobj.with_suffix('.chk').read_text('latin1', errors='ignore')
         summary = parse_chk(text)
-        if summary.counts or summary.items:
+        if summary.parsed:
             stamp = datetime.now().strftime('%H:%M:%S')
             self.checkcif_summary_offline.set_summary(
                 summary, timestamp=stamp, checkdef=self.checkdef)

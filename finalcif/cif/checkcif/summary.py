@@ -19,11 +19,11 @@ _ALERT_PLAIN_RE = re.compile(
     r'(?:PLAT(?P<plat>\d{3})|(?P<num>\d{3}))_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
     r'\s*(?P<desc>.*)', re.IGNORECASE)
 _COUNT_RE = re.compile(
-    r'(\d+)\s*(?:<[^>]+>\s*)*ALERT\s+level\s+([A-G])', re.IGNORECASE)
+    r'(\d+)[ \t]*(?:<[^>]+>[ \t]*)*ALERT\s+level[ \t]+([A-G])', re.IGNORECASE)
 _COUNT_ALT_RE = re.compile(
-    r'Alert\s+level\s+([A-G])\s*[:=]\s*(\d+)', re.IGNORECASE)
+    r'Alert[ \t]+level[ \t]+([A-G])[ \t]*[:=][ \t]*(\d+)', re.IGNORECASE)
 _COUNT_CHK_RE = re.compile(
-    r'(\d+)\s+ALERT_Level_([A-G])', re.IGNORECASE)
+    r'(\d+)[ \t]+ALERT_Level_([A-G])', re.IGNORECASE)
 _TAG_RE = re.compile(r'<[^>]+>')
 _KEY_RE = re.compile(r'(?<![A-Za-z0-9_])_[A-Za-z][A-Za-z0-9_]*')
 _TRAILING = '.,;:!?()[]{}<>"\'“”‘’，。；：！？（）【】《》'
@@ -43,6 +43,7 @@ class CheckCifSummary:
     items: list[AlertItem] = field(default_factory=list)
     mentioned_keys: set[str] = field(default_factory=set)
     raw_text: str = ''
+    parsed: bool = False
 
     @property
     def total(self) -> int:
@@ -93,6 +94,8 @@ def extract_cif_keys(text: str) -> set[str]:
 
 def parse_html(html: str) -> CheckCifSummary:
     """Parse an online CheckCIF HTML report."""
+    if not html or not html.strip():
+        return CheckCifSummary()
     try:
         counts: dict[str, int] = {}
         for value, level in _COUNT_RE.findall(html):
@@ -117,25 +120,29 @@ def parse_html(html: str) -> CheckCifSummary:
             counts = _counts_from_items(items)
         plain = _clean(html)
         return CheckCifSummary(counts=_normalise_counts(counts), items=items,
-                               mentioned_keys=extract_cif_keys(plain), raw_text=plain)
+                               mentioned_keys=extract_cif_keys(plain), raw_text=plain,
+                               parsed=True)
     except Exception:
         return CheckCifSummary()
 
 
 def parse_chk(text: str) -> CheckCifSummary:
     """Parse the plain-text PLATON ``.chk`` output."""
+    if not text or not text.strip():
+        return CheckCifSummary()
     try:
         counts: dict[str, int] = {}
-        for value, level in _COUNT_RE.findall(text):
+        for value, level in _COUNT_CHK_RE.findall(text):
             counts.setdefault(level.upper(), int(value))
         for level, value in _COUNT_ALT_RE.findall(text):
             counts.setdefault(level.upper(), int(value))
-        for value, level in _COUNT_CHK_RE.findall(text):
+        for value, level in _COUNT_RE.findall(text):
             counts.setdefault(level.upper(), int(value))
         items = _items_from_text(text, 'offline')
         if not counts:
             counts = _counts_from_items(items)
         return CheckCifSummary(counts=_normalise_counts(counts), items=items,
-                               mentioned_keys=extract_cif_keys(text), raw_text=text)
+                               mentioned_keys=extract_cif_keys(text), raw_text=text,
+                               parsed=True)
     except Exception:
         return CheckCifSummary()

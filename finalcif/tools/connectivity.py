@@ -9,7 +9,7 @@ from qtpy import QtCore
 
 
 def connectivity_advice() -> str:
-    return '建议：检查系统代理设置；检查选项中的 CheckCIF 服务器地址；用浏览器打开该地址确认。'
+    return '检查代理设置；检查选项中的服务器地址；用浏览器打开确认。'
 
 
 def classify_exception(exc: Exception) -> str:
@@ -53,7 +53,11 @@ class ConnectivityTest(QtCore.QThread):
         self.url = url or ''
 
     def run(self) -> None:
-        parsed = urlsplit(self.url.strip())
+        try:
+            parsed = urlsplit(self.url.strip())
+        except ValueError:
+            self.result.emit(False, 'URL 无效', 0, 0.0)
+            return
         if parsed.scheme not in ('http', 'https') or not parsed.netloc:
             self.result.emit(False, 'URL 无效', 0, 0.0)
             return
