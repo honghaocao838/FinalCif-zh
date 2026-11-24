@@ -13,11 +13,9 @@ from dataclasses import dataclass, field
 
 LEVELS = ('A', 'B', 'C', 'G')
 
-_ALERT_HTML_RE = re.compile(
-    r'PLAT(\d{3})_ALERT_(\d)_([A-G])\s*</a>\s*([^<\n]*)', re.IGNORECASE)
-_ALERT_PLAIN_RE = re.compile(
-    r'(?:PLAT(?P<plat>\d{3})|(?P<num>\d{3}))_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
-    r'\s*(?P<desc>.*)', re.IGNORECASE)
+_ALERT_RE = re.compile(
+    r'(?P<code>[A-Z][A-Z0-9]*\d{3}|\d{3})_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
+    r'\s*(?P<desc>.*)')
 _COUNT_RE = re.compile(
     r'(\d+)[ \t]*(?:<[^>]+>[ \t]*)*ALERT\s+level[ \t]+([A-G])', re.IGNORECASE)
 _COUNT_ALT_RE = re.compile(
@@ -68,16 +66,12 @@ def _counts_from_items(items: list[AlertItem]) -> dict[str, int]:
 
 def _items_from_text(text: str, source: str) -> list[AlertItem]:
     items: list[AlertItem] = []
-    seen: set[tuple[str, str, str]] = set()
-    for match in _ALERT_PLAIN_RE.finditer(text):
-        number = match.group('plat') or match.group('num')
+    for match in _ALERT_RE.finditer(text):
+        code = match.group('code').upper()
         level = match.group('level').upper()
         summary = _clean(match.group('desc'))
-        code = f'PLAT{number}'
-        key = (code, level, summary)
-        if not summary or key in seen:
+        if not summary:
             continue
-        seen.add(key)
         items.append(AlertItem(code=code, level=level, summary=summary, source=source))
     return items
 
@@ -103,19 +97,7 @@ def parse_html(html: str) -> CheckCifSummary:
         for level, value in _COUNT_ALT_RE.findall(html):
             counts.setdefault(level.upper(), int(value))
 
-        items: list[AlertItem] = []
-        seen: set[tuple[str, str, str]] = set()
-        for number, _atype, level, description in _ALERT_HTML_RE.findall(html):
-            summary = _clean(description)
-            code = f'PLAT{number}'
-            key = (code, level.upper(), summary)
-            if not summary or key in seen:
-                continue
-            seen.add(key)
-            items.append(AlertItem(code=code, level=level.upper(),
-                                   summary=summary, source='online'))
-        if not items:
-            items = _items_from_text(_clean(html), 'online')
+        items: list[AlertItem] = _items_from_text(html, 'online')
         if not counts:
             counts = _counts_from_items(items)
         plain = _clean(html)
