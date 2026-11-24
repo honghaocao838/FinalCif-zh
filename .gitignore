@@ -249,3 +249,7 @@ localization/_build_*/
 localization/_tr*.py
 localization/dict_work/_*
 localization/dict_work/build_part*.py
+localization/dict_work/part*
+localization/dict_work/_*
+localization/dict_work/build_part*
+localization/cif_dict_zh.json

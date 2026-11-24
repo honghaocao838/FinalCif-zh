@@ -12,7 +12,6 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 WORK = HERE / 'dict_work'
 OUT_APP = ROOT / 'finalcif' / 'datafiles' / 'cif_dict_zh.json'
-OUT_REPO = HERE / 'cif_dict_zh.json'
 PARTS = 18
 CJK = re.compile(r'[\u4e00-\u9fff]')
 
@@ -61,10 +60,10 @@ def main() -> None:
         print(f'total problems: {len(problems)}')
 
     OUT_APP.write_text(json.dumps(merged, ensure_ascii=False, indent=1), encoding='utf-8')
-    OUT_REPO.write_text(json.dumps(merged, ensure_ascii=False, indent=1), encoding='utf-8')
     total = sum(len(v) for v in merged.values())
     print(f'wrote {len(merged)} entries ({total} chars) to {OUT_APP.relative_to(ROOT)}')
+    sys.exit(1 if problems else 0)
 
 
 if __name__ == '__main__':
-    sys.exit(1 if problems else 0)
+    main()

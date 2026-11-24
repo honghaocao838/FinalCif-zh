@@ -28,6 +28,7 @@ Changes in this edition:
 - Chinese user interface, messages and dialogs
 - Column hints above the main table; tooltips on headers and CIF keys
 - Chinese explanations for all 545 PLAT alerts, with the official English text appended
+- Chinese help texts for the CIF dictionary (734 common items), including type and limits
 - Upstream auto-update disabled; updates are published in this repository
 - Generated CIF files and report text remain in English
 

@@ -21,6 +21,12 @@ installer build downloads it from the official server. Chinese translations of
 the alert explanations are provided by this project in
 `finalcif/datafiles/checkdef_zh.json` and are attributed to PLATON.
 
+## CIF dictionaries
+
+The CIF item definitions are taken from the IUCr CIF dictionaries (core,
+modulation, powder, restraints, twinning) as distributed with FinalCif. The
+Chinese translations of these help texts are provided by this project.
+
 ## fastmolwidget
 
 Version 1.5.1, MIT license. Bundled in the Windows installer as part of the
