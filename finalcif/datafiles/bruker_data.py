@@ -226,7 +226,7 @@ class BrukerData(WorkDataMixin):
                 self.sources['_twin_individual_id'] = (
                     str(self.saint_data.components_firstsample), saint_file)
                 self.sources['_twin_special_details'] = (
-                    "数据按双分量孪晶积分。", saint_file)
+                    "The data was integrated as a 2-component twin.", saint_file)
 
     def _add_reflection_data(self, sadabs: Sadabs) -> None:
         """

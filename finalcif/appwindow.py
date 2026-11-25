@@ -105,6 +105,10 @@ DEBUG = False
 # producer lives in CifContainer.key_value_pairs(); both sides must use the
 # same literal or the separator row is rendered as a normal key.
 SEPARATOR_KEY = 'These below are already in:'
+# Chinese explanations for values that must stay English in the CIF.
+SOURCE_HINTS = {
+    '_twin_special_details': '数据按双组分孪晶进行积分。',
+}
 app = QApplication.instance()
 if app is None:
     app = QApplication([])
@@ -3252,7 +3256,11 @@ class AppWindow(QMainWindow):
                 continue
             widget = self.ui.cif_main_table.widget_from_key(key, Column.DATA)
             if widget:
-                widget.setToolTip(f'来源：{source[1]}')
+                hint = SOURCE_HINTS.get(key)
+                tooltip = f'来源：{source[1]}'
+                if hint:
+                    tooltip += f'\n中文说明：{hint}'
+                widget.setToolTip(tooltip)
 
     def _apply_source_overrides(self, overrides: set[str]) -> None:
         """
