@@ -36,6 +36,20 @@ Changes in this edition:
 - Upstream auto-update disabled; updates are published in this repository
 - Generated CIF files and report text remain in English
 
+## Screenshots
+
+Main window (status filters, validation summary and status bar):
+
+![Main window](screenshots/main-window.png)
+
+CheckCIF alert summary (A/B/C/G levels):
+
+![CheckCIF summary](screenshots/checkcif-summary.png)
+
+Chinese alert explanations and fix advice (right pane):
+
+![Alert help](screenshots/alert-help.png)
+
 ## License and credits
 
 - FinalCif: Daniel Kratzert, Beer-Ware (Revision 42), see [LICENSE](LICENSE)

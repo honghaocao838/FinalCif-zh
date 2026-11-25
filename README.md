@@ -36,6 +36,20 @@ FinalCIF 是一个 CIF 文件编辑器，用于把单晶 X 射线衍射实验的
 - 关闭了上游自动更新，更新通过本仓库的 Releases 发布
 - 生成的 CIF 内容与报告正文保持英文
 
+## 界面截图
+
+主界面（状态过滤、校验汇总与状态栏）：
+
+![主界面](screenshots/main-window.png)
+
+CheckCIF 警报汇总（A/B/C/G 分级）：
+
+![CheckCIF 汇总](screenshots/checkcif-summary.png)
+
+警报中文解释与解决建议（右侧面板）：
+
+![警报解释](screenshots/alert-help.png)
+
 ## 许可与致谢
 
 - 原版 FinalCif：Daniel Kratzert，Beer-Ware（Revision 42），见 [LICENSE](LICENSE)
