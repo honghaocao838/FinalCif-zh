@@ -28,7 +28,7 @@ Changes in this edition:
 - Chinese user interface, messages and dialogs
 - Column hints above the main table; tooltips on headers and CIF keys
 - Main-table filters for status, Chinese aliases, required items and CheckCIF mentions, plus a format-error summary
-- Online CheckCIF shows elapsed time, failure reasons and alert counts; requests can be cancelled and the server connection tested; missing required/prefilter items are reported and selected before a run
+- Online CheckCIF shows elapsed time, failure reasons and alert counts; requests can be cancelled and the server connection tested; missing required items are reported and selected before a run
 - Chinese explanations for all 545 PLAT alerts, with the official English text appended; IUCr prefilter checks get Chinese rules and fix advice
 - Chinese help texts for the CIF dictionary (all 1,429 items), including type and limits
 - Upstream auto-update disabled; updates are published in this repository

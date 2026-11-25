@@ -72,26 +72,6 @@ def format_prefilter_help(code: str, entry: dict) -> str:
             f'【English 原文（IUCr prefilter）】\n{entry.get("en", "").strip()}')
 
 
-def required_key_notes(data: dict[str, dict]) -> dict[str, str]:
-    """Return ``key -> note`` for prefilter rules that require the key.
-
-    Several codes can cover the same key; the notes are merged in a stable
-    order so the main-table tooltip names all relevant prefilter tests.
-    """
-    by_key: dict[str, list[tuple[str, str]]] = {}
-    for code, entry in data.items():
-        if not entry.get('required'):
-            continue
-        for key in entry.get('keys', []):
-            by_key.setdefault(key, []).append((code, entry.get('zh', '')))
-    notes: dict[str, str] = {}
-    for key, values in by_key.items():
-        codes = '、'.join(dict.fromkeys(code for code, _ in values))
-        advice = values[0][1].strip()
-        notes[key] = f'CIF 预检项（{codes}）：{advice}'
-    return notes
-
-
 def prefilter_codes_by_key(data: dict[str, dict]) -> dict[str, str]:
     """Return ``key -> 'CIF 预检项：CODE1、CODE2'`` for table tooltips."""
     by_key: dict[str, list[str]] = {}

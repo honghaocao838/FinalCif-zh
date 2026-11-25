@@ -75,7 +75,7 @@ from finalcif.gui.table_filter_bar import (TableFilterBar, FILTER_ALL, FILTER_MI
                                            FILTER_REQUIRED_ALL, FILTER_CHECKCIF)
 from finalcif.cif.key_metadata import (load_key_aliases, load_key_required, alias_index,
                                        user_config_path)
-from finalcif.cif.prefilter import load_prefilter, required_key_notes, prefilter_codes_by_key
+from finalcif.cif.prefilter import load_prefilter, prefilter_codes_by_key
 from finalcif.gui.validators import calculated_z_validator
 from finalcif.gui.checkcif_browser import CheckCifBrowser
 from finalcif.gui.text_value_editor import MyTextTemplateEdit, TextEditItem
@@ -338,8 +338,6 @@ class AppWindow(QMainWindow):
             user_path=user_config_path('key_required.json'))
         self.prefilter = load_prefilter(user_path=user_config_path('prefilter_zh.json'))
         self.prefilter_codes = prefilter_codes_by_key(self.prefilter)
-        for key, note in required_key_notes(self.prefilter).items():
-            self.required_entries.setdefault(key, {'level': 'prefilter', 'note': note})
         self.mentioned_keys: set[str] = set()
         self._first_invalid_row = -1
         self._first_required_missing_row = -1
@@ -1742,14 +1740,14 @@ class AppWindow(QMainWindow):
     def _missing_required_for_checkcif(self) -> list[tuple[str, str]]:
         """Return required/prefilter keys that are absent or blank in the table.
 
-        ``required`` comes from the curated key list; ``prefilter`` entries are
-        the IUCr prefilter rules that require the key to be present.  Recommended
-        keys are deliberately not blocking.
+        Only the curated required keys block CheckCIF.  Prefilter rules are
+        annotations/advice: the IUCr table also contains publication-only,
+        conditional and legacy-key rules, so it must not block a structure check.
         """
         table = self.ui.cif_main_table
         missing: list[tuple[str, str]] = []
         for key, info in self.required_entries.items():
-            if info.get('level') not in {'required', 'prefilter'}:
+            if info.get('level') != 'required':
                 continue
             if table.has_key(key):
                 row = table.row_from_key(key)
@@ -1791,7 +1789,7 @@ class AppWindow(QMainWindow):
             table.scrollTo(table.model().index(first_row, Column.EDIT))
             self.status_bar.show_message(f'请补全缺失项：{first_key}', 8)
         label = QtWidgets.QLabel(
-            f'运行 CheckCIF 前发现 {len(missing)} 个必填/预检项缺失，已定位到第一条：{first_key}。' + nl +
+            f'运行 CheckCIF 前发现 {len(missing)} 个必填项缺失，已定位到第一条：{first_key}。' + nl +
             '这些条目缺失时 CheckCIF 会直接报错；请先补全，再重新运行。' + nl +
             '双击条目或选中后点“跳到主表”，程序会定位到对应行。', dialog)
         label.setWordWrap(True)
