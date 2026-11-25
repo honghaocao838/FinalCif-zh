@@ -10,6 +10,7 @@ FinalCif 的中文本地化版本，基于 [dkratzert/FinalCif](https://github.c
 
 - 安装到当前用户目录，不需要管理员权限
 - 安装包未签名；SmartScreen 提示“无法识别的应用”时，选择“更多信息 → 仍要运行”即可
+- 下载后可用 Release 中的 `SHA256SUMS.txt` 校验文件
 - 支持 Windows 10/11 x64
 - 安装向导与程序界面均为中文
 - 安装后可直接打开 `.cif`、`.res`、`.hkl` 文件，或拖到窗口上
