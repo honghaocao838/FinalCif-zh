@@ -1,6 +1,8 @@
 """Summary bar for CheckCIF results and the per-level alert list."""
 from __future__ import annotations
 
+import re
+
 from qtpy import QtCore, QtWidgets
 
 from finalcif.cif.checkcif.summary import AlertItem, CheckCifSummary, LEVELS
@@ -84,8 +86,16 @@ class AlertListDialog(QtWidgets.QDialog):
             if alert.code.upper().startswith('PLAT'):
                 helptext = f'未找到帮助文本：{alert.code}。\n\n{alert.summary}'
             else:
-                helptext = (f'{alert.code} 是 CIF 预检项（prefilter），暂无对应的中文解释。\n\n'
-                            f'{alert.summary}')
+                key_match = re.search(r'(_[A-Za-z][A-Za-z0-9_]*)', alert.summary)
+                helptext = (
+                    f'{alert.code} 是 IUCr 的 CIF 预检项（prefilter），不是 PLATON 警报。\n\n'
+                    f'报告内容：{alert.summary}\n\n'
+                )
+                if key_match:
+                    helptext += (f'建议：补全或修正 CIF 中的 {key_match.group(1)}，'
+                                 f'然后重新运行 CheckCIF。')
+                else:
+                    helptext += '建议：根据上面的报告内容修正对应 CIF 数据项，然后重新运行 CheckCIF。'
         self.advice_browser.setPlainText(helptext)
         self.advice_browser.verticalScrollBar().setValue(0)
 

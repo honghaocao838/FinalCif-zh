@@ -68,6 +68,9 @@ def _items_from_text(text: str, source: str) -> list[AlertItem]:
     items: list[AlertItem] = []
     for match in _ALERT_RE.finditer(text):
         code = match.group('code').upper()
+        if code.isdigit():
+            # PLATON .chk files use 041_ALERT_1_C instead of PLAT041.
+            code = f'PLAT{code}'
         level = match.group('level').upper()
         summary = _clean(match.group('desc'))
         if not summary:
