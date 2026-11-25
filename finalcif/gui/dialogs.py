@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import sys
 import threading
 import traceback
@@ -279,10 +280,122 @@ def show_general_warning(parent: QWidget | None, warn_text: str = '', info_text:
         box.close()
 
 
+_CJK_RE = re.compile(r'[\u3400-\u4dbf\u4e00-\u9fff]')
+_CJK_ANY_RE = re.compile(r'[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff00-\uffef]')
+_PRE_RE = re.compile(r'(<pre>)(.*?)(</pre>)', re.DOTALL)
+
+
+def _is_help_code_line(line: str) -> bool:
+    """Whether a line inside <pre> is code/formula/example, not prose."""
+    stripped = line.strip()
+    if not stripped:
+        return False
+    if '<h2>' in line or '</h2>' in line or '<h3>' in line:
+        return True
+    if line.startswith('    '):
+        return True
+    if re.search(r'[=^~|]', stripped):
+        return True
+    if re.search(r'\s{3,}', stripped):
+        return True
+    if re.match(r'^[-*+]\s', stripped) or re.match(r'^\d+[.)]\s', stripped):
+        return True
+    if not _CJK_ANY_RE.search(stripped):
+        return True
+    return False
+
+
+def _join_help_prose(parts: list[str]) -> str:
+    """Join Chinese prose lines, keeping a space where Chinese meets ASCII."""
+    def is_ascii_word(char: str) -> bool:
+        return char.isascii() and (char.isalnum() or char == '_')
+
+    def needs_space(left: str, right: str) -> bool:
+        left_ascii, right_ascii = is_ascii_word(left), is_ascii_word(right)
+        left_cjk, right_cjk = bool(_CJK_RE.match(left)), bool(_CJK_RE.match(right))
+        return (left_ascii and right_ascii) or (left_cjk and right_ascii) or (left_ascii and right_cjk)
+
+    joined = ''
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+        if joined and needs_space(joined[-1], part[0]):
+            joined += ' '
+        joined += part
+    return joined
+
+
+def _reflow_pre_body(body: str) -> str:
+    """Undo the English line wrapping of translated dictionary prose.
+
+    Formulas, examples and table-like lines keep their line breaks; ordinary
+    Chinese sentences are joined so that the help window wraps them naturally.
+    """
+    out: list[str] = []
+    buffer: list[str] = []
+    in_example = False
+
+    def flush() -> None:
+        if buffer:
+            joined = _join_help_prose(buffer)
+            if joined:
+                out.append(joined)
+            buffer.clear()
+
+    for line in body.splitlines():
+        header = re.match(r'^(\s*<h2>.*?</h2>)(.*)$', line, re.DOTALL)
+        if header:
+            flush()
+            out.append(header.group(1).strip())
+            remainder = header.group(2)
+            if remainder.strip():
+                buffer.append(remainder)
+            continue
+        if '<h3>' in line:
+            flush()
+            in_example = True
+            out.append(line.rstrip())
+            continue
+        if in_example:
+            out.append(line.rstrip())
+            continue
+        if not line.strip():
+            flush()
+            if out and out[-1] != '':
+                out.append('')
+            continue
+        if _is_help_code_line(line):
+            flush()
+            out.append(line.rstrip())
+        else:
+            buffer.append(line)
+    flush()
+    return '\n'.join(out)
+
+
+def reflow_help_html(helptext: str) -> str:
+    """Reflow Chinese <pre> prose without touching formulas or examples."""
+    if '<pre>' not in helptext or not _CJK_RE.search(helptext):
+        return helptext
+
+    def replace(match: re.Match) -> str:
+        body = match.group(2)
+        if not _CJK_RE.search(body):
+            return match.group(0)
+        # <pre> never wraps.  pre-wrap keeps formula/example line breaks but
+        # lets the joined Chinese prose wrap to the help window width.
+        return ('<div style="white-space: pre-wrap; font-family: monospace; line-height: 150%;">'
+                + _reflow_pre_body(body) + '</div>')
+
+    return _PRE_RE.sub(replace, helptext)
+
+
 def show_keyword_help(parent: QWidget | None, helptext: str, title: str = ''):
     """
     A window to display help texts from the CIF dictionaries.
     """
+    helptext = reflow_help_html(helptext)
     nlines = len(helptext.splitlines())
     window = QMainWindow(parent=parent)
     window.setWindowTitle(title)
@@ -297,8 +410,12 @@ def show_keyword_help(parent: QWidget | None, helptext: str, title: str = ''):
     button = QPushButton("关闭")
     textedit = QTextEdit()
     textedit.setReadOnly(True)
-    textedit.setFontFamily('monospace')
+    help_font = textedit.font()
+    help_font.setFamily('monospace')
+    help_font.setPointSize(12)
+    textedit.setFont(help_font)
     textedit.setText(helptext)
+    textedit.document().setDocumentMargin(10)
     layout.addWidget(textedit)
     layout.addWidget(button)
     widget.setLayout(layout)
