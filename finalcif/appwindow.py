@@ -75,6 +75,7 @@ from finalcif.gui.table_filter_bar import (TableFilterBar, FILTER_ALL, FILTER_MI
                                            FILTER_REQUIRED_ALL, FILTER_CHECKCIF)
 from finalcif.cif.key_metadata import (load_key_aliases, load_key_required, alias_index,
                                        user_config_path)
+from finalcif.cif.prefilter import load_prefilter, required_key_notes, prefilter_codes_by_key
 from finalcif.gui.validators import calculated_z_validator
 from finalcif.gui.checkcif_browser import CheckCifBrowser
 from finalcif.gui.text_value_editor import MyTextTemplateEdit, TextEditItem
@@ -335,6 +336,10 @@ class AppWindow(QMainWindow):
         self.key_alias_index = alias_index(self.key_aliases)
         self.required_entries, self.required_meta = load_key_required(
             user_path=user_config_path('key_required.json'))
+        self.prefilter = load_prefilter(user_path=user_config_path('prefilter_zh.json'))
+        self.prefilter_codes = prefilter_codes_by_key(self.prefilter)
+        for key, note in required_key_notes(self.prefilter).items():
+            self.required_entries.setdefault(key, {'level': 'prefilter', 'note': note})
         self.mentioned_keys: set[str] = set()
         self._first_invalid_row = -1
         self._first_required_missing_row = -1
@@ -1730,6 +1735,112 @@ class AppWindow(QMainWindow):
         self.ui.newLoopPushButton.show()
         self.ui.deleteLoopButton.show()
 
+    # ------------------------------------------------------------------
+    # Pre-CheckCIF required-item gate
+    # ------------------------------------------------------------------
+
+    def _missing_required_for_checkcif(self) -> list[tuple[str, str]]:
+        """Return required/prefilter keys that are absent or blank in the table.
+
+        ``required`` comes from the curated key list; ``prefilter`` entries are
+        the IUCr prefilter rules that require the key to be present.  Recommended
+        keys are deliberately not blocking.
+        """
+        table = self.ui.cif_main_table
+        missing: list[tuple[str, str]] = []
+        for key, info in self.required_entries.items():
+            if info.get('level') not in {'required', 'prefilter'}:
+                continue
+            if table.has_key(key):
+                row = table.row_from_key(key)
+                values = [table.text(row, column) for column in range(3)]
+                if not all(self._is_blank(value) for value in values):
+                    continue
+            missing.append((key, info.get('note', '')))
+        return missing
+
+    def _ensure_row_for_key(self, key: str) -> int:
+        """Select *key* in the table, adding a '?' row if it is absent."""
+        table = self.ui.cif_main_table
+        if table.has_key(key):
+            return table.row_from_key(key)
+        self.add_row(key, '?', at_start=True)
+        if self.complete_data_row >= 0:
+            self.complete_data_row += 1
+        self._connect_edit_widget(0)
+        self._table_refresh_timer.start()
+        return table.row_from_key(key) if table.has_key(key) else -1
+
+    def _show_missing_required_dialog(self, missing: list[tuple[str, str]]) -> None:
+        table = self.ui.cif_main_table
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle('CheckCIF 前检查')
+        dialog.resize(760, 500)
+        layout = QtWidgets.QVBoxLayout(dialog)
+        # Make sure the row we jump to is not hidden by an active filter.
+        self.filter_bar.reset()
+        blocked = self.ui.searchMainTableLineEdit.blockSignals(True)
+        self.ui.searchMainTableLineEdit.clear()
+        self.ui.searchMainTableLineEdit.blockSignals(blocked)
+        self.apply_table_filter()
+        nl = chr(10)
+        first_key = missing[0][0]
+        first_row = self._ensure_row_for_key(first_key)
+        if first_row >= 0:
+            table.setCurrentCell(first_row, Column.EDIT)
+            table.scrollTo(table.model().index(first_row, Column.EDIT))
+            self.status_bar.show_message(f'请补全缺失项：{first_key}', 8)
+        label = QtWidgets.QLabel(
+            f'运行 CheckCIF 前发现 {len(missing)} 个必填/预检项缺失，已定位到第一条：{first_key}。' + nl +
+            '这些条目缺失时 CheckCIF 会直接报错；请先补全，再重新运行。' + nl +
+            '双击条目或选中后点“跳到主表”，程序会定位到对应行。', dialog)
+        label.setWordWrap(True)
+        layout.addWidget(label)
+        list_widget = QtWidgets.QListWidget(dialog)
+        for key, note in missing:
+            item = QtWidgets.QListWidgetItem(f'{key}' + nl + f'{note}')
+            item.setData(QtCore.Qt.ItemDataRole.UserRole, key)
+            list_widget.addItem(item)
+        if list_widget.count():
+            list_widget.setCurrentRow(0)
+        layout.addWidget(list_widget, 1)
+        buttons = QtWidgets.QHBoxLayout()
+        jump_button = QtWidgets.QPushButton('跳到主表', dialog)
+        close_button = QtWidgets.QPushButton('关闭', dialog)
+        buttons.addStretch(1)
+        buttons.addWidget(jump_button)
+        buttons.addWidget(close_button)
+        layout.addLayout(buttons)
+
+        def jump() -> None:
+            item = list_widget.currentItem()
+            if item is None and list_widget.count():
+                item = list_widget.item(0)
+            if item is None:
+                return
+            key = item.data(QtCore.Qt.ItemDataRole.UserRole)
+            row = self._ensure_row_for_key(key)
+            if row >= 0:
+                table.setCurrentCell(row, Column.EDIT)
+                table.scrollTo(table.model().index(row, Column.EDIT))
+                self.status_bar.show_message(f'请补全缺失项：{key}', 8)
+            dialog.accept()
+
+        jump_button.clicked.connect(jump)
+        list_widget.itemDoubleClicked.connect(lambda _: jump())
+        close_button.clicked.connect(dialog.reject)
+        dialog.exec()
+
+    def _check_required_before_checkcif(self) -> bool:
+        """Return True when CheckCIF may start."""
+        if self.cif is None:
+            return True
+        missing = self._missing_required_for_checkcif()
+        if not missing:
+            return True
+        self._show_missing_required_dialog(missing)
+        return False
+
     def _checkcif_failed(self, txt: str) -> None:
         if self.sender() is not None and self.sender() is not self.ckf:
             return
@@ -1920,6 +2031,8 @@ class AppWindow(QMainWindow):
         if self._checkcif_running:
             self._cancel_checkcif()
             return
+        if not self._check_required_before_checkcif():
+            return
         current_block = self.ui.datanameComboBox.currentIndex()
         self._get_check_def()
         self.ui.CheckCifLogPlainTextEdit.clear()
@@ -2054,6 +2167,8 @@ class AppWindow(QMainWindow):
         if self._checkcif_running:
             self._cancel_checkcif()
             return
+        if not self._check_required_before_checkcif():
+            return
         current_block = self.ui.datanameComboBox.currentIndex()
         self.ui.CheckCifLogPlainTextEdit.clear()
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(2)
@@ -2083,6 +2198,8 @@ class AppWindow(QMainWindow):
         self.ckf.start()
 
     def do_offline_checkcif(self) -> None:
+        if not self._check_required_before_checkcif():
+            return
         self.ui.CheckcifButton.setDisabled(True)
         app.processEvents()
         self.ui.CheckCifLogPlainTextEdit.clear()
@@ -3364,6 +3481,7 @@ class AppWindow(QMainWindow):
                 is_separator=is_sep,
                 edit_color=color,
                 required_note=self.required_entries.get(key, {}).get('note', ''),
+                prefilter_note=self.prefilter_codes.get(key, ''),
                 raw_value=raw_value,
                 strval=strval,
             )
@@ -3484,6 +3602,7 @@ class AppWindow(QMainWindow):
             row_data = self.ui.cif_main_table.row_data(row_num)
             if row_data is not None:
                 row_data.required_note = self.required_entries.get(key, {}).get('note', '')
+                row_data.prefilter_note = self.prefilter_codes.get(key, '')
             self._connect_edit_widget(row_num)
             self._table_refresh_timer.start()
         if not key.startswith('_'):

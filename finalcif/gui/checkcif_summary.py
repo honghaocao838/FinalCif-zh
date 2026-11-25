@@ -6,6 +6,7 @@ import re
 from qtpy import QtCore, QtWidgets
 
 from finalcif.cif.checkcif.summary import AlertItem, CheckCifSummary, LEVELS
+from finalcif.cif.prefilter import load_prefilter, lookup_prefilter, format_prefilter_help
 
 _LEVEL_COLORS = {
     'A': ('#f05846', '#ffffff'),
@@ -25,6 +26,7 @@ class AlertListDialog(QtWidgets.QDialog):
         self.items = items
         self.checkdef = list(checkdef or [])
         self._help_cache: dict[str, str] = {}
+        self.prefilter = load_prefilter()
         self.setWindowTitle(f'{level} 级警报（{len(items)} 条）')
         self.resize(1040, 620)
 
@@ -79,8 +81,13 @@ class AlertListDialog(QtWidgets.QDialog):
             return
         alert: AlertItem = current.data(QtCore.Qt.ItemDataRole.UserRole)
         if alert.code not in self._help_cache:
-            from finalcif.cif.checkcif.checkcif import AlertHelp
-            self._help_cache[alert.code] = AlertHelp(self.checkdef).get_help(alert.code)
+            if alert.code.upper().startswith('PLAT'):
+                from finalcif.cif.checkcif.checkcif import AlertHelp
+                self._help_cache[alert.code] = AlertHelp(self.checkdef).get_help(alert.code)
+            else:
+                entry = lookup_prefilter(self.prefilter, alert.code)
+                self._help_cache[alert.code] = (
+                    format_prefilter_help(alert.code, entry) if entry else '')
         helptext = self._help_cache[alert.code]
         if not helptext:
             if alert.code.upper().startswith('PLAT'):
@@ -88,7 +95,7 @@ class AlertListDialog(QtWidgets.QDialog):
             else:
                 key_match = re.search(r'(_[A-Za-z][A-Za-z0-9_]*)', alert.summary)
                 helptext = (
-                    f'{alert.code} 是 IUCr 的 CIF 预检项（prefilter），不是 PLATON 警报。\n\n'
+                    f'{alert.code} 是 IUCr 的 CIF 预检项（prefilter），但本版本尚未收录该条目的中文说明。\n\n'
                     f'报告内容：{alert.summary}\n\n'
                 )
                 if key_match:

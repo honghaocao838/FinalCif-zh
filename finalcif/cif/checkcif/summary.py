@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 LEVELS = ('A', 'B', 'C', 'G')
 
 _ALERT_RE = re.compile(
-    r'(?P<code>[A-Z][A-Z0-9]*\d+|\d{3,})_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
+    r'(?P<code>[A-Z][A-Z0-9_]*\d+|\d{3,})_ALERT_(?P<atype>\d)_(?P<level>[A-G])\b'
     r'\s*(?P<desc>.*)')
 _COUNT_RE = re.compile(
     r'(\d+)[ \t]*(?:<[^>]+>[ \t]*)*ALERT\s+level[ \t]+([A-G])', re.IGNORECASE)
@@ -71,6 +71,8 @@ def _items_from_text(text: str, source: str) -> list[AlertItem]:
         if code.isdigit():
             # PLATON .chk files use 041_ALERT_1_C instead of PLAT041.
             code = f'PLAT{code}'
+        elif code.startswith('PLAT_'):
+            code = 'PLAT' + code[5:]
         level = match.group('level').upper()
         summary = _clean(match.group('desc'))
         if not summary:

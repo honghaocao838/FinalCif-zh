@@ -1,0 +1,4424 @@
+{
+ "_meta": {
+  "source": "https://journals.iucr.org/services/cif/checking/prefilter.html",
+  "updated": "2026-11-25",
+  "note": "IUCr checkCIF/PLATON prefilter tests; required means the CIF item must be present for the relevant data type."
+ },
+ "PUBL001": {
+  "codes": [
+   "PUBL_001",
+   "PUBL_002",
+   "PUBL_003",
+   "PUBL_004",
+   "TYPE_001",
+   "TYPE_002"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "必须提供 _publ_contact_author_name 和 _publ_contact_author_address，且类型为字符串；旧的 _publ_contact_author 仍可使用。",
+  "en": "These must be present and must be of type char, although the old\n_publ_contact_author is still allowed.",
+  "required": true
+ },
+ "PUBL002": {
+  "codes": [
+   "PUBL_001",
+   "PUBL_002",
+   "PUBL_003",
+   "PUBL_004",
+   "TYPE_001",
+   "TYPE_002"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "必须提供 _publ_contact_author_name 和 _publ_contact_author_address，且类型为字符串；旧的 _publ_contact_author 仍可使用。",
+  "en": "These must be present and must be of type char, although the old\n_publ_contact_author is still allowed.",
+  "required": true
+ },
+ "PUBL003": {
+  "codes": [
+   "PUBL_001",
+   "PUBL_002",
+   "PUBL_003",
+   "PUBL_004",
+   "TYPE_001",
+   "TYPE_002"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "必须提供 _publ_contact_author_name 和 _publ_contact_author_address，且类型为字符串；旧的 _publ_contact_author 仍可使用。",
+  "en": "These must be present and must be of type char, although the old\n_publ_contact_author is still allowed.",
+  "required": true
+ },
+ "PUBL004": {
+  "codes": [
+   "PUBL_001",
+   "PUBL_002",
+   "PUBL_003",
+   "PUBL_004",
+   "TYPE_001",
+   "TYPE_002"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "必须提供 _publ_contact_author_name 和 _publ_contact_author_address，且类型为字符串；旧的 _publ_contact_author 仍可使用。",
+  "en": "These must be present and must be of type char, although the old\n_publ_contact_author is still allowed.",
+  "required": true
+ },
+ "TYPE001": {
+  "codes": [
+   "PUBL_001",
+   "PUBL_002",
+   "PUBL_003",
+   "PUBL_004",
+   "TYPE_001",
+   "TYPE_002"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "必须提供 _publ_contact_author_name 和 _publ_contact_author_address，且类型为字符串；旧的 _publ_contact_author 仍可使用。",
+  "en": "These must be present and must be of type char, although the old\n_publ_contact_author is still allowed.",
+  "required": true
+ },
+ "TYPE002": {
+  "codes": [
+   "PUBL_001",
+   "PUBL_002",
+   "PUBL_003",
+   "PUBL_004",
+   "TYPE_001",
+   "TYPE_002"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "必须提供 _publ_contact_author_name 和 _publ_contact_author_address，且类型为字符串；旧的 _publ_contact_author 仍可使用。",
+  "en": "These must be present and must be of type char, although the old\n_publ_contact_author is still allowed.",
+  "required": true
+ },
+ "PUBL005": {
+  "codes": [
+   "PUBL_005",
+   "TYPE_003"
+  ],
+  "keys": [
+   "_publ_contact_author",
+   "_publ_contact_author_fax",
+   "_publ_contact_author_phone"
+  ],
+  "zh": "email 必须为字符串。",
+  "en": "email must be of type char.",
+  "required": false
+ },
+ "TYPE003": {
+  "codes": [
+   "PUBL_005",
+   "TYPE_003"
+  ],
+  "keys": [
+   "_publ_contact_author",
+   "_publ_contact_author_fax",
+   "_publ_contact_author_phone"
+  ],
+  "zh": "email 必须为字符串。",
+  "en": "email must be of type char.",
+  "required": false
+ },
+ "PUBL006": {
+  "codes": [
+   "PUBL_006",
+   "TYPE_006"
+  ],
+  "keys": [
+   "_publ_requested_journal"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "TYPE006": {
+  "codes": [
+   "PUBL_006",
+   "TYPE_006"
+  ],
+  "keys": [
+   "_publ_requested_journal"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "PUBL008": {
+  "codes": [
+   "PUBL_008",
+   "TYPE_008"
+  ],
+  "keys": [
+   "_publ_section_title"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "TYPE008": {
+  "codes": [
+   "PUBL_008",
+   "TYPE_008"
+  ],
+  "keys": [
+   "_publ_section_title"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "PUBL009": {
+  "codes": [
+   "PUBL_009",
+   "TYPE_009"
+  ],
+  "keys": [
+   "_publ_author_name"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "TYPE009": {
+  "codes": [
+   "PUBL_009",
+   "TYPE_009"
+  ],
+  "keys": [
+   "_publ_author_name"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "PUBL010": {
+  "codes": [
+   "PUBL_010",
+   "TYPE_010"
+  ],
+  "keys": [
+   "_publ_author_address"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "TYPE010": {
+  "codes": [
+   "PUBL_010",
+   "TYPE_010"
+  ],
+  "keys": [
+   "_publ_author_address"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "PUBL011": {
+  "codes": [
+   "PUBL_011",
+   "TYPE_011"
+  ],
+  "keys": [
+   "_publ_section_synopsis"
+  ],
+  "zh": "如果提供，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "TYPE011": {
+  "codes": [
+   "PUBL_011",
+   "TYPE_011"
+  ],
+  "keys": [
+   "_publ_section_synopsis"
+  ],
+  "zh": "如果提供，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "PUBL012": {
+  "codes": [
+   "PUBL_012",
+   "TYPE_012"
+  ],
+  "keys": [
+   "_publ_section_abstract"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "TYPE012": {
+  "codes": [
+   "PUBL_012",
+   "TYPE_012"
+  ],
+  "keys": [
+   "_publ_section_abstract"
+  ],
+  "zh": "必须提供，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "PUBL013": {
+  "codes": [
+   "PUBL_013",
+   "TYPE_013"
+  ],
+  "keys": [
+   "_publ_section_comment"
+  ],
+  "zh": "如果提供，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "TYPE013": {
+  "codes": [
+   "PUBL_013",
+   "TYPE_013"
+  ],
+  "keys": [
+   "_publ_section_comment"
+  ],
+  "zh": "如果提供，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "PUBL014": {
+  "codes": [
+   "PUBL_014",
+   "TYPE_014"
+  ],
+  "keys": [
+   "_publ_section_exptl_prep"
+  ],
+  "zh": "如果提供，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "TYPE014": {
+  "codes": [
+   "PUBL_014",
+   "TYPE_014"
+  ],
+  "keys": [
+   "_publ_section_exptl_prep"
+  ],
+  "zh": "如果提供，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "PUBL016": {
+  "codes": [
+   "PUBL_016"
+  ],
+  "keys": [
+   "_publ_section_exptl_refinement",
+   "_computing_data_collection",
+   "_computing_cell_refinement",
+   "_computing_data_reduction",
+   "_computing_structure_solution",
+   "_computing_structure_refinement",
+   "_computing_molecular_graphics",
+   "_computing_publication_material"
+  ],
+  "zh": "至少提供一项精修/计算软件字段（_publ_section_exptl_refinement 或 _computing_*），且为字符串。",
+  "en": "At least one of these must be present to give details of the refinement.\nAll of these must be of type char if they are present.",
+  "required": true
+ },
+ "PUBL017": {
+  "codes": [
+   "PUBL_017"
+  ],
+  "keys": [
+   "_publ_section_references"
+  ],
+  "zh": "应提供且不能为空。",
+  "en": "Should be present and not empty.",
+  "required": true
+ },
+ "PUBL018": {
+  "codes": [
+   "PUBL_018",
+   "PUBL_019",
+   "PUBL_020",
+   "PUBL_021"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "作者/地址 loop 格式错误：检查 loop 元素数量、分号分隔符；无脚注时按 name/address 两列，有脚注时用 . 占位。",
+  "en": "This test has failed due to what is probably an incorrectly formatted\nauthor/address loop. Usual errors encountered in this loop are due to an\nincorrect number of elements being given in the loop, or misuse of ;\n(semi-colon) delimiters in order to get the CIF to pass checkCIF. If there\nare no footnotes to be included in the author/address loop then the loop\nshould have the form as below,\nloop_\n_publ_author_name\n_publ_author_address\n'Bowes, Katharine F.'                 # Format is 'Surname, Firstnames'\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n; Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\nWhen footnotes are required, then the format is as below. Note the use of . as\na placeholder for entries not requiring a footnote.\nloop_\n_publ_author_name\n_publ_author_footnote\n_publ_author_address\n'Bowes, Katharine F.'       .                 # Note . as placeholder\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n;\nPermanent address: Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Lough, Alan J.'   .\n;\nLash Miller Chemical Laboratories\nUniversity of Toronto\nToronto\nOntario\nCanada M5S 3H6\n;",
+  "required": false
+ },
+ "PUBL019": {
+  "codes": [
+   "PUBL_018",
+   "PUBL_019",
+   "PUBL_020",
+   "PUBL_021"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "作者/地址 loop 格式错误：检查 loop 元素数量、分号分隔符；无脚注时按 name/address 两列，有脚注时用 . 占位。",
+  "en": "This test has failed due to what is probably an incorrectly formatted\nauthor/address loop. Usual errors encountered in this loop are due to an\nincorrect number of elements being given in the loop, or misuse of ;\n(semi-colon) delimiters in order to get the CIF to pass checkCIF. If there\nare no footnotes to be included in the author/address loop then the loop\nshould have the form as below,\nloop_\n_publ_author_name\n_publ_author_address\n'Bowes, Katharine F.'                 # Format is 'Surname, Firstnames'\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n; Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\nWhen footnotes are required, then the format is as below. Note the use of . as\na placeholder for entries not requiring a footnote.\nloop_\n_publ_author_name\n_publ_author_footnote\n_publ_author_address\n'Bowes, Katharine F.'       .                 # Note . as placeholder\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n;\nPermanent address: Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Lough, Alan J.'   .\n;\nLash Miller Chemical Laboratories\nUniversity of Toronto\nToronto\nOntario\nCanada M5S 3H6\n;",
+  "required": false
+ },
+ "PUBL020": {
+  "codes": [
+   "PUBL_018",
+   "PUBL_019",
+   "PUBL_020",
+   "PUBL_021"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "作者/地址 loop 格式错误：检查 loop 元素数量、分号分隔符；无脚注时按 name/address 两列，有脚注时用 . 占位。",
+  "en": "This test has failed due to what is probably an incorrectly formatted\nauthor/address loop. Usual errors encountered in this loop are due to an\nincorrect number of elements being given in the loop, or misuse of ;\n(semi-colon) delimiters in order to get the CIF to pass checkCIF. If there\nare no footnotes to be included in the author/address loop then the loop\nshould have the form as below,\nloop_\n_publ_author_name\n_publ_author_address\n'Bowes, Katharine F.'                 # Format is 'Surname, Firstnames'\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n; Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\nWhen footnotes are required, then the format is as below. Note the use of . as\na placeholder for entries not requiring a footnote.\nloop_\n_publ_author_name\n_publ_author_footnote\n_publ_author_address\n'Bowes, Katharine F.'       .                 # Note . as placeholder\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n;\nPermanent address: Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Lough, Alan J.'   .\n;\nLash Miller Chemical Laboratories\nUniversity of Toronto\nToronto\nOntario\nCanada M5S 3H6\n;",
+  "required": false
+ },
+ "PUBL021": {
+  "codes": [
+   "PUBL_018",
+   "PUBL_019",
+   "PUBL_020",
+   "PUBL_021"
+  ],
+  "keys": [
+   "_publ_contact_author_name",
+   "_publ_contact_author_address"
+  ],
+  "zh": "作者/地址 loop 格式错误：检查 loop 元素数量、分号分隔符；无脚注时按 name/address 两列，有脚注时用 . 占位。",
+  "en": "This test has failed due to what is probably an incorrectly formatted\nauthor/address loop. Usual errors encountered in this loop are due to an\nincorrect number of elements being given in the loop, or misuse of ;\n(semi-colon) delimiters in order to get the CIF to pass checkCIF. If there\nare no footnotes to be included in the author/address loop then the loop\nshould have the form as below,\nloop_\n_publ_author_name\n_publ_author_address\n'Bowes, Katharine F.'                 # Format is 'Surname, Firstnames'\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n; Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\nWhen footnotes are required, then the format is as below. Note the use of . as\na placeholder for entries not requiring a footnote.\nloop_\n_publ_author_name\n_publ_author_footnote\n_publ_author_address\n'Bowes, Katharine F.'       .                 # Note . as placeholder\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Ferguson, George'\n;\nPermanent address: Department of Chemistry\nUniversity of Guelph\nGuelph\nOntario\nCanada N1G 2W1\n;\n;\nSchool of Chemistry\nUniversity of St Andrews\nSt Andrews\nFife KY16 9ST\nScotland\n;\n'Lough, Alan J.'   .\n;\nLash Miller Chemical Laboratories\nUniversity of Toronto\nToronto\nOntario\nCanada M5S 3H6\n;",
+  "required": false
+ },
+ "PUBL024": {
+  "codes": [
+   "PUBL_024"
+  ],
+  "keys": [],
+  "zh": "作者人数超过 6 人，请说明每位合作者的具体贡献。",
+  "en": "The number of authors is greater than 6. Please specify the\nrole of each of the co-authors for your paper.\nThe co-authors of a paper should be all those who have made\nsignificant scientific contributions to the work reported and\nwho share responsibility and accountability for the results.\nAn administrative, or similar, relationship to the work does\nnot of itself qualify a person for co-authorship.\n/td>",
+  "required": false
+ },
+ "PUBL022": {
+  "codes": [
+   "PUBL_022"
+  ],
+  "keys": [],
+  "zh": "发现不配对的下标符号 ~；单个 ~ 需要转义，成对使用如 C~3~H~8~O。",
+  "en": "A line has been found with mismatched subscript operators(~).\nIf you require a single ~ (tilde) then this must be escaped with a \\.\ne.g. the time taken was \\~ 3 seconds.\nOtherwise there should be pairs of matching ~, e.g. C~3~H~8~O\nwhich would signify C3H8O.",
+  "required": false
+ },
+ "PUBL023": {
+  "codes": [
+   "PUBL_023"
+  ],
+  "keys": [],
+  "zh": "发现不配对的上标符号 ^；单个 ^ 需要转义，成对使用如 ^12^C。",
+  "en": "A line has been found with mismatched superscript operators(^).\nIf you require a single ^ (caret) then this must be escaped with a \\. i.e. \\^\nOtherwise there should be pairs of matching ^, e.g. ^12^C\nwhich would signify 12C.",
+  "required": false
+ },
+ "PUBL025": {
+  "codes": [
+   "PUBL_025"
+  ],
+  "keys": [
+   "_publ_section_comment"
+  ],
+  "zh": "_publ_section_comment 超过 400 词；Acta Cryst. E 通常要求不超过 400 词（C 刊不适用此限制），请精简。",
+  "en": "_publ_section_comment is more than 400 words.\nFor Acta Crystallographica Section E the Comment section\nis usually expected to be no more than 400 words. Please\nshorten your Comment if you intend to submit to Section E.\nThis limit does not apply to Acta Crystallographica Section C.",
+  "required": false
+ },
+ "PUBL026": {
+  "codes": [
+   "PUBL_026"
+  ],
+  "keys": [
+   "_publ_section_comment"
+  ],
+  "zh": "_publ_section_comment 少于 200 词；Acta Cryst. C 通常要求超过 200 词，请补充。",
+  "en": "_publ_section_comment is less than 200 words.\nFor Acta Crystallographica Section C the Comment section\nis usually expected to be longer than 200 words. Please\nrefer to the Notes for Authors for more details.",
+  "required": false
+ },
+ "ATOM001": {
+  "codes": [
+   "ATOM_001"
+  ],
+  "keys": [
+   "_atom_type_scat_source"
+  ],
+  "zh": "必须提供 _atom_type_scat_source，且类型为字符串。",
+  "en": "Must be present and must be of type char.",
+  "required": true
+ },
+ "CHEM001": {
+  "codes": [
+   "CHEM_001",
+   "TYPE_015"
+  ],
+  "keys": [
+   "_chemical_formula_sum"
+  ],
+  "zh": "必须提供 _chemical_formula_sum，且类型为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE015": {
+  "codes": [
+   "CHEM_001",
+   "TYPE_015"
+  ],
+  "keys": [
+   "_chemical_formula_sum"
+  ],
+  "zh": "必须提供 _chemical_formula_sum，且类型为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "CHEM002": {
+  "codes": [
+   "CHEM_002",
+   "TYPE_016"
+  ],
+  "keys": [
+   "_chemical_formula_moiety"
+  ],
+  "zh": "如果提供 _chemical_formula_moiety，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "TYPE016": {
+  "codes": [
+   "CHEM_002",
+   "TYPE_016"
+  ],
+  "keys": [
+   "_chemical_formula_moiety"
+  ],
+  "zh": "如果提供 _chemical_formula_moiety，必须为字符串。",
+  "en": "If present must be of type char.",
+  "required": false
+ },
+ "CHEM003": {
+  "codes": [
+   "CHEM_003",
+   "TYPE_017"
+  ],
+  "keys": [
+   "_chemical_formula_weight"
+  ],
+  "zh": "必须提供 _chemical_formula_weight，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "TYPE017": {
+  "codes": [
+   "CHEM_003",
+   "TYPE_017"
+  ],
+  "keys": [
+   "_chemical_formula_weight"
+  ],
+  "zh": "必须提供 _chemical_formula_weight，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "SYMM001": {
+  "codes": [
+   "SYMM_001"
+  ],
+  "keys": [
+   "_symmetry_cell_setting"
+  ],
+  "zh": "必须提供 _symmetry_cell_setting，且为字符串（晶胞类型）。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "SYMM003": {
+  "codes": [
+   "SYMM_003",
+   "TYPE_018"
+  ],
+  "keys": [
+   "_symmetry_space_group_name_H-M"
+  ],
+  "zh": "必须提供 _symmetry_space_group_name_H-M，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE018": {
+  "codes": [
+   "SYMM_003",
+   "TYPE_018"
+  ],
+  "keys": [
+   "_symmetry_space_group_name_H-M"
+  ],
+  "zh": "必须提供 _symmetry_space_group_name_H-M，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "SYMM004": {
+  "codes": [
+   "SYMM_004",
+   "SYMM_005",
+   "TYPE_201"
+  ],
+  "keys": [
+   "_symmetry_equiv_pos_as_xyz"
+  ],
+  "zh": "必须提供 _symmetry_equiv_pos_as_xyz，且为字符串；对称操作中的分数必须写 1/2，不能写 0.5。",
+  "en": "Must be present and of type char.  Also must not contain fractions\nas decimals. e.g.  'x+0.5,y+0.5,z' is not allowed.\n'x+1/2,y+1/2,z' is OK.",
+  "required": true
+ },
+ "SYMM005": {
+  "codes": [
+   "SYMM_004",
+   "SYMM_005",
+   "TYPE_201"
+  ],
+  "keys": [
+   "_symmetry_equiv_pos_as_xyz"
+  ],
+  "zh": "必须提供 _symmetry_equiv_pos_as_xyz，且为字符串；对称操作中的分数必须写 1/2，不能写 0.5。",
+  "en": "Must be present and of type char.  Also must not contain fractions\nas decimals. e.g.  'x+0.5,y+0.5,z' is not allowed.\n'x+1/2,y+1/2,z' is OK.",
+  "required": true
+ },
+ "TYPE201": {
+  "codes": [
+   "SYMM_004",
+   "SYMM_005",
+   "TYPE_201"
+  ],
+  "keys": [
+   "_symmetry_equiv_pos_as_xyz"
+  ],
+  "zh": "必须提供 _symmetry_equiv_pos_as_xyz，且为字符串；对称操作中的分数必须写 1/2，不能写 0.5。",
+  "en": "Must be present and of type char.  Also must not contain fractions\nas decimals. e.g.  'x+0.5,y+0.5,z' is not allowed.\n'x+1/2,y+1/2,z' is OK.",
+  "required": true
+ },
+ "CELL211": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL212": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL213": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL221": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL222": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL223": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL224": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL225": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL226": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL231": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL232": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL233": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL241": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL242": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL251": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL252": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL253": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL254": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL255": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL261": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL262": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL263": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL264": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL271": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL272": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL273": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "TYPE019": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "TYPE020": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "TYPE021": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "TYPE022": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "TYPE023": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "TYPE024": {
+  "codes": [
+   "CELL_211-213",
+   "CELL_221-226",
+   "CELL_231-233",
+   "CELL_241-242",
+   "CELL_251-255",
+   "CELL_261-264",
+   "CELL_271-273",
+   "TYPE_019-024"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_length_c",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "晶胞参数和角度必须为数字；_cell_length_a 必须提供，并与晶胞类型匹配。",
+  "en": "All should be of type numb. _cell_length_a must always be present.\nA check is made against the cell setting to ensure that all the required\ninformation is given",
+  "required": true
+ },
+ "CELL001": {
+  "codes": [
+   "CELL_001",
+   "TYPE_025"
+  ],
+  "keys": [
+   "_cell_volume"
+  ],
+  "zh": "必须提供 _cell_volume，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "TYPE025": {
+  "codes": [
+   "CELL_001",
+   "TYPE_025"
+  ],
+  "keys": [
+   "_cell_volume"
+  ],
+  "zh": "必须提供 _cell_volume，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "CELL002": {
+  "codes": [
+   "CELL_002",
+   "TYPE_026"
+  ],
+  "keys": [
+   "_cell_formula_units_Z"
+  ],
+  "zh": "必须提供 _cell_formula_units_Z，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "TYPE026": {
+  "codes": [
+   "CELL_002",
+   "TYPE_026"
+  ],
+  "keys": [
+   "_cell_formula_units_Z"
+  ],
+  "zh": "必须提供 _cell_formula_units_Z，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "EXPT001": {
+  "codes": [
+   "EXPT_001",
+   "TYPE_027"
+  ],
+  "keys": [
+   "_exptl_crystal_density_diffrn"
+  ],
+  "zh": "非粉末数据必须提供 _exptl_crystal_density_diffrn，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE027": {
+  "codes": [
+   "EXPT_001",
+   "TYPE_027"
+  ],
+  "keys": [
+   "_exptl_crystal_density_diffrn"
+  ],
+  "zh": "非粉末数据必须提供 _exptl_crystal_density_diffrn，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "EXPT002": {
+  "codes": [
+   "EXPT_002",
+   "EXPT_003",
+   "TYPE_028",
+   "TYPE_029"
+  ],
+  "keys": [
+   "_exptl_crystal_density_meas",
+   "_exptl_crystal_density_method"
+  ],
+  "zh": "密度测量值与测量方法必须成对出现；方法必须为字符串。",
+  "en": "A value must be present if a method given and vice versa.\nMethod must be type char.",
+  "required": false
+ },
+ "EXPT003": {
+  "codes": [
+   "EXPT_002",
+   "EXPT_003",
+   "TYPE_028",
+   "TYPE_029"
+  ],
+  "keys": [
+   "_exptl_crystal_density_meas",
+   "_exptl_crystal_density_method"
+  ],
+  "zh": "密度测量值与测量方法必须成对出现；方法必须为字符串。",
+  "en": "A value must be present if a method given and vice versa.\nMethod must be type char.",
+  "required": false
+ },
+ "TYPE028": {
+  "codes": [
+   "EXPT_002",
+   "EXPT_003",
+   "TYPE_028",
+   "TYPE_029"
+  ],
+  "keys": [
+   "_exptl_crystal_density_meas",
+   "_exptl_crystal_density_method"
+  ],
+  "zh": "密度测量值与测量方法必须成对出现；方法必须为字符串。",
+  "en": "A value must be present if a method given and vice versa.\nMethod must be type char.",
+  "required": false
+ },
+ "TYPE029": {
+  "codes": [
+   "EXPT_002",
+   "EXPT_003",
+   "TYPE_028",
+   "TYPE_029"
+  ],
+  "keys": [
+   "_exptl_crystal_density_meas",
+   "_exptl_crystal_density_method"
+  ],
+  "zh": "密度测量值与测量方法必须成对出现；方法必须为字符串。",
+  "en": "A value must be present if a method given and vice versa.\nMethod must be type char.",
+  "required": false
+ },
+ "DIFF001": {
+  "codes": [
+   "DIFF_001",
+   "DIFF_101",
+   "DIFF_102",
+   "TYPE_030"
+  ],
+  "keys": [
+   "_diffrn_radiation_type"
+  ],
+  "zh": "必须提供 _diffrn_radiation_type，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "DIFF101": {
+  "codes": [
+   "DIFF_001",
+   "DIFF_101",
+   "DIFF_102",
+   "TYPE_030"
+  ],
+  "keys": [
+   "_diffrn_radiation_type"
+  ],
+  "zh": "必须提供 _diffrn_radiation_type，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "DIFF102": {
+  "codes": [
+   "DIFF_001",
+   "DIFF_101",
+   "DIFF_102",
+   "TYPE_030"
+  ],
+  "keys": [
+   "_diffrn_radiation_type"
+  ],
+  "zh": "必须提供 _diffrn_radiation_type，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE030": {
+  "codes": [
+   "DIFF_001",
+   "DIFF_101",
+   "DIFF_102",
+   "TYPE_030"
+  ],
+  "keys": [
+   "_diffrn_radiation_type"
+  ],
+  "zh": "必须提供 _diffrn_radiation_type，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "DIFF002": {
+  "codes": [
+   "DIFF_002",
+   "TYPE_031"
+  ],
+  "keys": [
+   "_diffrn_radiation_wavelength"
+  ],
+  "zh": "必须提供 _diffrn_radiation_wavelength，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "TYPE031": {
+  "codes": [
+   "DIFF_002",
+   "TYPE_031"
+  ],
+  "keys": [
+   "_diffrn_radiation_wavelength"
+  ],
+  "zh": "必须提供 _diffrn_radiation_wavelength，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "CELL003": {
+  "codes": [
+   "CELL_003",
+   "TYPE_032"
+  ],
+  "keys": [
+   "_cell_measurement_reflns_used"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_reflns_used，且为数字。",
+  "en": "Must be present (not area/powder) and a number.",
+  "required": true
+ },
+ "TYPE032": {
+  "codes": [
+   "CELL_003",
+   "TYPE_032"
+  ],
+  "keys": [
+   "_cell_measurement_reflns_used"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_reflns_used，且为数字。",
+  "en": "Must be present (not area/powder) and a number.",
+  "required": true
+ },
+ "CELL004": {
+  "codes": [
+   "CELL_004",
+   "CELL_005",
+   "CELL_101",
+   "TYPE_033",
+   "TYPE_034"
+  ],
+  "keys": [
+   "_cell_measurement_theta_min",
+   "_cell_measurement_theta_max"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_theta_min 和 _cell_measurement_theta_max，且为数字。",
+  "en": "Must be present (not area/powder) and of type numb.",
+  "required": true
+ },
+ "CELL005": {
+  "codes": [
+   "CELL_004",
+   "CELL_005",
+   "CELL_101",
+   "TYPE_033",
+   "TYPE_034"
+  ],
+  "keys": [
+   "_cell_measurement_theta_min",
+   "_cell_measurement_theta_max"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_theta_min 和 _cell_measurement_theta_max，且为数字。",
+  "en": "Must be present (not area/powder) and of type numb.",
+  "required": true
+ },
+ "CELL101": {
+  "codes": [
+   "CELL_004",
+   "CELL_005",
+   "CELL_101",
+   "TYPE_033",
+   "TYPE_034"
+  ],
+  "keys": [
+   "_cell_measurement_theta_min",
+   "_cell_measurement_theta_max"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_theta_min 和 _cell_measurement_theta_max，且为数字。",
+  "en": "Must be present (not area/powder) and of type numb.",
+  "required": true
+ },
+ "TYPE033": {
+  "codes": [
+   "CELL_004",
+   "CELL_005",
+   "CELL_101",
+   "TYPE_033",
+   "TYPE_034"
+  ],
+  "keys": [
+   "_cell_measurement_theta_min",
+   "_cell_measurement_theta_max"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_theta_min 和 _cell_measurement_theta_max，且为数字。",
+  "en": "Must be present (not area/powder) and of type numb.",
+  "required": true
+ },
+ "TYPE034": {
+  "codes": [
+   "CELL_004",
+   "CELL_005",
+   "CELL_101",
+   "TYPE_033",
+   "TYPE_034"
+  ],
+  "keys": [
+   "_cell_measurement_theta_min",
+   "_cell_measurement_theta_max"
+  ],
+  "zh": "非面探/粉末数据必须提供 _cell_measurement_theta_min 和 _cell_measurement_theta_max，且为数字。",
+  "en": "Must be present (not area/powder) and of type numb.",
+  "required": true
+ },
+ "CELL006": {
+  "codes": [
+   "CELL_006",
+   "TYPE_035"
+  ],
+  "keys": [
+   "_cell_measurement_temperature"
+  ],
+  "zh": "必须提供 _cell_measurement_temperature，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "TYPE035": {
+  "codes": [
+   "CELL_006",
+   "TYPE_035"
+  ],
+  "keys": [
+   "_cell_measurement_temperature"
+  ],
+  "zh": "必须提供 _cell_measurement_temperature，且为数字。",
+  "en": "Must be present and of type numb.",
+  "required": true
+ },
+ "EXPT004": {
+  "codes": [
+   "EXPT_004",
+   "TYPE_036"
+  ],
+  "keys": [
+   "_exptl_absorpt_coefficient_mu"
+  ],
+  "zh": "非粉末数据必须提供 _exptl_absorpt_coefficient_mu，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE036": {
+  "codes": [
+   "EXPT_004",
+   "TYPE_036"
+  ],
+  "keys": [
+   "_exptl_absorpt_coefficient_mu"
+  ],
+  "zh": "非粉末数据必须提供 _exptl_absorpt_coefficient_mu，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "EXPT005": {
+  "codes": [
+   "EXPT_005",
+   "TYPE_037"
+  ],
+  "keys": [
+   "_exptl_crystal_description"
+  ],
+  "zh": "非粉末数据必须提供 _exptl_crystal_description（晶体外形描述），且为字符串。",
+  "en": "Must be present (not powder) and be of type char.",
+  "required": true
+ },
+ "TYPE037": {
+  "codes": [
+   "EXPT_005",
+   "TYPE_037"
+  ],
+  "keys": [
+   "_exptl_crystal_description"
+  ],
+  "zh": "非粉末数据必须提供 _exptl_crystal_description（晶体外形描述），且为字符串。",
+  "en": "Must be present (not powder) and be of type char.",
+  "required": true
+ },
+ "EXPT006": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "TYPE038": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "EXPT007": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "TYPE138": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "EXPT008": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "TYPE238": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "EXPT108": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "TYPE338": {
+  "codes": [
+   "EXPT_006",
+   "TYPE_038",
+   "EXPT_007",
+   "TYPE_138",
+   "EXPT_008",
+   "TYPE_238",
+   "EXPT_108",
+   "TYPE_338"
+  ],
+  "keys": [
+   "_exptl_crystal_size_max",
+   "_exptl_crystal_size_mid",
+   "_exptl_crystal_size_min",
+   "_exptl_crystal_size_rad"
+  ],
+  "zh": "晶体尺寸 _exptl_crystal_size_max/mid/min 必须为数字并按顺序给出；圆柱/球形样品应提供 _rad。",
+  "en": "Must be numbers, in order. (not required for powder papers)\n_rad should be present for cylinder/sphere.",
+  "required": true
+ },
+ "EXPT010": {
+  "codes": [
+   "EXPT_010",
+   "TYPE_039",
+   "EXPT_110",
+   "EXPT_111",
+   "EXPT_112"
+  ],
+  "keys": [
+   "_exptl_crystal_colour"
+  ],
+  "zh": "必须提供 _exptl_crystal_colour，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE039": {
+  "codes": [
+   "EXPT_010",
+   "TYPE_039",
+   "EXPT_110",
+   "EXPT_111",
+   "EXPT_112"
+  ],
+  "keys": [
+   "_exptl_crystal_colour"
+  ],
+  "zh": "必须提供 _exptl_crystal_colour，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "EXPT110": {
+  "codes": [
+   "EXPT_010",
+   "TYPE_039",
+   "EXPT_110",
+   "EXPT_111",
+   "EXPT_112"
+  ],
+  "keys": [
+   "_exptl_crystal_colour"
+  ],
+  "zh": "必须提供 _exptl_crystal_colour，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "EXPT111": {
+  "codes": [
+   "EXPT_010",
+   "TYPE_039",
+   "EXPT_110",
+   "EXPT_111",
+   "EXPT_112"
+  ],
+  "keys": [
+   "_exptl_crystal_colour"
+  ],
+  "zh": "必须提供 _exptl_crystal_colour，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "EXPT112": {
+  "codes": [
+   "EXPT_010",
+   "TYPE_039",
+   "EXPT_110",
+   "EXPT_111",
+   "EXPT_112"
+  ],
+  "keys": [
+   "_exptl_crystal_colour"
+  ],
+  "zh": "必须提供 _exptl_crystal_colour，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "DIFF003": {
+  "codes": [
+   "DIFF_003",
+   "DIFF_004",
+   "TYPE_041",
+   "TYPE_042"
+  ],
+  "keys": [
+   "_diffrn_measurement_device_type",
+   "_diffrn_measurement_device"
+  ],
+  "zh": "必须提供 _diffrn_measurement_device_type（或旧字段 _diffrn_measurement_device），且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "DIFF004": {
+  "codes": [
+   "DIFF_003",
+   "DIFF_004",
+   "TYPE_041",
+   "TYPE_042"
+  ],
+  "keys": [
+   "_diffrn_measurement_device_type",
+   "_diffrn_measurement_device"
+  ],
+  "zh": "必须提供 _diffrn_measurement_device_type（或旧字段 _diffrn_measurement_device），且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE041": {
+  "codes": [
+   "DIFF_003",
+   "DIFF_004",
+   "TYPE_041",
+   "TYPE_042"
+  ],
+  "keys": [
+   "_diffrn_measurement_device_type",
+   "_diffrn_measurement_device"
+  ],
+  "zh": "必须提供 _diffrn_measurement_device_type（或旧字段 _diffrn_measurement_device），且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE042": {
+  "codes": [
+   "DIFF_003",
+   "DIFF_004",
+   "TYPE_041",
+   "TYPE_042"
+  ],
+  "keys": [
+   "_diffrn_measurement_device_type",
+   "_diffrn_measurement_device"
+  ],
+  "zh": "必须提供 _diffrn_measurement_device_type（或旧字段 _diffrn_measurement_device），且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "DIFF005": {
+  "codes": [
+   "DIFF_005",
+   "TYPE_043"
+  ],
+  "keys": [
+   "_diffrn_measurement_method"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_measurement_method，且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "TYPE043": {
+  "codes": [
+   "DIFF_005",
+   "TYPE_043"
+  ],
+  "keys": [
+   "_diffrn_measurement_method"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_measurement_method，且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "DIFF006": {
+  "codes": [
+   "DIFF_006",
+   "TYPE_044"
+  ],
+  "keys": [
+   "_diffrn_detector_area_resol_mean"
+  ],
+  "zh": "面探数据应提供 _diffrn_detector_area_resol_mean，且为数字。",
+  "en": "Must be a number and should be present for area detector papers.",
+  "required": false
+ },
+ "TYPE044": {
+  "codes": [
+   "DIFF_006",
+   "TYPE_044"
+  ],
+  "keys": [
+   "_diffrn_detector_area_resol_mean"
+  ],
+  "zh": "面探数据应提供 _diffrn_detector_area_resol_mean，且为数字。",
+  "en": "Must be a number and should be present for area detector papers.",
+  "required": false
+ },
+ "EXPT011": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "EXPT101": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "EXPT102": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "EXPT103": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "TYPE045": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "TYPE046": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "EXPT013": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "TYPE047": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "EXPT014": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "TYPE048": {
+  "codes": [
+   "EXPT_011",
+   "EXPT_101",
+   "EXPT_102",
+   "EXPT_103",
+   "TYPE_045",
+   "TYPE_046",
+   "EXPT_013",
+   "TYPE_047",
+   "EXPT_014",
+   "TYPE_048"
+  ],
+  "keys": [
+   "_exptl_absorpt_correction_type",
+   "_exptl_absorpt_process_details",
+   "_exptl_absorpt_correction_T_min",
+   "_exptl_absorpt_correction_T_max"
+  ],
+  "zh": "吸收校正类型必须为可识别值（默认 none）；有 Tmin/Tmax 时必须提供 _exptl_absorpt_correction_type，Tmin/Tmax 为数字；类型非 none 时必须提供 Tmin/Tmax。",
+  "en": "Must be recognised (default is none). (not area)\n_type must be present if Tmin/Tmax present.\nTmin/Tmax must be numbers. Must be present\nif _type present and not none.",
+  "required": false
+ },
+ "DIFF007": {
+  "codes": [
+   "DIFF_007",
+   "TYPE_049"
+  ],
+  "keys": [
+   "_diffrn_reflns_number"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_number，且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "TYPE049": {
+  "codes": [
+   "DIFF_007",
+   "TYPE_049"
+  ],
+  "keys": [
+   "_diffrn_reflns_number"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_number，且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "REFL001": {
+  "codes": [
+   "REFL_001",
+   "TYPE_050"
+  ],
+  "keys": [
+   "_reflns_number_total"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_number_total，且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "TYPE050": {
+  "codes": [
+   "REFL_001",
+   "TYPE_050"
+  ],
+  "keys": [
+   "_reflns_number_total"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_number_total，且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "REFL002": {
+  "codes": [
+   "REFL_002",
+   "TYPE_051",
+   "REFL_003",
+   "TYPE_052"
+  ],
+  "keys": [
+   "_reflns_number_gt",
+   "_reflns_number_observed"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_number_gt（或旧 _reflns_number_observed），且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "TYPE051": {
+  "codes": [
+   "REFL_002",
+   "TYPE_051",
+   "REFL_003",
+   "TYPE_052"
+  ],
+  "keys": [
+   "_reflns_number_gt",
+   "_reflns_number_observed"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_number_gt（或旧 _reflns_number_observed），且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "REFL003": {
+  "codes": [
+   "REFL_002",
+   "TYPE_051",
+   "REFL_003",
+   "TYPE_052"
+  ],
+  "keys": [
+   "_reflns_number_gt",
+   "_reflns_number_observed"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_number_gt（或旧 _reflns_number_observed），且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "TYPE052": {
+  "codes": [
+   "REFL_002",
+   "TYPE_051",
+   "REFL_003",
+   "TYPE_052"
+  ],
+  "keys": [
+   "_reflns_number_gt",
+   "_reflns_number_observed"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_number_gt（或旧 _reflns_number_observed），且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "REFL004": {
+  "codes": [
+   "REFL_004",
+   "TYPE_053",
+   "REFL_005",
+   "TYPE_054"
+  ],
+  "keys": [
+   "_reflns_threshold_expression",
+   "_reflns_observed_criterion"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_threshold_expression（或旧 _reflns_observed_criterion），且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "TYPE053": {
+  "codes": [
+   "REFL_004",
+   "TYPE_053",
+   "REFL_005",
+   "TYPE_054"
+  ],
+  "keys": [
+   "_reflns_threshold_expression",
+   "_reflns_observed_criterion"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_threshold_expression（或旧 _reflns_observed_criterion），且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "REFL005": {
+  "codes": [
+   "REFL_004",
+   "TYPE_053",
+   "REFL_005",
+   "TYPE_054"
+  ],
+  "keys": [
+   "_reflns_threshold_expression",
+   "_reflns_observed_criterion"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_threshold_expression（或旧 _reflns_observed_criterion），且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "TYPE054": {
+  "codes": [
+   "REFL_004",
+   "TYPE_053",
+   "REFL_005",
+   "TYPE_054"
+  ],
+  "keys": [
+   "_reflns_threshold_expression",
+   "_reflns_observed_criterion"
+  ],
+  "zh": "非粉末数据必须提供 _reflns_threshold_expression（或旧 _reflns_observed_criterion），且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "DIFF008": {
+  "codes": [
+   "DIFF_008",
+   "TYPE_055"
+  ],
+  "keys": [
+   "_diffrn_reflns_theta_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_theta_max，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE055": {
+  "codes": [
+   "DIFF_008",
+   "TYPE_055"
+  ],
+  "keys": [
+   "_diffrn_reflns_theta_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_theta_max，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "DIFF012": {
+  "codes": [
+   "DIFF_012",
+   "TYPE_059"
+  ],
+  "keys": [
+   "_diffrn_reflns_av_R_equivalents"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_reflns_av_R_equivalents；total 与 gt 不等时必须给出数字，相等时应为 0。",
+  "en": "(Not area/powder) Must be a number, must be present if\n_reflns_number_total not equal to _reflns_number_gt\n(or _observed). Must be zero if present and _total = _gt.",
+  "required": false
+ },
+ "TYPE059": {
+  "codes": [
+   "DIFF_012",
+   "TYPE_059"
+  ],
+  "keys": [
+   "_diffrn_reflns_av_R_equivalents"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_reflns_av_R_equivalents；total 与 gt 不等时必须给出数字，相等时应为 0。",
+  "en": "(Not area/powder) Must be a number, must be present if\n_reflns_number_total not equal to _reflns_number_gt\n(or _observed). Must be zero if present and _total = _gt.",
+  "required": false
+ },
+ "DIFF013": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "TYPE060": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "DIFF014": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "TYPE061": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "DIFF015": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "TYPE062": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "DIFF016": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "TYPE063": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "DIFF017": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "TYPE064": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "DIFF018": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "TYPE065": {
+  "codes": [
+   "DIFF_013",
+   "TYPE_060",
+   "DIFF_014",
+   "TYPE_061",
+   "DIFF_015",
+   "TYPE_062",
+   "DIFF_016",
+   "TYPE_063",
+   "DIFF_017",
+   "TYPE_064",
+   "DIFF_018",
+   "TYPE_065"
+  ],
+  "keys": [
+   "_diffrn_reflns_limit_h_min",
+   "_diffrn_reflns_limit_h_max",
+   "_diffrn_reflns_limit_k_min",
+   "_diffrn_reflns_limit_k_max",
+   "_diffrn_reflns_limit_l_min",
+   "_diffrn_reflns_limit_l_max"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_reflns_limit_h/k/l_min/max，且为数字。",
+  "en": "Must be present (not powder) and numbers.",
+  "required": true
+ },
+ "DIFF019": {
+  "codes": [
+   "DIFF_019",
+   "TYPE_066"
+  ],
+  "keys": [
+   "_diffrn_standards_number"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_standards_number，且为数字。",
+  "en": "Must be present (not area/powder) and a number.",
+  "required": true
+ },
+ "TYPE066": {
+  "codes": [
+   "DIFF_019",
+   "TYPE_066"
+  ],
+  "keys": [
+   "_diffrn_standards_number"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_standards_number，且为数字。",
+  "en": "Must be present (not area/powder) and a number.",
+  "required": true
+ },
+ "DIFF020": {
+  "codes": [
+   "DIFF_020",
+   "TYPE_067",
+   "TYPE_068"
+  ],
+  "keys": [
+   "_diffrn_standards_interval_count",
+   "_diffrn_standards_interval_time"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_standards_interval_count 或 _time 之一，且为数字。",
+  "en": "One of these must be present (not area/powder)\nand must be numbers.",
+  "required": true
+ },
+ "TYPE067": {
+  "codes": [
+   "DIFF_020",
+   "TYPE_067",
+   "TYPE_068"
+  ],
+  "keys": [
+   "_diffrn_standards_interval_count",
+   "_diffrn_standards_interval_time"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_standards_interval_count 或 _time 之一，且为数字。",
+  "en": "One of these must be present (not area/powder)\nand must be numbers.",
+  "required": true
+ },
+ "TYPE068": {
+  "codes": [
+   "DIFF_020",
+   "TYPE_067",
+   "TYPE_068"
+  ],
+  "keys": [
+   "_diffrn_standards_interval_count",
+   "_diffrn_standards_interval_time"
+  ],
+  "zh": "非面探/粉末数据必须提供 _diffrn_standards_interval_count 或 _time 之一，且为数字。",
+  "en": "One of these must be present (not area/powder)\nand must be numbers.",
+  "required": true
+ },
+ "DIFF022": {
+  "codes": [
+   "DIFF_022",
+   "TYPE_069"
+  ],
+  "keys": [
+   "_diffrn_standards_decay_%"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_standards_decay_%，且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "TYPE069": {
+  "codes": [
+   "DIFF_022",
+   "TYPE_069"
+  ],
+  "keys": [
+   "_diffrn_standards_decay_%"
+  ],
+  "zh": "非粉末数据必须提供 _diffrn_standards_decay_%，且为数字。",
+  "en": "Must be present (not powder) and a number.",
+  "required": true
+ },
+ "REFI001": {
+  "codes": [
+   "REFI_001",
+   "TYPE_070",
+   "REFI_101",
+   "REFI_102"
+  ],
+  "keys": [
+   "_refine_ls_structure_factor_coef"
+  ],
+  "zh": "必须提供 _refine_ls_structure_factor_coef，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "TYPE070": {
+  "codes": [
+   "REFI_001",
+   "TYPE_070",
+   "REFI_101",
+   "REFI_102"
+  ],
+  "keys": [
+   "_refine_ls_structure_factor_coef"
+  ],
+  "zh": "必须提供 _refine_ls_structure_factor_coef，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "REFI101": {
+  "codes": [
+   "REFI_001",
+   "TYPE_070",
+   "REFI_101",
+   "REFI_102"
+  ],
+  "keys": [
+   "_refine_ls_structure_factor_coef"
+  ],
+  "zh": "必须提供 _refine_ls_structure_factor_coef，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "REFI102": {
+  "codes": [
+   "REFI_001",
+   "TYPE_070",
+   "REFI_101",
+   "REFI_102"
+  ],
+  "keys": [
+   "_refine_ls_structure_factor_coef"
+  ],
+  "zh": "必须提供 _refine_ls_structure_factor_coef，且为字符串。",
+  "en": "Must be present and of type char.",
+  "required": true
+ },
+ "REFI003": {
+  "codes": [
+   "REFI_003",
+   "TYPE_071",
+   "REFI_004",
+   "TYPE_072"
+  ],
+  "keys": [
+   "_refine_ls_R_factor_gt",
+   "_refine_ls_R_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_R_factor_gt（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE071": {
+  "codes": [
+   "REFI_003",
+   "TYPE_071",
+   "REFI_004",
+   "TYPE_072"
+  ],
+  "keys": [
+   "_refine_ls_R_factor_gt",
+   "_refine_ls_R_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_R_factor_gt（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI004": {
+  "codes": [
+   "REFI_003",
+   "TYPE_071",
+   "REFI_004",
+   "TYPE_072"
+  ],
+  "keys": [
+   "_refine_ls_R_factor_gt",
+   "_refine_ls_R_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_R_factor_gt（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE072": {
+  "codes": [
+   "REFI_003",
+   "TYPE_071",
+   "REFI_004",
+   "TYPE_072"
+  ],
+  "keys": [
+   "_refine_ls_R_factor_gt",
+   "_refine_ls_R_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_R_factor_gt（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI005": {
+  "codes": [
+   "REFI_005",
+   "TYPE_073",
+   "REFI_006",
+   "TYPE_074"
+  ],
+  "keys": [
+   "_refine_ls_wR_factor_ref",
+   "_refine_ls_wR_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_wR_factor_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE073": {
+  "codes": [
+   "REFI_005",
+   "TYPE_073",
+   "REFI_006",
+   "TYPE_074"
+  ],
+  "keys": [
+   "_refine_ls_wR_factor_ref",
+   "_refine_ls_wR_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_wR_factor_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI006": {
+  "codes": [
+   "REFI_005",
+   "TYPE_073",
+   "REFI_006",
+   "TYPE_074"
+  ],
+  "keys": [
+   "_refine_ls_wR_factor_ref",
+   "_refine_ls_wR_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_wR_factor_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE074": {
+  "codes": [
+   "REFI_005",
+   "TYPE_073",
+   "REFI_006",
+   "TYPE_074"
+  ],
+  "keys": [
+   "_refine_ls_wR_factor_ref",
+   "_refine_ls_wR_factor_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_wR_factor_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI007": {
+  "codes": [
+   "REFI_007",
+   "TYPE_075",
+   "REFI_008",
+   "TYPE_076"
+  ],
+  "keys": [
+   "_refine_ls_goodness_of_fit_ref",
+   "_refine_ls_goodness_of_fit_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_goodness_of_fit_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE075": {
+  "codes": [
+   "REFI_007",
+   "TYPE_075",
+   "REFI_008",
+   "TYPE_076"
+  ],
+  "keys": [
+   "_refine_ls_goodness_of_fit_ref",
+   "_refine_ls_goodness_of_fit_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_goodness_of_fit_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI008": {
+  "codes": [
+   "REFI_007",
+   "TYPE_075",
+   "REFI_008",
+   "TYPE_076"
+  ],
+  "keys": [
+   "_refine_ls_goodness_of_fit_ref",
+   "_refine_ls_goodness_of_fit_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_goodness_of_fit_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE076": {
+  "codes": [
+   "REFI_007",
+   "TYPE_075",
+   "REFI_008",
+   "TYPE_076"
+  ],
+  "keys": [
+   "_refine_ls_goodness_of_fit_ref",
+   "_refine_ls_goodness_of_fit_obs"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_goodness_of_fit_ref（或旧 _obs），且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI009": {
+  "codes": [
+   "REFI_009",
+   "TYPE_077",
+   "REFI_010",
+   "TYPE_078"
+  ],
+  "keys": [
+   "_refine_ls_number_reflns",
+   "_refine_ls_number_parameters"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_number_reflns 和 _parameters，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE077": {
+  "codes": [
+   "REFI_009",
+   "TYPE_077",
+   "REFI_010",
+   "TYPE_078"
+  ],
+  "keys": [
+   "_refine_ls_number_reflns",
+   "_refine_ls_number_parameters"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_number_reflns 和 _parameters，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI010": {
+  "codes": [
+   "REFI_009",
+   "TYPE_077",
+   "REFI_010",
+   "TYPE_078"
+  ],
+  "keys": [
+   "_refine_ls_number_reflns",
+   "_refine_ls_number_parameters"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_number_reflns 和 _parameters，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE078": {
+  "codes": [
+   "REFI_009",
+   "TYPE_077",
+   "REFI_010",
+   "TYPE_078"
+  ],
+  "keys": [
+   "_refine_ls_number_reflns",
+   "_refine_ls_number_parameters"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_number_reflns 和 _parameters，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI011": {
+  "codes": [
+   "REFI_011",
+   "TYPE_079",
+   "REFI_201",
+   "REFI_202"
+  ],
+  "keys": [
+   "_refine_ls_weighting_scheme"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_weighting_scheme，且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "TYPE079": {
+  "codes": [
+   "REFI_011",
+   "TYPE_079",
+   "REFI_201",
+   "REFI_202"
+  ],
+  "keys": [
+   "_refine_ls_weighting_scheme"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_weighting_scheme，且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "REFI201": {
+  "codes": [
+   "REFI_011",
+   "TYPE_079",
+   "REFI_201",
+   "REFI_202"
+  ],
+  "keys": [
+   "_refine_ls_weighting_scheme"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_weighting_scheme，且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "REFI202": {
+  "codes": [
+   "REFI_011",
+   "TYPE_079",
+   "REFI_201",
+   "REFI_202"
+  ],
+  "keys": [
+   "_refine_ls_weighting_scheme"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_weighting_scheme，且为字符串。",
+  "en": "Must be present (not powder) and of type char.",
+  "required": true
+ },
+ "REFI013": {
+  "codes": [
+   "REFI_013",
+   "TYPE_080",
+   "REFI_113"
+  ],
+  "keys": [
+   "_refine_ls_weighting_details"
+  ],
+  "zh": "应提供 _refine_ls_weighting_details，且为字符串。",
+  "en": "Should be present and of type char.",
+  "required": false
+ },
+ "TYPE080": {
+  "codes": [
+   "REFI_013",
+   "TYPE_080",
+   "REFI_113"
+  ],
+  "keys": [
+   "_refine_ls_weighting_details"
+  ],
+  "zh": "应提供 _refine_ls_weighting_details，且为字符串。",
+  "en": "Should be present and of type char.",
+  "required": false
+ },
+ "REFI113": {
+  "codes": [
+   "REFI_013",
+   "TYPE_080",
+   "REFI_113"
+  ],
+  "keys": [
+   "_refine_ls_weighting_details"
+  ],
+  "zh": "应提供 _refine_ls_weighting_details，且为字符串。",
+  "en": "Should be present and of type char.",
+  "required": false
+ },
+ "REFI014": {
+  "codes": [
+   "REFI_014",
+   "TYPE_081",
+   "REFI_114",
+   "REFI_115"
+  ],
+  "keys": [
+   "_refine_ls_hydrogen_treatment"
+  ],
+  "zh": "有氢原子时必须提供 _refine_ls_hydrogen_treatment，且为数字。",
+  "en": "Must be present if hydrogen present and of type numb.",
+  "required": false
+ },
+ "TYPE081": {
+  "codes": [
+   "REFI_014",
+   "TYPE_081",
+   "REFI_114",
+   "REFI_115"
+  ],
+  "keys": [
+   "_refine_ls_hydrogen_treatment"
+  ],
+  "zh": "有氢原子时必须提供 _refine_ls_hydrogen_treatment，且为数字。",
+  "en": "Must be present if hydrogen present and of type numb.",
+  "required": false
+ },
+ "REFI114": {
+  "codes": [
+   "REFI_014",
+   "TYPE_081",
+   "REFI_114",
+   "REFI_115"
+  ],
+  "keys": [
+   "_refine_ls_hydrogen_treatment"
+  ],
+  "zh": "有氢原子时必须提供 _refine_ls_hydrogen_treatment，且为数字。",
+  "en": "Must be present if hydrogen present and of type numb.",
+  "required": false
+ },
+ "REFI115": {
+  "codes": [
+   "REFI_014",
+   "TYPE_081",
+   "REFI_114",
+   "REFI_115"
+  ],
+  "keys": [
+   "_refine_ls_hydrogen_treatment"
+  ],
+  "zh": "有氢原子时必须提供 _refine_ls_hydrogen_treatment，且为数字。",
+  "en": "Must be present if hydrogen present and of type numb.",
+  "required": false
+ },
+ "REFI015": {
+  "codes": [
+   "REFI_015",
+   "TYPE_082",
+   "REFI_016",
+   "TYPE_083"
+  ],
+  "keys": [
+   "_refine_ls_shift/su_max",
+   "_refine_ls_shift/esd_max"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_shift/su_max 和 _refine_ls_shift/esd_max，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE082": {
+  "codes": [
+   "REFI_015",
+   "TYPE_082",
+   "REFI_016",
+   "TYPE_083"
+  ],
+  "keys": [
+   "_refine_ls_shift/su_max",
+   "_refine_ls_shift/esd_max"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_shift/su_max 和 _refine_ls_shift/esd_max，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI016": {
+  "codes": [
+   "REFI_015",
+   "TYPE_082",
+   "REFI_016",
+   "TYPE_083"
+  ],
+  "keys": [
+   "_refine_ls_shift/su_max",
+   "_refine_ls_shift/esd_max"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_shift/su_max 和 _refine_ls_shift/esd_max，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE083": {
+  "codes": [
+   "REFI_015",
+   "TYPE_082",
+   "REFI_016",
+   "TYPE_083"
+  ],
+  "keys": [
+   "_refine_ls_shift/su_max",
+   "_refine_ls_shift/esd_max"
+  ],
+  "zh": "非粉末数据必须提供 _refine_ls_shift/su_max 和 _refine_ls_shift/esd_max，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI017": {
+  "codes": [
+   "REFI_017",
+   "TYPE_084",
+   "REFI_018",
+   "TYPE_085",
+   "REFI_118"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "非粉末数据必须提供 _refine_diff_density_max/min，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE084": {
+  "codes": [
+   "REFI_017",
+   "TYPE_084",
+   "REFI_018",
+   "TYPE_085",
+   "REFI_118"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "非粉末数据必须提供 _refine_diff_density_max/min，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI018": {
+  "codes": [
+   "REFI_017",
+   "TYPE_084",
+   "REFI_018",
+   "TYPE_085",
+   "REFI_118"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "非粉末数据必须提供 _refine_diff_density_max/min，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "TYPE085": {
+  "codes": [
+   "REFI_017",
+   "TYPE_084",
+   "REFI_018",
+   "TYPE_085",
+   "REFI_118"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "非粉末数据必须提供 _refine_diff_density_max/min，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI118": {
+  "codes": [
+   "REFI_017",
+   "TYPE_084",
+   "REFI_018",
+   "TYPE_085",
+   "REFI_118"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "非粉末数据必须提供 _refine_diff_density_max/min，且为数字。",
+  "en": "Must be present (not powder) and of type numb.",
+  "required": true
+ },
+ "REFI019": {
+  "codes": [
+   "REFI_019",
+   "TYPE_086",
+   "REFI_020"
+  ],
+  "keys": [
+   "_refine_ls_extinction_method",
+   "_refine_ls_extinction_coef"
+  ],
+  "zh": "消光方法和消光系数必须成对提供。",
+  "en": "If one is present, so must the other.",
+  "required": false
+ },
+ "TYPE086": {
+  "codes": [
+   "REFI_019",
+   "TYPE_086",
+   "REFI_020"
+  ],
+  "keys": [
+   "_refine_ls_extinction_method",
+   "_refine_ls_extinction_coef"
+  ],
+  "zh": "消光方法和消光系数必须成对提供。",
+  "en": "If one is present, so must the other.",
+  "required": false
+ },
+ "REFI020": {
+  "codes": [
+   "REFI_019",
+   "TYPE_086",
+   "REFI_020"
+  ],
+  "keys": [
+   "_refine_ls_extinction_method",
+   "_refine_ls_extinction_coef"
+  ],
+  "zh": "消光方法和消光系数必须成对提供。",
+  "en": "If one is present, so must the other.",
+  "required": false
+ },
+ "REFI021": {
+  "codes": [
+   "REFI_021",
+   "TYPE_088"
+  ],
+  "keys": [
+   "_refine_ls_abs_structure_details",
+   "_refine_ls_abs_structure_Flack",
+   "_refine_ls_abs_structure_Rogers"
+  ],
+  "zh": "绝对结构详情与 Flack/Rogers 参数必须相互配套：有 details 必须有 Flack 或 Rogers，反之亦然。",
+  "en": "If details present then Flack or Rogers\nmust be present. If Flack/Rogers then\ndetails must be present.",
+  "required": false
+ },
+ "TYPE088": {
+  "codes": [
+   "REFI_021",
+   "TYPE_088"
+  ],
+  "keys": [
+   "_refine_ls_abs_structure_details",
+   "_refine_ls_abs_structure_Flack",
+   "_refine_ls_abs_structure_Rogers"
+  ],
+  "zh": "绝对结构详情与 Flack/Rogers 参数必须相互配套：有 details 必须有 Flack 或 Rogers，反之亦然。",
+  "en": "If details present then Flack or Rogers\nmust be present. If Flack/Rogers then\ndetails must be present.",
+  "required": false
+ },
+ "REFI023": {
+  "codes": [
+   "REFI_023",
+   "REFI_024"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "粉末数据应提供 _refine_diff_density_max/min。",
+  "en": "Powder papers should have these present.",
+  "required": false
+ },
+ "REFI024": {
+  "codes": [
+   "REFI_023",
+   "REFI_024"
+  ],
+  "keys": [
+   "_refine_diff_density_max",
+   "_refine_diff_density_min"
+  ],
+  "zh": "粉末数据应提供 _refine_diff_density_max/min。",
+  "en": "Powder papers should have these present.",
+  "required": false
+ },
+ "POWD001": {
+  "codes": [
+   "POWD_001"
+  ],
+  "keys": [
+   "_refine_ls_goodness_of_fit_all",
+   "_pd_proc_ls_prof_wR_factor"
+  ],
+  "zh": "粉末数据至少提供 _refine_ls_goodness_of_fit_all 或 _pd_proc_ls_prof_wR_factor 之一。",
+  "en": "At least one of these should be present for a powder paper.",
+  "required": false
+ },
+ "POWD002": {
+  "codes": [
+   "POWD_002"
+  ],
+  "keys": [
+   "_refine_ls_goodness_of_fit_all"
+  ],
+  "zh": "粉末数据应提供 _refine_ls_goodness_of_fit_all。",
+  "en": "Should be present for a powder paper.",
+  "required": false
+ },
+ "POWD003": {
+  "codes": [
+   "POWD_003"
+  ],
+  "keys": [
+   "_pd_proc_ls_prof_wR_factor"
+  ],
+  "zh": "粉末数据应提供 _pd_proc_ls_prof_wR_factor。",
+  "en": "Should be present for a powder paper.",
+  "required": false
+ },
+ "POWD004": {
+  "codes": [
+   "POWD_004"
+  ],
+  "keys": [
+   "_refine_ls_R_factor_all",
+   "_refine_ls_R_Fsqd_factor",
+   "_refine_ls_R_I_factor"
+  ],
+  "zh": "粉末数据至少提供 _refine_ls_R_factor_all、_refine_ls_R_Fsqd_factor 或 _refine_ls_R_I_factor 之一。",
+  "en": "At least one of these should always be present for a powder paper.",
+  "required": false
+ },
+ "ATOM002": {
+  "codes": [
+   "ATOM_002",
+   "TYPE_100"
+  ],
+  "keys": [
+   "_atom_site_label"
+  ],
+  "zh": "应始终提供 _atom_site_label，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE100": {
+  "codes": [
+   "ATOM_002",
+   "TYPE_100"
+  ],
+  "keys": [
+   "_atom_site_label"
+  ],
+  "zh": "应始终提供 _atom_site_label，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "ATOM003": {
+  "codes": [
+   "ATOM_003",
+   "TYPE_101",
+   "ATOM_004",
+   "TYPE_102",
+   "ATOM_005",
+   "TYPE_103"
+  ],
+  "keys": [
+   "_atom_site_fract_x",
+   "_atom_site_fract_y",
+   "_atom_site_fract_z"
+  ],
+  "zh": "应始终提供 _atom_site_fract_x/y/z，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE101": {
+  "codes": [
+   "ATOM_003",
+   "TYPE_101",
+   "ATOM_004",
+   "TYPE_102",
+   "ATOM_005",
+   "TYPE_103"
+  ],
+  "keys": [
+   "_atom_site_fract_x",
+   "_atom_site_fract_y",
+   "_atom_site_fract_z"
+  ],
+  "zh": "应始终提供 _atom_site_fract_x/y/z，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM004": {
+  "codes": [
+   "ATOM_003",
+   "TYPE_101",
+   "ATOM_004",
+   "TYPE_102",
+   "ATOM_005",
+   "TYPE_103"
+  ],
+  "keys": [
+   "_atom_site_fract_x",
+   "_atom_site_fract_y",
+   "_atom_site_fract_z"
+  ],
+  "zh": "应始终提供 _atom_site_fract_x/y/z，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE102": {
+  "codes": [
+   "ATOM_003",
+   "TYPE_101",
+   "ATOM_004",
+   "TYPE_102",
+   "ATOM_005",
+   "TYPE_103"
+  ],
+  "keys": [
+   "_atom_site_fract_x",
+   "_atom_site_fract_y",
+   "_atom_site_fract_z"
+  ],
+  "zh": "应始终提供 _atom_site_fract_x/y/z，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM005": {
+  "codes": [
+   "ATOM_003",
+   "TYPE_101",
+   "ATOM_004",
+   "TYPE_102",
+   "ATOM_005",
+   "TYPE_103"
+  ],
+  "keys": [
+   "_atom_site_fract_x",
+   "_atom_site_fract_y",
+   "_atom_site_fract_z"
+  ],
+  "zh": "应始终提供 _atom_site_fract_x/y/z，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE103": {
+  "codes": [
+   "ATOM_003",
+   "TYPE_101",
+   "ATOM_004",
+   "TYPE_102",
+   "ATOM_005",
+   "TYPE_103"
+  ],
+  "keys": [
+   "_atom_site_fract_x",
+   "_atom_site_fract_y",
+   "_atom_site_fract_z"
+  ],
+  "zh": "应始终提供 _atom_site_fract_x/y/z，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM006": {
+  "codes": [
+   "ATOM_006",
+   "TYPE_104"
+  ],
+  "keys": [
+   "_atom_site_U_iso_or_equiv"
+  ],
+  "zh": "应始终提供 _atom_site_U_iso_or_equiv，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE104": {
+  "codes": [
+   "ATOM_006",
+   "TYPE_104"
+  ],
+  "keys": [
+   "_atom_site_U_iso_or_equiv"
+  ],
+  "zh": "应始终提供 _atom_site_U_iso_or_equiv，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "ATOM007": {
+  "codes": [
+   "ATOM_007",
+   "TYPE_105"
+  ],
+  "keys": [
+   "_atom_site_aniso_label"
+  ],
+  "zh": "非粉末数据应始终提供 _atom_site_aniso_label，且为字符串。",
+  "en": "Should always be present (not powder) and of type char.",
+  "required": true
+ },
+ "TYPE105": {
+  "codes": [
+   "ATOM_007",
+   "TYPE_105"
+  ],
+  "keys": [
+   "_atom_site_aniso_label"
+  ],
+  "zh": "非粉末数据应始终提供 _atom_site_aniso_label，且为字符串。",
+  "en": "Should always be present (not powder) and of type char.",
+  "required": true
+ },
+ "ATOM008": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE106": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM009": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE107": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM010": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE108": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM011": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE109": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM012": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE110": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "ATOM013": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE111": {
+  "codes": [
+   "ATOM_008",
+   "TYPE_106",
+   "ATOM_009",
+   "TYPE_107",
+   "ATOM_010",
+   "TYPE_108",
+   "ATOM_011",
+   "TYPE_109",
+   "ATOM_012",
+   "TYPE_110",
+   "ATOM_013",
+   "TYPE_111"
+  ],
+  "keys": [
+   "_atom_site_aniso_U_11",
+   "_atom_site_aniso_U_22",
+   "_atom_site_aniso_U_33",
+   "_atom_site_aniso_U_12",
+   "_atom_site_aniso_U_13",
+   "_atom_site_aniso_U_23"
+  ],
+  "zh": "应始终提供 _atom_site_aniso_U_11/22/33/12/13/23，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "GEOM001": {
+  "codes": [
+   "GEOM_001",
+   "TYPE_112",
+   "GEOM_002",
+   "TYPE_113"
+  ],
+  "keys": [
+   "_geom_bond_atom_site_label_1",
+   "_geom_bond_atom_site_label_2"
+  ],
+  "zh": "应始终提供 _geom_bond_atom_site_label_1/2，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE112": {
+  "codes": [
+   "GEOM_001",
+   "TYPE_112",
+   "GEOM_002",
+   "TYPE_113"
+  ],
+  "keys": [
+   "_geom_bond_atom_site_label_1",
+   "_geom_bond_atom_site_label_2"
+  ],
+  "zh": "应始终提供 _geom_bond_atom_site_label_1/2，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "GEOM002": {
+  "codes": [
+   "GEOM_001",
+   "TYPE_112",
+   "GEOM_002",
+   "TYPE_113"
+  ],
+  "keys": [
+   "_geom_bond_atom_site_label_1",
+   "_geom_bond_atom_site_label_2"
+  ],
+  "zh": "应始终提供 _geom_bond_atom_site_label_1/2，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE113": {
+  "codes": [
+   "GEOM_001",
+   "TYPE_112",
+   "GEOM_002",
+   "TYPE_113"
+  ],
+  "keys": [
+   "_geom_bond_atom_site_label_1",
+   "_geom_bond_atom_site_label_2"
+  ],
+  "zh": "应始终提供 _geom_bond_atom_site_label_1/2，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "GEOM003": {
+  "codes": [
+   "GEOM_003",
+   "TYPE_114"
+  ],
+  "keys": [
+   "_geom_bond_distance"
+  ],
+  "zh": "应始终提供 _geom_bond_distance，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE114": {
+  "codes": [
+   "GEOM_003",
+   "TYPE_114"
+  ],
+  "keys": [
+   "_geom_bond_distance"
+  ],
+  "zh": "应始终提供 _geom_bond_distance，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "GEOM005": {
+  "codes": [
+   "GEOM_005",
+   "TYPE_116",
+   "GEOM_006",
+   "TYPE_117",
+   "GEOM_007",
+   "TYPE_118"
+  ],
+  "keys": [
+   "_geom_angle_atom_site_label_1",
+   "_geom_angle_atom_site_label_2",
+   "_geom_angle_atom_site_label_3"
+  ],
+  "zh": "应始终提供 _geom_angle_atom_site_label_1/2/3，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE116": {
+  "codes": [
+   "GEOM_005",
+   "TYPE_116",
+   "GEOM_006",
+   "TYPE_117",
+   "GEOM_007",
+   "TYPE_118"
+  ],
+  "keys": [
+   "_geom_angle_atom_site_label_1",
+   "_geom_angle_atom_site_label_2",
+   "_geom_angle_atom_site_label_3"
+  ],
+  "zh": "应始终提供 _geom_angle_atom_site_label_1/2/3，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "GEOM006": {
+  "codes": [
+   "GEOM_005",
+   "TYPE_116",
+   "GEOM_006",
+   "TYPE_117",
+   "GEOM_007",
+   "TYPE_118"
+  ],
+  "keys": [
+   "_geom_angle_atom_site_label_1",
+   "_geom_angle_atom_site_label_2",
+   "_geom_angle_atom_site_label_3"
+  ],
+  "zh": "应始终提供 _geom_angle_atom_site_label_1/2/3，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE117": {
+  "codes": [
+   "GEOM_005",
+   "TYPE_116",
+   "GEOM_006",
+   "TYPE_117",
+   "GEOM_007",
+   "TYPE_118"
+  ],
+  "keys": [
+   "_geom_angle_atom_site_label_1",
+   "_geom_angle_atom_site_label_2",
+   "_geom_angle_atom_site_label_3"
+  ],
+  "zh": "应始终提供 _geom_angle_atom_site_label_1/2/3，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "GEOM007": {
+  "codes": [
+   "GEOM_005",
+   "TYPE_116",
+   "GEOM_006",
+   "TYPE_117",
+   "GEOM_007",
+   "TYPE_118"
+  ],
+  "keys": [
+   "_geom_angle_atom_site_label_1",
+   "_geom_angle_atom_site_label_2",
+   "_geom_angle_atom_site_label_3"
+  ],
+  "zh": "应始终提供 _geom_angle_atom_site_label_1/2/3，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "TYPE118": {
+  "codes": [
+   "GEOM_005",
+   "TYPE_116",
+   "GEOM_006",
+   "TYPE_117",
+   "GEOM_007",
+   "TYPE_118"
+  ],
+  "keys": [
+   "_geom_angle_atom_site_label_1",
+   "_geom_angle_atom_site_label_2",
+   "_geom_angle_atom_site_label_3"
+  ],
+  "zh": "应始终提供 _geom_angle_atom_site_label_1/2/3，且为字符串。",
+  "en": "Should always be present and of type char.",
+  "required": true
+ },
+ "GEOM008": {
+  "codes": [
+   "GEOM_008",
+   "TYPE_119"
+  ],
+  "keys": [
+   "_geom_angle"
+  ],
+  "zh": "应始终提供 _geom_angle，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "TYPE119": {
+  "codes": [
+   "GEOM_008",
+   "TYPE_119"
+  ],
+  "keys": [
+   "_geom_angle"
+  ],
+  "zh": "应始终提供 _geom_angle，且为数字。",
+  "en": "Should always be present and of type numb.",
+  "required": true
+ },
+ "SYMMS02": {
+  "codes": [
+   "SYMMS_02"
+  ],
+  "keys": [
+   "_cell_length_a",
+   "_cell_length_b",
+   "_cell_angle_alpha",
+   "_cell_angle_beta",
+   "_cell_angle_gamma"
+  ],
+  "zh": "三斜晶胞中 a 与 b 不应相等；请检查晶胞参数或晶胞类型是否填写正确。",
+  "en": "The unit-cell lengths a and b should not be equal for a triclinic cell.",
+  "required": false
+ }
+}

@@ -55,6 +55,7 @@ class CifRowData:
     edit_color: QColor | None = None
     is_separator: bool = False
     required_note: str = ''
+    prefilter_note: str = ''
     # Transient fields used only during table population:
     raw_value: str = ''
     strval: str = ''
@@ -148,10 +149,13 @@ class CifTableModel(QAbstractTableModel):
                     return COLUMN_TIPS[section]
             elif orientation == Qt.Orientation.Vertical:
                 if 0 <= section < len(self._rows):
-                    note = self._rows[section].required_note
-                    if note:
-                        return f'{ROW_HEADER_TIP}\n\n{note}'
-                return ROW_HEADER_TIP
+                    row = self._rows[section]
+                    parts = [ROW_HEADER_TIP]
+                    if row.required_note:
+                        parts.append(row.required_note)
+                    if row.prefilter_note and row.prefilter_note not in row.required_note:
+                        parts.append(row.prefilter_note)
+                    return "\n\n".join(parts)
             return None
         if role == Qt.ItemDataRole.DisplayRole:
             if orientation == Qt.Orientation.Horizontal:

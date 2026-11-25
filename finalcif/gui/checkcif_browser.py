@@ -9,9 +9,12 @@ from qtpy.QtCore import QUrl
 from qtpy.QtGui import QDesktopServices, QImage, QTextDocument
 from qtpy.QtWidgets import QDialog, QTextBrowser, QToolTip, QVBoxLayout, QWidget
 
+from finalcif.cif.prefilter import load_prefilter, lookup_prefilter, format_prefilter_help
+
 _IMG_SRC = re.compile(r'<img[^>]*\bsrc\s*=\s*["\']?([^"\'>\s]+)', re.IGNORECASE)
 # Matches the checkCIF help popup links, e.g.: javascript:makeHelpWindow("PLAT042.html")
 _HELP_WINDOW_LINK = re.compile(r'makeHelpWindow\(["\']?(PLAT\d+)\.html["\']?\)', re.IGNORECASE)
+_PREFILTER_LINK = re.compile(r"makeHelpWindow.{0,3}prefilter.html#([A-Za-z0-9_]+)", re.IGNORECASE)
 # The small alert-level logos, e.g. ".../iucr-top/logos/yellow.gif". IUCr's server is behind
 # Cloudflare bot protection and refuses these requests, so a same-colored square is drawn locally.
 _ALERT_LOGO = re.compile(r'/logos/(\w+)\.gif$', re.IGNORECASE)
@@ -40,6 +43,7 @@ class CheckCifBrowser(QTextBrowser):
         self._image_cache: dict[str, QImage] = {}
         self._help_dialog: QDialog | None = None
         self._help_cache: dict[str, str] = {}
+        self._prefilter = load_prefilter()
         self._last_tooltip_alert = ''
         self.setMouseTracking(True)
         self.viewport().setMouseTracking(True)
@@ -77,8 +81,13 @@ class CheckCifBrowser(QTextBrowser):
     def _help_text(self, alert: str) -> str:
         """Return the full help text for *alert*, cached for hover previews."""
         if alert not in self._help_cache:
-            from finalcif.cif.checkcif.checkcif import AlertHelp
-            self._help_cache[alert] = AlertHelp(self.checkdef).get_help(alert) or ''
+            if alert.upper().startswith('PLAT'):
+                from finalcif.cif.checkcif.checkcif import AlertHelp
+                self._help_cache[alert] = AlertHelp(self.checkdef).get_help(alert) or ''
+            else:
+                entry = lookup_prefilter(self._prefilter, alert)
+                self._help_cache[alert] = (
+                    format_prefilter_help(alert, entry) if entry else '')
         return self._help_cache[alert]
 
     @staticmethod
@@ -99,7 +108,8 @@ class CheckCifBrowser(QTextBrowser):
 
     def mouseMoveEvent(self, event) -> None:
         anchor = self.anchorAt(event.pos())
-        match = _HELP_WINDOW_LINK.search(unquote(anchor or ''))
+        text = unquote(anchor or '')
+        match = _HELP_WINDOW_LINK.search(text) or _PREFILTER_LINK.search(text)
         if match:
             alert = match.group(1)
             if alert != self._last_tooltip_alert:
@@ -118,7 +128,8 @@ class CheckCifBrowser(QTextBrowser):
 
     def _on_anchor_clicked(self, url: QUrl) -> None:
         """Handle link clicks: show a help dialog for PLATON alert links, open others externally."""
-        match = _HELP_WINDOW_LINK.search(unquote(url.toString()))
+        text = unquote(url.toString())
+        match = _HELP_WINDOW_LINK.search(text) or _PREFILTER_LINK.search(text)
         if match:
             self._show_help_window(match.group(1))
             return

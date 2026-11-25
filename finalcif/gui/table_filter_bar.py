@@ -24,8 +24,8 @@ _STATUS_ITEMS = [
     ('数据源已填', FILTER_DATA),
     ('校验错误', FILTER_INVALID),
     ('有响应模板', FILTER_TEMPLATE),
-    ('必填未填', FILTER_REQUIRED_MISSING),
-    ('必填（全部）', FILTER_REQUIRED_ALL),
+    ('必填/预检未填', FILTER_REQUIRED_MISSING),
+    ('必填/预检（全部）', FILTER_REQUIRED_ALL),
     ('CheckCIF 提到', FILTER_CHECKCIF),
 ]
 
@@ -47,7 +47,8 @@ class TableFilterBar(QtWidgets.QWidget):
         layout.addWidget(QtWidgets.QLabel('筛选：'))
         self.status_combo = QtWidgets.QComboBox(self)
         self.status_combo.setObjectName('tableFilterStatusCombo')
-        self.status_combo.setMinimumWidth(130)
+        self.status_combo.setMinimumWidth(150)
+        self.status_combo.setToolTip('必填项与 CIF 预检项：缺少会触发 CheckCIF 警报')
         for text, value in _STATUS_ITEMS:
             self.status_combo.addItem(text, value)
         layout.addWidget(self.status_combo)
@@ -106,7 +107,7 @@ class TableFilterBar(QtWidgets.QWidget):
         if visible:
             self.required_button.show()
             if not self.required_button.text():
-                self.required_button.setText('必填项已齐')
+                self.required_button.setText('必填/预检项已齐')
                 self.required_button.setEnabled(False)
         else:
             self.required_button.hide()
@@ -128,14 +129,14 @@ class TableFilterBar(QtWidgets.QWidget):
             return
         self.required_button.show()
         if count > 0:
-            self.required_button.setText(f'必填未填 {count} 项')
+            self.required_button.setText(f'必填/预检未填 {count} 项')
             self.required_button.setEnabled(True)
         else:
-            self.required_button.setText('必填项已齐')
+            self.required_button.setText('必填/预检项已齐')
             self.required_button.setEnabled(False)
 
     def jump_to_required_option(self) -> None:
-        """Switch the combo to '必填未填'."""
+        """Switch the combo to '必填/预检未填'."""
         index = self._index_of(FILTER_REQUIRED_MISSING)
         if index >= 0:
             self.status_combo.setCurrentIndex(index)
