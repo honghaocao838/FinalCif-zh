@@ -72,17 +72,3 @@ def format_prefilter_help(code: str, entry: dict) -> str:
             f'【English 原文（IUCr prefilter）】\n{entry.get("en", "").strip()}')
 
 
-def prefilter_codes_by_key(data: dict[str, dict]) -> dict[str, str]:
-    """Return ``key -> 'CIF 预检项：CODE1、CODE2'`` for table tooltips."""
-    by_key: dict[str, list[str]] = {}
-    for code, entry in data.items():
-        for key in entry.get('keys', []):
-            by_key.setdefault(key, []).append(code)
-    notes: dict[str, str] = {}
-    for key, codes in by_key.items():
-        unique = list(dict.fromkeys(codes))
-        shown = '、'.join(unique[:3])
-        if len(unique) > 3:
-            shown += f' 等 {len(unique)} 项'
-        notes[key] = 'CIF 预检项：' + shown
-    return notes

@@ -75,7 +75,6 @@ from finalcif.gui.table_filter_bar import (TableFilterBar, FILTER_ALL, FILTER_MI
                                            FILTER_REQUIRED_ALL, FILTER_CHECKCIF)
 from finalcif.cif.key_metadata import (load_key_aliases, load_key_required, alias_index,
                                        user_config_path)
-from finalcif.cif.prefilter import load_prefilter, prefilter_codes_by_key
 from finalcif.gui.validators import calculated_z_validator
 from finalcif.gui.checkcif_browser import CheckCifBrowser
 from finalcif.gui.text_value_editor import MyTextTemplateEdit, TextEditItem
@@ -336,8 +335,6 @@ class AppWindow(QMainWindow):
         self.key_alias_index = alias_index(self.key_aliases)
         self.required_entries, self.required_meta = load_key_required(
             user_path=user_config_path('key_required.json'))
-        self.prefilter = load_prefilter(user_path=user_config_path('prefilter_zh.json'))
-        self.prefilter_codes = prefilter_codes_by_key(self.prefilter)
         self.mentioned_keys: set[str] = set()
         self._first_invalid_row = -1
         self._first_required_missing_row = -1
@@ -1738,11 +1735,11 @@ class AppWindow(QMainWindow):
     # ------------------------------------------------------------------
 
     def _missing_required_for_checkcif(self) -> list[tuple[str, str]]:
-        """Return required/prefilter keys that are absent or blank in the table.
+        """Return curated required keys that are absent or blank in the table.
 
-        Only the curated required keys block CheckCIF.  Prefilter rules are
-        annotations/advice: the IUCr table also contains publication-only,
-        conditional and legacy-key rules, so it must not block a structure check.
+        Prefilter rules are advice only; the IUCr table also contains
+        publication-only, conditional and legacy-key rules, so it must not
+        block a structure check.
         """
         table = self.ui.cif_main_table
         missing: list[tuple[str, str]] = []
@@ -3479,7 +3476,6 @@ class AppWindow(QMainWindow):
                 is_separator=is_sep,
                 edit_color=color,
                 required_note=self.required_entries.get(key, {}).get('note', ''),
-                prefilter_note=self.prefilter_codes.get(key, ''),
                 raw_value=raw_value,
                 strval=strval,
             )
@@ -3600,7 +3596,6 @@ class AppWindow(QMainWindow):
             row_data = self.ui.cif_main_table.row_data(row_num)
             if row_data is not None:
                 row_data.required_note = self.required_entries.get(key, {}).get('note', '')
-                row_data.prefilter_note = self.prefilter_codes.get(key, '')
             self._connect_edit_widget(row_num)
             self._table_refresh_timer.start()
         if not key.startswith('_'):

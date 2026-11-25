@@ -48,7 +48,7 @@ class TableFilterBar(QtWidgets.QWidget):
         self.status_combo = QtWidgets.QComboBox(self)
         self.status_combo.setObjectName('tableFilterStatusCombo')
         self.status_combo.setMinimumWidth(150)
-        self.status_combo.setToolTip('必填项：缺少会阻止 CheckCIF；CIF 预检项在行提示中标注')
+        self.status_combo.setToolTip('必填项：缺少会阻止 CheckCIF')
         for text, value in _STATUS_ITEMS:
             self.status_combo.addItem(text, value)
         layout.addWidget(self.status_combo)
