@@ -572,6 +572,7 @@ class AppWindow(QMainWindow):
         self._checkcif_timer = QtCore.QTimer(self)
         self._checkcif_timer.setInterval(500)
         self._checkcif_timer.timeout.connect(self._tick_checkcif)
+        self._checkcif_spinner_index = 0
         self._connectivity_thread = None
 
     def _set_checkcif_state(self, state: str, detail: str = '', elapsed: float | None = None) -> None:
@@ -597,7 +598,10 @@ class AppWindow(QMainWindow):
 
     def _tick_checkcif(self) -> None:
         elapsed = time.perf_counter() - self._checkcif_start_time
-        text = f'已提交，等待服务器返回（已等待 {elapsed:.0f} s）'
+        frames = '|/-\\'
+        frame = frames[self._checkcif_spinner_index]
+        self._checkcif_spinner_index = (self._checkcif_spinner_index + 1) % len(frames)
+        text = f'{frame} 已提交，等待服务器返回（已等待 {elapsed:.0f} s）'
         if elapsed > 60 and not self._checkcif_busy_hint_shown:
             self._checkcif_busy_hint_shown = True
             hint = '服务器较忙，通常需要 10 至 60 s，可继续等待或取消。'
@@ -653,6 +657,7 @@ class AppWindow(QMainWindow):
             return
         if state == 'submitted':
             self._checkcif_start_time = time.perf_counter()
+            self._checkcif_spinner_index = 0
             self._checkcif_timer.start()
             self._set_checkcif_state('submitted')
             self._log_checkcif('已提交，等待服务器返回…')

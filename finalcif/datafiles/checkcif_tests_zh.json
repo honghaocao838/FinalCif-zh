@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "source": "IUCr checkCIF procedure pages, e.g. https://journals.iucr.org/services/cif/checking/THETM_01.html",
+    "updated": "2026-11-25"
+  },
+  "THETM01": {
+    "zh": "检查 _diffrn_reflns_theta_max 是否达到应有的角度范围。计算 S = sin(_diffrn_reflns_theta_max) / _diffrn_radiation_wavelength：S < 0.55 报 A 级，S < 0.575 报 B 级，S < 0.59 报 C 级。S = 0.6 对应 Mo Kα 的 θmax 约 25°、Cu Kα 的 θmax 约 67°，IUCr 期刊认为这是多数结构研究应达到的最低角度范围。角度范围不足会降低观测/参数比，并影响 Uij 等与角度相关的参数；除非有特殊情况，低于该范围的数据通常不会被接受发表。建议：确认原始帧还能积分到更高角，不要用 SHEL/OMIT 截断高角数据；弱衍射晶体可尝试低温测量或 Cu 辐射，并先确认已选用最佳晶体；若确实受限，应在文中说明。",
+    "en": "PURPOSE: To check that _diffrn_reflns_theta_max is greater than expected limits. S = SIN(_diffrn_reflns_theta_max) / _diffrn_radiation_wavelength. S < 0.55 issues Alert A; < 0.575 Alert B; < 0.59 Alert C. The Commission on Journals has determined that setting the maximum sin(theta)/lambda for measurements to at least 0.6 is both optimal and achievable for most structural studies. The extent of the data not only affects the ratio of measurements to refined parameters and hence the accuracy of the atomic and geometric parameters, but also the reliability of the angular dependent terms, such as Uijs. It is unlikely that any submitted CIF which contains the results of a data collection with a lower theta(max) will be accepted for publication unless there are exceptional circumstances.",
+    "keys": [
+      "_diffrn_reflns_theta_max",
+      "_diffrn_radiation_wavelength",
+      "_refine_ls_d_res_high"
+    ]
+  }
+}

@@ -10,10 +10,12 @@ from qtpy.QtGui import QDesktopServices, QImage, QTextDocument
 from qtpy.QtWidgets import QDialog, QTextBrowser, QToolTip, QVBoxLayout, QWidget
 
 from finalcif.cif.prefilter import load_prefilter, lookup_prefilter, format_prefilter_help
+from finalcif.cif.checkcif_tests import (load_checkcif_tests, lookup_checkcif_test,
+                                         format_checkcif_test_help)
 
 _IMG_SRC = re.compile(r'<img[^>]*\bsrc\s*=\s*["\']?([^"\'>\s]+)', re.IGNORECASE)
 # Matches the checkCIF help popup links, e.g.: javascript:makeHelpWindow("PLAT042.html")
-_HELP_WINDOW_LINK = re.compile(r'makeHelpWindow\(["\']?(PLAT\d+)\.html["\']?\)', re.IGNORECASE)
+_HELP_WINDOW_LINK = re.compile(r'makeHelpWindow\(["\']?([A-Za-z][A-Za-z0-9_]*)\.html["\']?\)', re.IGNORECASE)
 _PREFILTER_LINK = re.compile(r"makeHelpWindow.{0,3}prefilter.html#([A-Za-z0-9_]+)", re.IGNORECASE)
 # The small alert-level logos, e.g. ".../iucr-top/logos/yellow.gif". IUCr's server is behind
 # Cloudflare bot protection and refuses these requests, so a same-colored square is drawn locally.
@@ -44,6 +46,7 @@ class CheckCifBrowser(QTextBrowser):
         self._help_dialog: QDialog | None = None
         self._help_cache: dict[str, str] = {}
         self._prefilter = load_prefilter()
+        self._checkcif_tests = load_checkcif_tests()
         self._last_tooltip_alert = ''
         self.setMouseTracking(True)
         self.viewport().setMouseTracking(True)
@@ -86,8 +89,12 @@ class CheckCifBrowser(QTextBrowser):
                 self._help_cache[alert] = AlertHelp(self.checkdef).get_help(alert) or ''
             else:
                 entry = lookup_prefilter(self._prefilter, alert)
-                self._help_cache[alert] = (
-                    format_prefilter_help(alert, entry) if entry else '')
+                if entry:
+                    self._help_cache[alert] = format_prefilter_help(alert, entry)
+                else:
+                    test = lookup_checkcif_test(self._checkcif_tests, alert)
+                    self._help_cache[alert] = (
+                        format_checkcif_test_help(alert, test) if test else '')
         return self._help_cache[alert]
 
     @staticmethod
@@ -109,7 +116,7 @@ class CheckCifBrowser(QTextBrowser):
     def mouseMoveEvent(self, event) -> None:
         anchor = self.anchorAt(event.pos())
         text = unquote(anchor or '')
-        match = _HELP_WINDOW_LINK.search(text) or _PREFILTER_LINK.search(text)
+        match = _PREFILTER_LINK.search(text) or _HELP_WINDOW_LINK.search(text)
         if match:
             alert = match.group(1)
             if alert != self._last_tooltip_alert:
@@ -129,7 +136,7 @@ class CheckCifBrowser(QTextBrowser):
     def _on_anchor_clicked(self, url: QUrl) -> None:
         """Handle link clicks: show a help dialog for PLATON alert links, open others externally."""
         text = unquote(url.toString())
-        match = _HELP_WINDOW_LINK.search(text) or _PREFILTER_LINK.search(text)
+        match = _PREFILTER_LINK.search(text) or _HELP_WINDOW_LINK.search(text)
         if match:
             self._show_help_window(match.group(1))
             return

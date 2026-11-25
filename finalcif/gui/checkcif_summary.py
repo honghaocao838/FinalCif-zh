@@ -7,6 +7,8 @@ from qtpy import QtCore, QtWidgets
 
 from finalcif.cif.checkcif.summary import AlertItem, CheckCifSummary, LEVELS
 from finalcif.cif.prefilter import load_prefilter, lookup_prefilter, format_prefilter_help
+from finalcif.cif.checkcif_tests import (load_checkcif_tests, lookup_checkcif_test,
+                                         format_checkcif_test_help)
 
 _LEVEL_COLORS = {
     'A': ('#f05846', '#ffffff'),
@@ -27,6 +29,7 @@ class AlertListDialog(QtWidgets.QDialog):
         self.checkdef = list(checkdef or [])
         self._help_cache: dict[str, str] = {}
         self.prefilter = load_prefilter()
+        self.checkcif_tests = load_checkcif_tests()
         self.setWindowTitle(f'{level} 级警报（{len(items)} 条）')
         self.resize(1040, 620)
 
@@ -48,7 +51,7 @@ class AlertListDialog(QtWidgets.QDialog):
         right = QtWidgets.QWidget(splitter)
         right_layout = QtWidgets.QVBoxLayout(right)
         right_layout.setContentsMargins(0, 0, 0, 0)
-        right_layout.addWidget(QtWidgets.QLabel('解决建议（中文在前，英文原文在后）', right))
+        right_layout.addWidget(QtWidgets.QLabel('解决建议', right))
         self.advice_browser = QtWidgets.QTextBrowser(right)
         advice_font = self.advice_browser.font()
         advice_font.setPointSize(11)
@@ -86,8 +89,12 @@ class AlertListDialog(QtWidgets.QDialog):
                 self._help_cache[alert.code] = AlertHelp(self.checkdef).get_help(alert.code)
             else:
                 entry = lookup_prefilter(self.prefilter, alert.code)
-                self._help_cache[alert.code] = (
-                    format_prefilter_help(alert.code, entry) if entry else '')
+                if entry:
+                    self._help_cache[alert.code] = format_prefilter_help(alert.code, entry)
+                else:
+                    test = lookup_checkcif_test(self.checkcif_tests, alert.code)
+                    self._help_cache[alert.code] = (
+                        format_checkcif_test_help(alert.code, test) if test else '')
         helptext = self._help_cache[alert.code]
         if not helptext:
             if alert.code.upper().startswith('PLAT'):
@@ -95,7 +102,7 @@ class AlertListDialog(QtWidgets.QDialog):
             else:
                 key_match = re.search(r'(_[A-Za-z][A-Za-z0-9_]*)', alert.summary)
                 helptext = (
-                    f'{alert.code} 是 IUCr 的 CIF 预检项（prefilter），但本版本尚未收录该条目的中文说明。\n\n'
+                    f'{alert.code} 是 IUCr CheckCIF 检查项，但本版本尚未收录该条目的中文说明。\n\n'
                     f'报告内容：{alert.summary}\n\n'
                 )
                 if key_match:
