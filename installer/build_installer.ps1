@@ -12,13 +12,46 @@
 
 param(
     [Parameter(Mandatory = $true)][string]$FinalCifInstall,
-    [Parameter(Mandatory = $true)][string]$InnoSetup
+    [Parameter(Mandatory = $true)][string]$InnoSetup,
+    # Optional code signing. Pass either -CertificateThumbprint (certificate in
+    # the Windows certificate store) or -Certificate/-CertificatePassword (PFX).
+    [string]$SignTool = '',
+    [string]$Certificate = '',
+    [string]$CertificatePassword = '',
+    [string]$CertificateThumbprint = '',
+    [string]$TimestampUrl = 'http://timestamp.digicert.com'
 )
 
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 $build = Join-Path $repo 'build\FinalCif-zh'
 $dist = Join-Path $repo 'dist'
+$script:SignToolPath = $SignTool
+
+function Invoke-CodeSign {
+    param([Parameter(Mandatory = $true)][string]$Path)
+    if (-not $script:SignToolPath) {
+        $candidates = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" `
+            -ErrorAction SilentlyContinue | Sort-Object FullName -Descending
+        if ($candidates) { $script:SignToolPath = $candidates[0].FullName }
+    }
+    if (-not $script:SignToolPath -or -not (Test-Path $script:SignToolPath)) {
+        throw 'signtool.exe not found. Pass -SignTool <path>.'
+    }
+    $signArgs = @('sign', '/fd', 'SHA256', '/tr', $TimestampUrl, '/td', 'SHA256')
+    if ($CertificateThumbprint) {
+        $signArgs += @('/sha1', $CertificateThumbprint)
+    } else {
+        $signArgs += @('/f', $Certificate)
+        if ($CertificatePassword) { $signArgs += @('/p', $CertificatePassword) }
+    }
+    $signArgs += $Path
+    & $script:SignToolPath @signArgs
+    if ($LASTEXITCODE -ne 0) { throw "signtool failed for $Path ($LASTEXITCODE)" }
+    $sig = Get-AuthenticodeSignature $Path
+    if ($sig.Status -ne 'Valid') { throw "Signature check failed for $Path: $($sig.Status)" }
+    Write-Host "==> signed $Path"
+}
 
 if (-not (Test-Path (Join-Path $FinalCifInstall 'finalcif'))) {
     throw "Not a FinalCif installation: $FinalCifInstall"
@@ -61,9 +94,21 @@ Copy-Item (Join-Path $repo 'LICENSE') $build -Force
 Copy-Item (Join-Path $repo 'THIRD_PARTY_NOTICES.md') $build -Force
 Copy-Item (Join-Path $PSScriptRoot 'README-zh.txt') $build -Force
 
+if ($Certificate -or $CertificateThumbprint) {
+    Write-Host "==> signing application launcher"
+    Invoke-CodeSign (Join-Path $build 'finalcif.exe')
+}
+
 Write-Host "==> compiling installer"
 & (Join-Path $InnoSetup 'ISCC.exe') (Join-Path $PSScriptRoot 'finalcif-zh.iss')
 if ($LASTEXITCODE -ne 0) { throw "ISCC failed ($LASTEXITCODE)" }
+
+if ($Certificate -or $CertificateThumbprint) {
+    Write-Host "==> signing installer"
+    $setup = Get-ChildItem $dist -Filter '*.exe' |
+        Sort-Object LastWriteTime -Descending | Select-Object -First 1
+    Invoke-CodeSign $setup.FullName
+}
 
 Write-Host "==> done: $dist"
 Get-ChildItem $dist | Select-Object Name, Length
