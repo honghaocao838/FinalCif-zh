@@ -32,13 +32,13 @@ Changes in this edition:
 - Main-table filters for status, Chinese aliases, required items and CheckCIF mentions, plus a format-error summary
 - Online CheckCIF shows elapsed time, failure reasons and alert counts; requests can be cancelled and the server connection tested; missing required items are reported and selected before a run
 - Chinese explanations for all 545 PLAT alerts, with the official English text appended; IUCr prefilter checks get Chinese rules and fix advice
-- Chinese help texts for the CIF dictionary (all 1,429 items), including type and limits
+- Chinese help texts for the CIF dictionary
 - Upstream auto-update disabled; updates are published in this repository
 - Generated CIF files and report text remain in English
 
 ## Screenshots
 
-Main window (status filters, validation summary and status bar):
+Main window:
 
 ![Main window](screenshots/main-window.png)
 
@@ -46,7 +46,7 @@ CheckCIF alert summary (A/B/C/G levels):
 
 ![CheckCIF summary](screenshots/checkcif-summary.png)
 
-Chinese alert explanations and fix advice (right pane):
+Alert explanations:
 
 ![Alert help](screenshots/alert-help.png)
 

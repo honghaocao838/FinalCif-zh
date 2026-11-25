@@ -32,13 +32,13 @@ FinalCIF 是一个 CIF 文件编辑器，用于把单晶 X 射线衍射实验的
 - 主表支持按状态、中文别名、必填项和 CheckCIF 提及项过滤，并汇总格式校验错误
 - 在线 CheckCIF 显示等待时长、失败原因与警报摘要，可取消请求并测试服务器连接；运行前自动检查必填项缺失并跳到对应行
 - CheckCIF 的 PLAT 警报全部 545 条附中文解释，并附官方英文原文；IUCr CIF 预检项（prefilter）附中文规则与修复建议
-- CIF 字典帮助全部中文（1,429 个键），含类型与取值范围
+- CIF 字典帮助全部中文
 - 关闭了上游自动更新，更新通过本仓库的 Releases 发布
 - 生成的 CIF 内容与报告正文保持英文
 
 ## 界面截图
 
-主界面（状态过滤、校验汇总与状态栏）：
+主界面：
 
 ![主界面](screenshots/main-window.png)
 
@@ -46,7 +46,7 @@ CheckCIF 警报汇总（A/B/C/G 分级）：
 
 ![CheckCIF 汇总](screenshots/checkcif-summary.png)
 
-警报中文解释与解决建议（右侧面板）：
+警报解释：
 
 ![警报解释](screenshots/alert-help.png)
 
