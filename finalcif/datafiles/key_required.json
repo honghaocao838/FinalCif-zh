@@ -1,7 +1,7 @@
 {
   "_meta": {
     "basis": "参考 IUCr 期刊与 Acta Crystallographica 常见结构报告要求整理；仅为提示性清单，不作强制校验。",
-    "updated": "2026-11-24"
+    "updated": "2026-11-25"
   },
   "_cell_length_a": {"level": "required", "note": "晶胞参数 a"},
   "_cell_length_b": {"level": "required", "note": "晶胞参数 b"},
@@ -38,7 +38,7 @@
   "_refine_ls_number_restraints": {"level": "recommended", "note": "限制数"},
   "_reflns_number_total": {"level": "required", "note": "独立衍射点总数"},
   "_reflns_threshold_expression": {"level": "recommended", "note": "观测阈值表达式"},
-  "_refine_ls_d_res_high": {"level": "required", "note": "最高分辨率 d"},
+  "_refine_ls_d_res_high": {"level": "recommended", "note": "最高分辨率 d"},
   "_refine_ls_abs_structure_Flack": {"level": "recommended", "note": "非中心对称结构需要"},
   "_refine_ls_abs_structure_details": {"level": "recommended", "note": "绝对结构测定细节"},
   "_refine_diff_density_max": {"level": "recommended", "note": "最大残余电子密度"},
