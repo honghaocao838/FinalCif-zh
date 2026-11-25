@@ -9,6 +9,7 @@ Chinese localization of [FinalCif](https://github.com/dkratzert/FinalCif).
 Download `FinalCif-zh-v180-setup-x64.exe` from [Releases](https://github.com/honghaocao838/FinalCif-zh/releases) and run it.
 
 - Installs per user, no administrator rights required
+- The installer is unsigned; if SmartScreen reports an unrecognized app, choose "More info" → "Run anyway"
 - Windows 10/11 x64
 - Both the setup wizard and the application are in Chinese
 - Open `.cif`, `.res` or `.hkl` files, or drop them onto the window
