@@ -14,7 +14,7 @@ _LEVEL_COLORS = {
 
 
 class AlertListDialog(QtWidgets.QDialog):
-    """List all alerts of one level; double-click opens the Chinese help."""
+    """List all alerts of one level and show the matching advice inline."""
 
     def __init__(self, parent, level: str, items: list[AlertItem],
                  checkdef: list[str] | None = None):
@@ -22,49 +22,72 @@ class AlertListDialog(QtWidgets.QDialog):
         self.level = level
         self.items = items
         self.checkdef = list(checkdef or [])
+        self._help_cache: dict[str, str] = {}
         self.setWindowTitle(f'{level} 级警报（{len(items)} 条）')
-        self.resize(760, 460)
+        self.resize(1040, 620)
+
         layout = QtWidgets.QVBoxLayout(self)
-        self.list_widget = QtWidgets.QListWidget(self)
+        splitter = QtWidgets.QSplitter(QtCore.Qt.Orientation.Horizontal, self)
+
+        left = QtWidgets.QWidget(splitter)
+        left_layout = QtWidgets.QVBoxLayout(left)
+        left_layout.setContentsMargins(0, 0, 0, 0)
+        left_layout.addWidget(QtWidgets.QLabel('警报（单击查看建议）', left))
+        self.list_widget = QtWidgets.QListWidget(left)
         for alert in items:
             entry = QtWidgets.QListWidgetItem(
                 f'{alert.code}  [{alert.level}]  {alert.summary}')
             entry.setData(QtCore.Qt.ItemDataRole.UserRole, alert)
             self.list_widget.addItem(entry)
-        layout.addWidget(self.list_widget, 1)
+        left_layout.addWidget(self.list_widget, 1)
+
+        right = QtWidgets.QWidget(splitter)
+        right_layout = QtWidgets.QVBoxLayout(right)
+        right_layout.setContentsMargins(0, 0, 0, 0)
+        right_layout.addWidget(QtWidgets.QLabel('解决建议（中文在前，英文原文在后）', right))
+        self.advice_browser = QtWidgets.QTextBrowser(right)
+        advice_font = self.advice_browser.font()
+        advice_font.setPointSize(11)
+        self.advice_browser.setFont(advice_font)
+        self.advice_browser.setOpenExternalLinks(True)
+        right_layout.addWidget(self.advice_browser, 1)
+
+        splitter.addWidget(left)
+        splitter.addWidget(right)
+        splitter.setStretchFactor(0, 2)
+        splitter.setStretchFactor(1, 3)
+        layout.addWidget(splitter, 1)
+
         buttons = QtWidgets.QHBoxLayout()
-        self.help_button = QtWidgets.QPushButton('查看解释', self)
-        self.close_button = QtWidgets.QPushButton('关闭', self)
         buttons.addStretch(1)
-        buttons.addWidget(self.help_button)
+        self.close_button = QtWidgets.QPushButton('关闭', self)
         buttons.addWidget(self.close_button)
         layout.addLayout(buttons)
-        self.help_button.clicked.connect(self._show_help)
-        self.list_widget.itemDoubleClicked.connect(lambda _: self._show_help())
-        self.close_button.clicked.connect(self.accept)
 
-    def _show_help(self) -> None:
-        entry = self.list_widget.currentItem()
-        if entry is None and self.list_widget.count():
-            entry = self.list_widget.item(0)
-        if entry is None:
+        self.close_button.clicked.connect(self.accept)
+        self.list_widget.currentItemChanged.connect(self._update_advice)
+        if items:
+            first_plat = next((i for i, alert in enumerate(items)
+                               if alert.code.upper().startswith('PLAT')), 0)
+            self.list_widget.setCurrentRow(first_plat)
+
+    def _update_advice(self, current, previous=None) -> None:
+        if current is None:
+            self.advice_browser.clear()
             return
-        alert: AlertItem = entry.data(QtCore.Qt.ItemDataRole.UserRole)
-        from finalcif.cif.checkcif.checkcif import AlertHelp
-        helptext = AlertHelp(self.checkdef).get_help(alert.code)
+        alert: AlertItem = current.data(QtCore.Qt.ItemDataRole.UserRole)
+        if alert.code not in self._help_cache:
+            from finalcif.cif.checkcif.checkcif import AlertHelp
+            self._help_cache[alert.code] = AlertHelp(self.checkdef).get_help(alert.code)
+        helptext = self._help_cache[alert.code]
         if not helptext:
-            helptext = f'未找到帮助文本：{alert.code}。'
-        dialog = QtWidgets.QDialog(self)
-        dialog.setWindowTitle(f'checkCIF 帮助：{alert.code}')
-        dialog.resize(680, 440)
-        layout = QtWidgets.QVBoxLayout(dialog)
-        browser = QtWidgets.QTextBrowser(dialog)
-        browser.setPlainText(helptext)
-        layout.addWidget(browser, 1)
-        close_button = QtWidgets.QPushButton('关闭', dialog)
-        close_button.clicked.connect(dialog.accept)
-        layout.addWidget(close_button)
-        dialog.exec()
+            if alert.code.upper().startswith('PLAT'):
+                helptext = f'未找到帮助文本：{alert.code}。\n\n{alert.summary}'
+            else:
+                helptext = (f'{alert.code} 是 CIF 预检项（prefilter），暂无对应的中文解释。\n\n'
+                            f'{alert.summary}')
+        self.advice_browser.setPlainText(helptext)
+        self.advice_browser.verticalScrollBar().setValue(0)
 
 
 class CheckCifSummaryBar(QtWidgets.QWidget):

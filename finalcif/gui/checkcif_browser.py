@@ -7,7 +7,7 @@ from urllib.parse import unquote
 import requests
 from qtpy.QtCore import QUrl
 from qtpy.QtGui import QDesktopServices, QImage, QTextDocument
-from qtpy.QtWidgets import QDialog, QTextBrowser, QVBoxLayout, QWidget
+from qtpy.QtWidgets import QDialog, QTextBrowser, QToolTip, QVBoxLayout, QWidget
 
 _IMG_SRC = re.compile(r'<img[^>]*\bsrc\s*=\s*["\']?([^"\'>\s]+)', re.IGNORECASE)
 # Matches the checkCIF help popup links, e.g.: javascript:makeHelpWindow("PLAT042.html")
@@ -39,6 +39,11 @@ class CheckCifBrowser(QTextBrowser):
         self.anchorClicked.connect(self._on_anchor_clicked)
         self._image_cache: dict[str, QImage] = {}
         self._help_dialog: QDialog | None = None
+        self._help_cache: dict[str, str] = {}
+        self._last_tooltip_alert = ''
+        self.setMouseTracking(True)
+        self.viewport().setMouseTracking(True)
+        self.setToolTip('将鼠标移到 PLAT 编号上可预览中文解释；点击打开完整帮助。')
 
     def set_checkcif_html(self, html: str, local_images: dict[str, Path] | None = None) -> None:
         """Register every embedded image, then display the HTML.
@@ -69,6 +74,48 @@ class CheckCifBrowser(QTextBrowser):
         self._image_cache[src] = image
         return image
 
+    def _help_text(self, alert: str) -> str:
+        """Return the full help text for *alert*, cached for hover previews."""
+        if alert not in self._help_cache:
+            from finalcif.cif.checkcif.checkcif import AlertHelp
+            self._help_cache[alert] = AlertHelp(self.checkdef).get_help(alert) or ''
+        return self._help_cache[alert]
+
+    @staticmethod
+    def _chinese_only(helptext: str) -> str:
+        marker = '【English 原文'
+        if marker in helptext:
+            helptext = helptext.split(marker, 1)[0]
+        return helptext.replace('【中文】', '').strip()
+
+    def _alert_preview(self, alert: str) -> str:
+        text = self._chinese_only(self._help_text(alert))
+        if not text:
+            return f'{alert}：暂无中文解释。'
+        text = re.sub(r'\s+', ' ', text)
+        if len(text) > 320:
+            text = text[:320].rstrip() + '…'
+        return f'{alert}\n{text}'
+
+    def mouseMoveEvent(self, event) -> None:
+        anchor = self.anchorAt(event.pos())
+        match = _HELP_WINDOW_LINK.search(unquote(anchor or ''))
+        if match:
+            alert = match.group(1)
+            if alert != self._last_tooltip_alert:
+                QToolTip.showText(self.mapToGlobal(event.pos()),
+                                  self._alert_preview(alert), self)
+                self._last_tooltip_alert = alert
+        elif self._last_tooltip_alert:
+            QToolTip.hideText()
+            self._last_tooltip_alert = ''
+        super().mouseMoveEvent(event)
+
+    def leaveEvent(self, event) -> None:
+        QToolTip.hideText()
+        self._last_tooltip_alert = ''
+        super().leaveEvent(event)
+
     def _on_anchor_clicked(self, url: QUrl) -> None:
         """Handle link clicks: show a help dialog for PLATON alert links, open others externally."""
         match = _HELP_WINDOW_LINK.search(unquote(url.toString()))
@@ -83,8 +130,7 @@ class CheckCifBrowser(QTextBrowser):
         Args:
             alert: The alert code, e.g. ``PLAT042``.
         """
-        from finalcif.cif.checkcif.checkcif import AlertHelp
-        helptext = AlertHelp(self.checkdef).get_help(alert) or f'未找到帮助文本：{alert}.'
+        helptext = self._help_text(alert) or f'未找到帮助文本：{alert}.'
         dialog = QDialog(self)
         dialog.setWindowTitle(f'checkCIF 帮助：{alert}')
         dialog.resize(600, 350)
