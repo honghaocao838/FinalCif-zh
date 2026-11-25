@@ -46,6 +46,10 @@ Name: "desktopicon"; Description: "创建桌面快捷方式"; GroupDescription: 
 [Files]
 Source: "..\build\FinalCif-zh\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
+[InstallDelete]
+Type: files; Name: "{app}\Lib\site-packages\sitecustomize.py"
+Type: files; Name: "{app}\Lib\site-packages\checkdef_zh.json"
+
 [Icons]
 Name: "{autoprograms}\FinalCif 中文版"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"
 Name: "{autodesktop}\FinalCif 中文版"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Tasks: desktopicon
