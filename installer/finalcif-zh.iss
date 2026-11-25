@@ -49,6 +49,8 @@ Source: "..\build\FinalCif-zh\*"; DestDir: "{app}"; Flags: ignoreversion recurse
 [InstallDelete]
 Type: files; Name: "{app}\Lib\site-packages\sitecustomize.py"
 Type: files; Name: "{app}\Lib\site-packages\checkdef_zh.json"
+Type: files; Name: "{app}\中文版说明.txt"
+Type: files; Name: "{app}\check.def"
 
 [Icons]
 Name: "{autoprograms}\FinalCif 中文版"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"

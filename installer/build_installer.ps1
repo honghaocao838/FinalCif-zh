@@ -74,11 +74,14 @@ if ($LASTEXITCODE -ge 8) { throw "robocopy failed ($LASTEXITCODE)" }
 Get-ChildItem (Join-Path $build 'finalcif') -Recurse -Directory -Filter __pycache__ |
     Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
 
-Write-Host "==> removing obsolete localization shim"
-foreach ($shim in @(
-        (Join-Path $build 'Lib\site-packages\sitecustomize.py'),
-        (Join-Path $build 'Lib\site-packages\checkdef_zh.json'))) {
-    if (Test-Path $shim) { Remove-Item $shim -Force }
+Write-Host "==> removing obsolete localization files"
+foreach ($leftover in @(
+        'Lib\site-packages\sitecustomize.py',
+        'Lib\site-packages\checkdef_zh.json',
+        '中文版说明.txt',
+        'check.def')) {
+    $path = Join-Path $build $leftover
+    if (Test-Path $path) { Remove-Item $path -Force }
 }
 
 Write-Host "==> checking PLATON check.def"
