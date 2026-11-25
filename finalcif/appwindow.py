@@ -2086,6 +2086,7 @@ class AppWindow(QMainWindow):
         self.ui.CheckCIFResultsTabWidget.setCurrentIndex(0)
         self.ui.CheckcifPlaintextEdit.clear()
         self.checkcif_summary_offline.clear()
+        self._get_check_def()
         self.ui.CheckCifLogPlainTextEdit.appendPlainText("正在本地运行 CheckCIF，请稍候…\n")
         self.ui.cif_main_table.clearSelection()
         if not self.save_current_cif_file():
