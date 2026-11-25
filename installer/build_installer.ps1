@@ -49,7 +49,7 @@ function Invoke-CodeSign {
     & $script:SignToolPath @signArgs
     if ($LASTEXITCODE -ne 0) { throw "signtool failed for $Path ($LASTEXITCODE)" }
     $sig = Get-AuthenticodeSignature $Path
-    if ($sig.Status -ne 'Valid') { throw "Signature check failed for $Path: $($sig.Status)" }
+    if ($sig.Status -ne 'Valid') { throw "Signature check failed for ${Path}: $($sig.Status)" }
     Write-Host "==> signed $Path"
 }
 
