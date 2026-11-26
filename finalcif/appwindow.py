@@ -3557,7 +3557,7 @@ class AppWindow(QMainWindow):
             show_hkl_checksum_warning(parent=self)
 
     def add_audit_creation_method(self, key: str = '_audit_creation_method') -> None:
-        txt = "FinalCif V{}，作者 Daniel Kratzert，Freiburg {}，https://dkratzert.de/finalcif.html"
+        txt = 'FinalCif V{} by Daniel Kratzert, Freiburg {}, https://dkratzert.de/finalcif.html'
         strval = txt.format(VERSION, datetime.now().year)
         self.ui.cif_main_table.setText(key=key, column=Column.DATA, txt=strval)
         self.ui.cif_main_table.setText(key=key, column=Column.EDIT, txt=strval)
