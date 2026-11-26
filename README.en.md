@@ -15,6 +15,10 @@ Download `FinalCif-zh-v180-setup-x64.exe` from [Releases](https://github.com/hon
 - Both the setup wizard and the application are in Chinese
 - Open `.cif`, `.res` or `.hkl` files, or drop them onto the window
 
+## Upgrading from an older build
+
+Builds before 2026-11-26 wrote a Chinese `_audit_creation_method` value. Close the app and install the current build; open each existing CIF once and save it to restore the English value, or batch-fix them with [`fix_audit_creation_method.py`](installer/fix_audit_creation_method.py).
+
 ## What FinalCIF does
 
 FinalCIF is a CIF file editor for single-crystal X-ray diffraction data.
