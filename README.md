@@ -17,7 +17,7 @@ FinalCif 的中文本地化版本，基于 [dkratzert/FinalCif](https://github.c
 
 ## 从旧版升级
 
-2026-11-26 之前的版本会把 `_audit_creation_method` 写成中文。关闭程序后安装新版即可；已经生成的 CIF 用新版打开并保存一次会改回英文，批量处理可用 [`fix_audit_creation_method.py`](installer/fix_audit_creation_method.py)。
+2026-11-26 之前的版本会把 `_audit_creation_method` 写成中文。关闭程序后安装新版即可；已经生成的 CIF 用新版打开并保存一次会改回英文。
 
 ## FinalCIF 是什么
 

@@ -17,7 +17,7 @@ Download `FinalCif-zh-v180-setup-x64.exe` from [Releases](https://github.com/hon
 
 ## Upgrading from an older build
 
-Builds before 2026-11-26 wrote a Chinese `_audit_creation_method` value. Close the app and install the current build; open each existing CIF once and save it to restore the English value, or batch-fix them with [`fix_audit_creation_method.py`](installer/fix_audit_creation_method.py).
+Builds before 2026-11-26 wrote a Chinese `_audit_creation_method` value. Close the app and install the current build; open each existing CIF once and save it to restore the English value.
 
 ## What FinalCIF does
 
